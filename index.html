@@ -3,125 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Pro Fix</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C763c2c6da541414d9d6908de6c381ba5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067185384123227%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Nf7VB8wkcHlCPXHOKlu4twexqpp7oJZCr9cl7TJFETA%3D&reserved=0"></script>
+    <title>Delivery Pro FINAL</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C71094a66736148dd6f0c08de6c38d90e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067188583414850%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Z%2Fj6F4XoXbAk3vZAmHz3ipI0TQ1TCWef9cUU4W11cuw%3D&reserved=0"></script>
     <style>
         :root { --p: #2563eb; --bg: #f1f5f9; --txt: #0f172a; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 100px; color: var(--txt); }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 100px; }
         .nav { display: flex; background: white; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
-        .nav button { flex: 1; padding: 18px 10px; border: none; background: none; font-weight: bold; cursor: pointer; color: #64748b; font-size: 14px; }
+        .nav button { flex: 1; padding: 18px 10px; border: none; background: none; font-weight: bold; color: #64748b; }
         .nav button.active { color: var(--p); border-bottom: 4px solid var(--p); }
         .container { padding: 15px; }
-        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center; border: 1px solid #e2e8f0; }
-        .handle { color: #cbd5e1; margin-right: 15px; cursor: grab; font-size: 24px; padding: 10px; }
-        .info { flex: 1; overflow: hidden; }
-        .info h4 { margin: 0 0 5px 0; font-size: 17px; }
-        .info p { margin: 0; font-size: 13px; color: #64748b; }
+        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #e2e8f0; }
+        .handle { color: #cbd5e1; margin-right: 15px; font-size: 24px; cursor: grab; }
+        .info { flex: 1; }
+        .info h4 { margin: 0; font-size: 16px; }
+        .info p { margin: 5px 0 0 0; font-size: 13px; color: #64748b; }
         .btn-go { background: #22c55e; color: white; padding: 10px 15px; border-radius: 10px; border: none; font-weight: bold; }
-        .btn-full { background: #0f172a; color: white; width: 100%; padding: 20px; margin-bottom: 20px; font-size: 17px; border-radius: 15px; border: none; font-weight: 800; }
+        .btn-full { background: #0f172a; color: white; width: 100%; padding: 20px; font-size: 17px; border-radius: 15px; border: none; font-weight: bold; margin-bottom: 20px; }
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="nav">
-    <button id="tab1" onclick="showTab('run')" class="active">ΣΗΜΕΡΙΝΟ RUN</button>
-    <button id="tab2" onclick="showTab('base')">ΒΑΣΗ</button>
-    <button id="tab3" onclick="showTab('settings')">⚙️</button>
+    <button id="t1" onclick="tab('run')" class="active">RUN</button>
+    <button id="t2" onclick="tab('base')">ΒΑΣΗ</button>
+    <button id="t3" onclick="tab('set')">⚙️</button>
 </div>
 
 <div id="run-page" class="container">
-    <button class="btn-full" onclick="startFullRoute()">🚀 START FULL ROUTE (ΟΛΑ ΜΑΖΙ)</button>
+    <button class="btn-full" onclick="startRoute()">🚀 START FULL ROUTE</button>
     <div id="run-list"></div>
 </div>
 
 <div id="base-page" class="container hidden">
-    <input type="text" id="search" placeholder="🔍 Αναζήτηση..." style="width:100%; padding:15px; border-radius:12px; border:2px solid #e2e8f0; margin-bottom:15px;" onkeyup="renderBase()">
+    <input type="text" id="search" placeholder="🔍 Αναζήτηση..." style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:15px;" onkeyup="render()">
     <div id="base-list"></div>
 </div>
 
-<div id="settings-page" class="container hidden">
+<div id="set-page" class="container hidden">
     <div style="background:white; padding:20px; border-radius:15px;">
         <h3>Εισαγωγή</h3>
-        <textarea id="bulk-input" style="width:100%; height:200px; padding:10px;" placeholder="Όνομα | Διεύθυνση"></textarea>
-        <button onclick="importData()" style="width:100%; padding:15px; background:#2563eb; color:white; border:none; border-radius:10px; margin-top:10px; font-weight:bold;">Αποθήκευση</button>
-        <button onclick="localStorage.clear(); location.reload();" style="width:100%; margin-top:40px; color:#ef4444; background:none; border:none;">⚠️ Ολική Διαγραφή</button>
+        <textarea id="bulk" style="width:100%; height:200px; margin-bottom:10px;" placeholder="Όνομα | Διεύθυνση"></textarea>
+        <button onclick="save()" style="width:100%; padding:15px; background:var(--p); color:white; border:none; border-radius:10px;">Αποθήκευση</button>
+        <button onclick="localStorage.clear(); location.reload();" style="width:100%; margin-top:30px; color:red; background:none; border:none;">⚠️ Διαγραφή Όλων</button>
     </div>
 </div>
 
 <script>
-    let baseData = JSON.parse(localStorage.getItem('delivery_base') || '[]');
-    let runData = JSON.parse(localStorage.getItem('delivery_run') || '[]');
+    let base = JSON.parse(localStorage.getItem('db') || '[]');
+    let run = JSON.parse(localStorage.getItem('rn') || '[]');
 
-    function showTab(tab) {
-        document.getElementById('run-page').classList.toggle('hidden', tab !== 'run');
-        document.getElementById('base-page').classList.toggle('hidden', tab !== 'base');
-        document.getElementById('settings-page').classList.toggle('hidden', tab !== 'settings');
+    function tab(t) {
+        document.getElementById('run-page').className = t=='run'?'container':'hidden';
+        document.getElementById('base-page').className = t=='base'?'container':'hidden';
+        document.getElementById('set-page').className = t=='set'?'container':'hidden';
     }
 
-    function importData() {
-        const input = document.getElementById('bulk-input').value;
-        input.split('\n').forEach(line => {
-            const parts = line.split('|');
-            if(parts.length >= 2) {
-                baseData.push({ id: Date.now()+Math.random(), name: parts[0].trim(), addr: parts[1].trim() });
-            }
+    function save() {
+        document.getElementById('bulk').value.split('\n').forEach(l => {
+            let p = l.split('|');
+            if(p[1]) base.push({n: p[0].trim(), a: p[1].trim()});
         });
-        localStorage.setItem('delivery_base', JSON.stringify(baseData));
-        alert('Η βάση ενημερώθηκε!');
-        renderBase();
+        localStorage.setItem('db', JSON.stringify(base));
+        alert('Έτοιμο!'); render();
     }
 
-    function renderBase() {
-        const s = document.getElementById('search').value.toLowerCase();
-        const list = document.getElementById('base-list');
-        list.innerHTML = '';
-        baseData.filter(i => i.name.toLowerCase().includes(s)).forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `<div class="info"><h4>${item.name}</h4><p>${item.addr}</p></div><button class="btn-go" style="background:#2563eb">+</button>`;
-            div.querySelector('button').onclick = () => { runData.push(item); localStorage.setItem('delivery_run', JSON.stringify(runData)); renderRun(); alert('Μπήκε στο Run!'); };
-            list.appendChild(div);
+    function render() {
+        let s = document.getElementById('search').value.toLowerCase();
+        let bl = document.getElementById('base-list'); bl.innerHTML = '';
+        base.filter(i => i.n.toLowerCase().includes(s)).forEach(i => {
+            let d = document.createElement('div'); d.className = 'card';
+            d.innerHTML = `<div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" style="background:blue">+</button>`;
+            d.querySelector('button').onclick = () => { run.push(i); localStorage.setItem('rn', JSON.stringify(run)); renderRun(); };
+            bl.appendChild(d);
         });
     }
 
     function renderRun() {
-        const list = document.getElementById('run-list');
-        list.innerHTML = '';
-        runData.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.setAttribute('data-id', index);
-            div.innerHTML = `<div class="handle">☰</div><div class="info"><h4>${item.name}</h4><p>${item.addr}</p></div><button class="btn-go" onclick="window.open('https://emea01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fgoogleusercontent.com%2Fmaps.google.com%2F6&data=05%7C02%7C%7C763c2c6da541414d9d6908de6c381ba5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067185384137859%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Vx34321b%2FmOa7aE8wk%2BWxPSOIl3V8tskf4pMooxE568%3D&reserved=0' + encodeURIComponent('${item.addr}'), '_blank')">GO</button>`;
-            list.appendChild(div);
+        let rl = document.getElementById('run-list'); rl.innerHTML = '';
+        run.forEach((i, idx) => {
+            let d = document.createElement('div'); d.className = 'card'; d.dataset.id = idx;
+            d.innerHTML = `<div class="handle">☰</div><div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" onclick="window.open('https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%27%2BencodeURIComponent&data=05%7C02%7C%7C71094a66736148dd6f0c08de6c38d90e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067188583428951%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=rLcs7uBfQwwWdHfxmqAOWJgB4Q2aUbib5u3ak5I%2BF3A%3D&reserved=0('${i.a}'),'_blank')">GO</button>`;
+            rl.appendChild(d);
         });
     }
 
-    function startFullRoute() {
-        if(runData.length === 0) return alert('Άδειο Run!');
-       
-        // ΕΔΩ ΕΙΝΑΙ Η ΔΙΟΡΘΩΣΗ: Καθαρίζουμε τις διευθύνσεις από ονόματα και σύμβολα
-        const stops = runData.map(item => {
-            let a = item.addr;
-            if(a.includes('|')) a = a.split('|')[1]; // Κράτα μόνο ό,τι είναι μετά το | αν υπάρχει
-            return encodeURIComponent(a.trim());
-        });
-
-        const dest = stops.pop();
-        const waypoints = stops.join('|');
-        const url = `https://emea01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fgoogleusercontent.com%2Fmaps.google.com%2F7&data=05%7C02%7C%7C763c2c6da541414d9d6908de6c381ba5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067185384146308%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Gs2qFkUfk33c4lB4wi6J3O94hxAb8Wmn0INWcwpvme8%3D&reserved=0{dest}&waypoints=${waypoints}&travelmode=driving`;
-       
+    function startRoute() {
+        if(run.length === 0) return;
+        let stops = run.map(i => encodeURIComponent(i.a));
+        let dest = stops.pop();
+        let way = stops.join('|');
+        let url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C71094a66736148dd6f0c08de6c38d90e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067188583436778%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=HCjJQPlNL2ePXlnkg6gyOYF0ertpMIuM%2B7t3Ns%2BswkM%3D&reserved=0{dest}&waypoints=${way}&travelmode=driving`;
         window.open(url, '_blank');
     }
 
     new Sortable(document.getElementById('run-list'), { handle: '.handle', animation: 150, onEnd: () => {
-        let newRun = [];
-        document.querySelectorAll('#run-list .card').forEach(el => newRun.push(runData[el.dataset.id]));
-        runData = newRun;
-        localStorage.setItem('delivery_run', JSON.stringify(runData));
+        let nr = []; document.querySelectorAll('#run-list .card').forEach(e => nr.push(run[e.dataset.id]));
+        run = nr; localStorage.setItem('rn', JSON.stringify(run));
     }});
 
-    renderBase(); renderRun();
+    render(); renderRun();
 </script>
 </body>
 </html>
