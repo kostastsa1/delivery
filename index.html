@@ -3,49 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Pro Fix</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cf7377c6d25794bba456708de6c39c59d%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067192542946354%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=6RVzwjXzA2JAKcxder1OnSIwnJz8TzR5Aeq3UkB5lqs%3D&reserved=0"></script>
+    <title>Delivery Pro ULTIMATE</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C9ba342eccc764b6a05c908de6c3a6aa8%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067195317104649%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=fH3YRPXpzLY1fQuN1JF%2B0CUl%2B2GL%2F%2BKiNGmKPwXV094%3D&reserved=0"></script>
     <style>
-        :root { --p: #2563eb; --bg: #f1f5f9; --txt: #0f172a; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 100px; }
-        .nav { display: flex; background: white; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
-        .nav button { flex: 1; padding: 18px 10px; border: none; background: none; font-weight: bold; color: #64748b; }
-        .nav button.active { color: var(--p); border-bottom: 4px solid var(--p); }
-        .container { padding: 15px; }
-        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .handle { color: #cbd5e1; margin-right: 15px; font-size: 24px; cursor: grab; }
-        .info { flex: 1; overflow: hidden; }
-        .info h4 { margin: 0; font-size: 16px; }
-        .info p { margin: 5px 0 0 0; font-size: 13px; color: #64748b; }
-        .btn-go { background: #22c55e; color: white; padding: 10px 15px; border-radius: 10px; border: none; font-weight: bold; }
-        .btn-full { background: #0f172a; color: white; width: 100%; padding: 20px; font-size: 17px; border-radius: 15px; border: none; font-weight: bold; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        :root { --p: #2563eb; --bg: #f8fafc; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 100px; color: #1e293b; }
+        .nav { display: flex; background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+        .nav button { flex: 1; padding: 16px; border: none; background: none; font-weight: bold; color: #64748b; font-size: 14px; }
+        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
+        .container { padding: 16px; }
+        .card { background: white; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        .handle { color: #cbd5e1; margin-right: 12px; font-size: 20px; }
+        .info { flex: 1; }
+        .info h4 { margin: 0; font-size: 15px; font-weight: 600; }
+        .info p { margin: 3px 0 0 0; font-size: 12px; color: #64748b; }
+        .btn-go { background: #22c55e; color: white; padding: 8px 14px; border-radius: 8px; border: none; font-weight: bold; font-size: 13px; }
+        .btn-full { background: #1e293b; color: white; width: 100%; padding: 18px; font-size: 16px; border-radius: 12px; border: none; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="nav">
-    <button id="t1" onclick="tab('run')" class="active">RUN</button>
+    <button id="t1" onclick="tab('run')" class="active">ΣΗΜΕΡΙΝΟ RUN</button>
     <button id="t2" onclick="tab('base')">ΒΑΣΗ</button>
     <button id="t3" onclick="tab('set')">⚙️</button>
 </div>
 
 <div id="run-page" class="container">
-    <button class="btn-full" onclick="startRoute()">🚀 START FULL ROUTE</button>
+    <button class="btn-full" onclick="startRoute()">🚀 ΕΚΚΙΝΗΣΗ ΔΙΑΔΡΟΜΗΣ</button>
     <div id="run-list"></div>
 </div>
 
 <div id="base-page" class="container hidden">
-    <input type="text" id="search" placeholder="🔍 Αναζήτηση..." style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:15px;" onkeyup="render()">
+    <input type="text" id="search" placeholder="🔍 Αναζήτηση μαγαζιού..." style="width:100%; padding:14px; border-radius:10px; border:1px solid #cbd5e1; margin-bottom:15px; box-sizing: border-box;" onkeyup="render()">
     <div id="base-list"></div>
 </div>
 
 <div id="set-page" class="container hidden">
-    <div style="background:white; padding:20px; border-radius:15px;">
-        <h3>Εισαγωγή</h3>
-        <textarea id="bulk" style="width:100%; height:200px; margin-bottom:10px; border-radius:8px; padding:10px; border:1px solid #ccc;" placeholder="Όνομα | Διεύθυνση"></textarea>
-        <button onclick="save()" style="width:100%; padding:15px; background:var(--p); color:white; border:none; border-radius:10px; font-weight:bold;">Αποθήκευση</button>
-        <button onclick="localStorage.clear(); location.reload();" style="width:100%; margin-top:30px; color:red; background:none; border:none;">⚠️ Διαγραφή Όλων</button>
+    <div style="background:white; padding:18px; border-radius:12px; border:1px solid #e2e8f0;">
+        <h3 style="margin-top:0">Μαζική Εισαγωγή</h3>
+        <p style="font-size:12px; color:#64748b">Μορφή: Όνομα | Διεύθυνση</p>
+        <textarea id="bulk" style="width:100%; height:180px; margin-bottom:12px; border-radius:8px; padding:10px; border:1px solid #cbd5e1; box-sizing: border-box;" placeholder="Shop A | 123 Main St, Oakleigh"></textarea>
+        <button onclick="save()" style="width:100%; padding:14px; background:var(--p); color:white; border:none; border-radius:8px; font-weight:bold;">Αποθήκευση στη Βάση</button>
+        <button onclick="if(confirm('Διαγραφή όλων;')) { localStorage.clear(); location.reload(); }" style="width:100%; margin-top:20px; color:#ef4444; background:none; border:none; font-size:13px;">⚠️ Ολική Διαγραφή</button>
     </div>
 </div>
 
@@ -54,32 +55,33 @@
     let run = JSON.parse(localStorage.getItem('rn') || '[]');
 
     function tab(t) {
-        document.getElementById('run-page').className = t=='run'?'container':'hidden';
-        document.getElementById('base-page').className = t=='base'?'container':'hidden';
-        document.getElementById('set-page').className = t=='set'?'container':'hidden';
-        document.getElementById('t1').classList.toggle('active', t=='run');
-        document.getElementById('t2').classList.toggle('active', t=='base');
-        document.getElementById('t3').classList.toggle('active', t=='set');
+        document.getElementById('run-page').classList.toggle('hidden', t!=='run');
+        document.getElementById('base-page').classList.toggle('hidden', t!=='base');
+        document.getElementById('set-page').classList.toggle('hidden', t!=='set');
+        document.getElementById('t1').classList.toggle('active', t==='run');
+        document.getElementById('t2').classList.toggle('active', t==='base');
+        document.getElementById('t3').classList.toggle('active', t==='set');
     }
 
     function save() {
         const val = document.getElementById('bulk').value;
+        if(!val) return;
         val.split('\n').forEach(l => {
             let p = l.split('|');
             if(p[1]) base.push({n: p[0].trim(), a: p[1].trim()});
         });
         localStorage.setItem('db', JSON.stringify(base));
         document.getElementById('bulk').value = '';
-        alert('Η βάση ενημερώθηκε!'); render();
+        render(); tab('base');
     }
 
     function render() {
         let s = document.getElementById('search').value.toLowerCase();
         let bl = document.getElementById('base-list'); bl.innerHTML = '';
-        base.filter(i => i.n.toLowerCase().includes(s)).forEach(i => {
+        base.filter(i => i.n.toLowerCase().includes(s)).forEach((i, idx) => {
             let d = document.createElement('div'); d.className = 'card';
-            d.innerHTML = `<div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" style="background:#2563eb">+</button>`;
-            d.querySelector('button').onclick = () => { run.push(i); localStorage.setItem('rn', JSON.stringify(run)); renderRun(); alert('Προστέθηκε!'); };
+            d.innerHTML = `<div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" style="background:#2563eb">ΠΡΟΣΘΗΚΗ</button>`;
+            d.querySelector('button').onclick = () => { run.push(i); localStorage.setItem('rn', JSON.stringify(run)); renderRun(); };
             bl.appendChild(d);
         });
     }
@@ -88,23 +90,28 @@
         let rl = document.getElementById('run-list'); rl.innerHTML = '';
         run.forEach((i, idx) => {
             let d = document.createElement('div'); d.className = 'card'; d.dataset.id = idx;
-            d.innerHTML = `<div class="handle">☰</div><div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" onclick="window.open('comgooglemaps://?daddr=' + encodeURIComponent('${i.a}') + '&directionsmode=driving', '_system')">GO</button>`;
+            d.innerHTML = `<div class="handle">☰</div><div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" onclick="window.open('https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D&data=05%7C02%7C%7C9ba342eccc764b6a05c908de6c3a6aa8%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067195317119546%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=uhEK6cl0yAgbyryiq3zMwGMZR%2Bn%2Bfs23HBD%2FNz8B7So%3D&reserved=0' + encodeURIComponent('${i.a}'), '_blank')">GO</button>`;
             rl.appendChild(d);
         });
     }
 
     function startRoute() {
-        if(run.length === 0) return alert('Πρόσθεσε μαγαζιά!');
-        let stops = run.map(i => encodeURIComponent(i.a));
-        let dest = stops.pop();
-        let way = stops.join('|');
-        // Νέο format για αποφυγή 404
-        let url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7Cf7377c6d25794bba456708de6c39c59d%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067192542962270%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=kTdTdafS5%2BymSbF72cqu0cVTG0GRWB46bp7%2FYWhoK2c%3D&reserved=0{dest}&waypoints=${way}&travelmode=driving`;
+        if(run.length === 0) return alert('Πρόσθεσε στάσεις από τη Βάση!');
+        let stops = [...run];
+        let last = stops.pop();
+        let waypoints = stops.map(s => encodeURIComponent(s.a)).join('|');
+        let destination = encodeURIComponent(last.a);
+       
+        // ΑΥΤΟ ΕΙΝΑΙ ΤΟ URL ΠΟΥ ΔΟΥΛΕΥΕΙ ΠΑΝΤΑ ΣΕ IPHONE
+        let url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C9ba342eccc764b6a05c908de6c3a6aa8%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067195317127743%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=jL4k1%2BKXCh%2F5C1RLQhQO1pB63j2O360lQyOypsCb1Ks%3D&reserved=0{destination}&waypoints=${waypoints}&travelmode=driving`;
+       
         window.open(url, '_blank');
     }
 
     new Sortable(document.getElementById('run-list'), { handle: '.handle', animation: 150, onEnd: () => {
-        let nr = []; document.querySelectorAll('#run-list .card').forEach(e => nr.push(run[e.dataset.id]));
+        let nr = []; document.querySelectorAll('#run-list .card').forEach(e => {
+            nr.push(run[e.dataset.id]);
+        });
         run = nr; localStorage.setItem('rn', JSON.stringify(run));
     }});
 
