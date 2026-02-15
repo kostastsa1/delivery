@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Pro FINAL</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C71094a66736148dd6f0c08de6c38d90e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067188583414850%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Z%2Fj6F4XoXbAk3vZAmHz3ipI0TQ1TCWef9cUU4W11cuw%3D&reserved=0"></script>
+    <title>Delivery Pro Fix</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cf7377c6d25794bba456708de6c39c59d%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067192542946354%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=6RVzwjXzA2JAKcxder1OnSIwnJz8TzR5Aeq3UkB5lqs%3D&reserved=0"></script>
     <style>
         :root { --p: #2563eb; --bg: #f1f5f9; --txt: #0f172a; }
         body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 100px; }
@@ -12,13 +12,13 @@
         .nav button { flex: 1; padding: 18px 10px; border: none; background: none; font-weight: bold; color: #64748b; }
         .nav button.active { color: var(--p); border-bottom: 4px solid var(--p); }
         .container { padding: 15px; }
-        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #e2e8f0; }
+        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .handle { color: #cbd5e1; margin-right: 15px; font-size: 24px; cursor: grab; }
-        .info { flex: 1; }
+        .info { flex: 1; overflow: hidden; }
         .info h4 { margin: 0; font-size: 16px; }
         .info p { margin: 5px 0 0 0; font-size: 13px; color: #64748b; }
         .btn-go { background: #22c55e; color: white; padding: 10px 15px; border-radius: 10px; border: none; font-weight: bold; }
-        .btn-full { background: #0f172a; color: white; width: 100%; padding: 20px; font-size: 17px; border-radius: 15px; border: none; font-weight: bold; margin-bottom: 20px; }
+        .btn-full { background: #0f172a; color: white; width: 100%; padding: 20px; font-size: 17px; border-radius: 15px; border: none; font-weight: bold; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .hidden { display: none; }
     </style>
 </head>
@@ -43,8 +43,8 @@
 <div id="set-page" class="container hidden">
     <div style="background:white; padding:20px; border-radius:15px;">
         <h3>Εισαγωγή</h3>
-        <textarea id="bulk" style="width:100%; height:200px; margin-bottom:10px;" placeholder="Όνομα | Διεύθυνση"></textarea>
-        <button onclick="save()" style="width:100%; padding:15px; background:var(--p); color:white; border:none; border-radius:10px;">Αποθήκευση</button>
+        <textarea id="bulk" style="width:100%; height:200px; margin-bottom:10px; border-radius:8px; padding:10px; border:1px solid #ccc;" placeholder="Όνομα | Διεύθυνση"></textarea>
+        <button onclick="save()" style="width:100%; padding:15px; background:var(--p); color:white; border:none; border-radius:10px; font-weight:bold;">Αποθήκευση</button>
         <button onclick="localStorage.clear(); location.reload();" style="width:100%; margin-top:30px; color:red; background:none; border:none;">⚠️ Διαγραφή Όλων</button>
     </div>
 </div>
@@ -57,15 +57,20 @@
         document.getElementById('run-page').className = t=='run'?'container':'hidden';
         document.getElementById('base-page').className = t=='base'?'container':'hidden';
         document.getElementById('set-page').className = t=='set'?'container':'hidden';
+        document.getElementById('t1').classList.toggle('active', t=='run');
+        document.getElementById('t2').classList.toggle('active', t=='base');
+        document.getElementById('t3').classList.toggle('active', t=='set');
     }
 
     function save() {
-        document.getElementById('bulk').value.split('\n').forEach(l => {
+        const val = document.getElementById('bulk').value;
+        val.split('\n').forEach(l => {
             let p = l.split('|');
             if(p[1]) base.push({n: p[0].trim(), a: p[1].trim()});
         });
         localStorage.setItem('db', JSON.stringify(base));
-        alert('Έτοιμο!'); render();
+        document.getElementById('bulk').value = '';
+        alert('Η βάση ενημερώθηκε!'); render();
     }
 
     function render() {
@@ -73,8 +78,8 @@
         let bl = document.getElementById('base-list'); bl.innerHTML = '';
         base.filter(i => i.n.toLowerCase().includes(s)).forEach(i => {
             let d = document.createElement('div'); d.className = 'card';
-            d.innerHTML = `<div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" style="background:blue">+</button>`;
-            d.querySelector('button').onclick = () => { run.push(i); localStorage.setItem('rn', JSON.stringify(run)); renderRun(); };
+            d.innerHTML = `<div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" style="background:#2563eb">+</button>`;
+            d.querySelector('button').onclick = () => { run.push(i); localStorage.setItem('rn', JSON.stringify(run)); renderRun(); alert('Προστέθηκε!'); };
             bl.appendChild(d);
         });
     }
@@ -83,17 +88,18 @@
         let rl = document.getElementById('run-list'); rl.innerHTML = '';
         run.forEach((i, idx) => {
             let d = document.createElement('div'); d.className = 'card'; d.dataset.id = idx;
-            d.innerHTML = `<div class="handle">☰</div><div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" onclick="window.open('https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%27%2BencodeURIComponent&data=05%7C02%7C%7C71094a66736148dd6f0c08de6c38d90e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067188583428951%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=rLcs7uBfQwwWdHfxmqAOWJgB4Q2aUbib5u3ak5I%2BF3A%3D&reserved=0('${i.a}'),'_blank')">GO</button>`;
+            d.innerHTML = `<div class="handle">☰</div><div class="info"><h4>${i.n}</h4><p>${i.a}</p></div><button class="btn-go" onclick="window.open('comgooglemaps://?daddr=' + encodeURIComponent('${i.a}') + '&directionsmode=driving', '_system')">GO</button>`;
             rl.appendChild(d);
         });
     }
 
     function startRoute() {
-        if(run.length === 0) return;
+        if(run.length === 0) return alert('Πρόσθεσε μαγαζιά!');
         let stops = run.map(i => encodeURIComponent(i.a));
         let dest = stops.pop();
         let way = stops.join('|');
-        let url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C71094a66736148dd6f0c08de6c38d90e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067188583436778%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=HCjJQPlNL2ePXlnkg6gyOYF0ertpMIuM%2B7t3Ns%2BswkM%3D&reserved=0{dest}&waypoints=${way}&travelmode=driving`;
+        // Νέο format για αποφυγή 404
+        let url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7Cf7377c6d25794bba456708de6c39c59d%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067192542962270%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=kTdTdafS5%2BymSbF72cqu0cVTG0GRWB46bp7%2FYWhoK2c%3D&reserved=0{dest}&waypoints=${way}&travelmode=driving`;
         window.open(url, '_blank');
     }
 
