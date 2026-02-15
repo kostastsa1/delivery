@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Delivery Pro - 2026</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.14.0%2FSortable.min.js&data=05%7C02%7C%7C04bf9e7e70da428359d308de6c2c83b4%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067135592425119%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=WvGjU6m%2F5vvhCI%2Bi4IGYELsnewMfCzdfTGkwlgzmNms%3D&reserved=0"></script>
+    <style>
+        :root { --primary: #007AFF; --bg: #f2f2f7; --card: #ffffff; }
+        body { font-family: -apple-system, system-ui; background: var(--bg); margin: 0; padding: 10px; padding-bottom: 80px; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px; }
+        h2 { margin: 0; font-size: 20px; }
+        .btn { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .section { background: var(--card); border-radius: 12px; margin-bottom: 15px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .shop-item { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid #eee; background: white; }
+        .handle { color: #ccc; margin-right: 15px; font-size: 20px; cursor: move; }
+        .shop-info { flex-grow: 1; }
+        .shop-name { font-weight: bold; display: block; }
+        .shop-addr { font-size: 13px; color: #666; }
+        .shop-note { font-size: 12px; color: #d9534f; font-style: italic; margin-top: 3px; }
+        .go-btn { background: #34c759; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; }
+        .add-btn { background: #eee; color: #333; padding: 5px 10px; border-radius: 5px; font-size: 12px; margin-left: 5px; }
+        #importArea { width: 100%; height: 100px; border-radius: 8px; border: 1px solid #ccc; padding: 8px; box-sizing: border-box; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab { flex: 1; text-align: center; padding: 10px; background: #ddd; border-radius: 8px; font-size: 14px; }
+        .active-tab { background: var(--primary); color: white; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>Delivery Assistant</h2>
+    <button class="btn" onclick="toggleView('settings')">⚙️ Ρυθμίσεις</button>
+</div>
+
+<div class="tabs">
+    <div id="tab-run" class="tab active-tab" onclick="toggleView('run')">Σημερινό Run</div>
+    <div id="tab-all" class="tab" onclick="toggleView('all')">Βάση (300+)</div>
+</div>
+
+<div id="view-run">
+    <div class="section">
+        <div id="run-list">
+            <p style="color:#888; text-align:center;">Η λίστα είναι άδεια. Πρόσθεσε μαγαζιά από τη Βάση.</p>
+        </div>
+    </div>
+    <button class="btn" style="width:100%; background:#5856d6;" onclick="optimizeRoute()">🚀 Βελτιστοποίηση Διαδρομής</button>
+</div>
+
+<div id="view-all" class="hidden">
+    <div class="section">
+        <input type="text" id="search" placeholder="Αναζήτηση μαγαζιού..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;" onkeyup="filterShops()">
+        <div id="all-shops-list" style="margin-top:10px;"></div>
+    </div>
+</div>
+
+<div id="view-settings" class="hidden">
+    <div class="section">
+        <h3>Μαζική Εισαγωγή</h3>
+        <p style="font-size:12px;">Κάνε επικόλληση το κείμενο από το PDF εδώ:</p>
+        <textarea id="importArea" placeholder="Όνομα | Διεύθυνση | Σημείωση (ανά γραμμή)"></textarea>
+        <button class="btn" style="width:100%; margin-top:10px;" onclick="importShops()">Αποθήκευση στη Βάση</button>
+    </div>
+    <button class="btn" style="width:100%; background:#ff3b30;" onclick="clearAllData()">Διαγραφή Όλων</button>
+</div>
+
+<script>
+    let allShops = JSON.parse(localStorage.getItem('allShops')) || [];
+    let todayRun = JSON.parse(localStorage.getItem('todayRun')) || [];
+
+    function save() {
+        localStorage.setItem('allShops', JSON.stringify(allShops));
+        localStorage.setItem('todayRun', JSON.stringify(todayRun));
+        render();
+    }
+
+    function importShops() {
+        const text = document.getElementById('importArea').value;
+        const lines = text.split('\n');
+        lines.forEach(line => {
+            if(line.trim() === "") return;
+            const parts = line.split('|');
+            allShops.push({
+                id: Date.now() + Math.random(),
+                name: parts[0]?.trim() || "Άγνωστο",
+                addr: parts[1]?.trim() || "",
+                note: parts[2]?.trim() || ""
+            });
+        });
+        document.getElementById('importArea').value = "";
+        alert("Επιτυχής εισαγωγή!");
+        save();
+        toggleView('all');
+    }
+
+    function addToRun(id) {
+        const shop = allShops.find(s => s.id === id);
+        if(!todayRun.find(s => s.id === id)) {
+            todayRun.push({...shop});
+            save();
+        }
+    }
+
+    function removeFromRun(id) {
+        todayRun = todayRun.filter(s => s.id !== id);
+        save();
+    }
+
+    function toggleView(view) {
+        document.getElementById('view-run').classList.add('hidden');
+        document.getElementById('view-all').classList.add('hidden');
+        document.getElementById('view-settings').classList.add('hidden');
+        document.getElementById('tab-run').classList.remove('active-tab');
+        document.getElementById('tab-all').classList.remove('active-tab');
+       
+        document.getElementById('view-' + view).classList.remove('hidden');
+        if(view !== 'settings') document.getElementById('tab-' + view).classList.add('active-tab');
+    }
+
+    function render() {
+        const runList = document.getElementById('run-list');
+        const allList = document.getElementById('all-shops-list');
+
+        runList.innerHTML = todayRun.length === 0 ? '<p style="color:#888; text-align:center;">Άδεια λίστα</p>' : '';
+        todayRun.forEach(shop => {
+            runList.innerHTML += `
+                <div class="shop-item" data-id="${shop.id}">
+                    <span class="handle">☰</span>
+                    <div class="shop-info">
+                        <span class="shop-name">${shop.name}</span>
+                        <span class="shop-addr">${shop.addr}</span>
+                        ${shop.note ? `<div class="shop-note">⚠️ ${shop.note}</div>` : ''}
+                    </div>
+                    <a href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D%24&data=05%7C02%7C%7C04bf9e7e70da428359d308de6c2c83b4%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067135592443378%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=1hU2F0OHqMrP9IDxudO9LzROaURPGIbBwmP5LufRnWU%3D&reserved=0{encodeURIComponent(shop.addr)}" class="go-btn" target="_blank">GO</a>
+                    <button onclick="removeFromRun(${shop.id})" style="background:none; border:none; color:red; margin-left:10px;">✕</button>
+                </div>`;
+        });
+
+        allList.innerHTML = "";
+        allShops.forEach(shop => {
+            allList.innerHTML += `
+                <div class="shop-item">
+                    <div class="shop-info">
+                        <span class="shop-name">${shop.name}</span>
+                        <span class="shop-addr">${shop.addr}</span>
+                    </div>
+                    <button class="btn" style="padding:5px 10px;" onclick="addToRun(${shop.id})">+</button>
+                </div>`;
+        });
+    }
+
+    function filterShops() {
+        let val = document.getElementById('search').value.toLowerCase();
+        let items = document.querySelectorAll('#all-shops-list .shop-item');
+        items.forEach(item => {
+            let text = item.textContent.toLowerCase();
+            item.style.display = text.includes(val) ? "flex" : "none";
+        });
+    }
+
+    function clearAllData() {
+        if(confirm("Είσαι σίγουρος; Θα σβηστούν όλα τα μαγαζιά!")) {
+            localStorage.clear();
+            allShops = [];
+            todayRun = [];
+            save();
+        }
+    }
+
+    new Sortable(document.getElementById('run-list'), {
+        handle: '.handle',
+        animation: 150,
+        onEnd: function() {
+            let newOrder = [];
+            document.querySelectorAll('#run-list .shop-item').forEach(el => {
+                let id = parseFloat(el.getAttribute('data-id'));
+                newOrder.push(todayRun.find(s => s.id === id));
+            });
+            todayRun = newOrder;
+            localStorage.setItem('todayRun', JSON.stringify(todayRun));
+        }
+    });
+
+    render();
+</script>
+</body>
+</html>
