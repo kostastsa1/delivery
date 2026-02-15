@@ -3,55 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Pro</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C56b4dc93b94849e265ad08de6c3434d5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067168642995171%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=BsNDgY5awX4nDuSKtFcWuTMyMZtgzkVnXvF5yd5oi4c%3D&reserved=0"></script>
+    <title>Delivery Pro v3</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cf8bedae0ddbb4cae7af208de6c3740a8%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067181735118590%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=8Mn%2BQuc5480d4%2FwfQgJliH1X67%2BLD%2FtAb0KEGeOTAPU%3D&reserved=0"></script>
     <style>
-        :root { --p: #2563eb; --bg: #f8fafc; --txt: #1e293b; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; color: var(--txt); }
-        .nav { display: flex; background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
-        .nav button { flex: 1; padding: 15px; border: none; background: none; font-weight: bold; cursor: pointer; color: #64748b; }
-        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
+        :root { --p: #2563eb; --bg: #f1f5f9; --txt: #0f172a; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 100px; color: var(--txt); }
+        .nav { display: flex; background: white; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+        .nav button { flex: 1; padding: 18px 10px; border: none; background: none; font-weight: bold; cursor: pointer; color: #64748b; font-size: 14px; }
+        .nav button.active { color: var(--p); border-bottom: 4px solid var(--p); }
         .container { padding: 15px; }
-        .card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; align-items: center; }
-        .handle { color: #cbd5e1; margin-right: 15px; cursor: grab; font-size: 20px; }
-        .info { flex: 1; }
-        .info h4 { margin: 0 0 5px 0; font-size: 16px; }
-        .info p { margin: 0; font-size: 13px; color: #64748b; }
-        .btn { padding: 10px 15px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; margin-left: 5px; }
-        .btn-go { background: #22c55e; color: white; }
-        .btn-add { background: var(--p); color: white; }
-        .btn-full { background: #1e293b; color: white; width: 100%; padding: 18px; margin-bottom: 20px; font-size: 16px; border-radius: 12px; }
-        .settings-box { background: white; padding: 15px; border-radius: 12px; }
-        textarea { width: 100%; height: 200px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; box-sizing: border-box; }
+        .card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center; border: 1px solid #e2e8f0; }
+        .handle { color: #cbd5e1; margin-right: 15px; cursor: grab; font-size: 24px; padding: 10px; }
+        .info { flex: 1; overflow: hidden; }
+        .info h4 { margin: 0 0 5px 0; font-size: 17px; }
+        .info p { margin: 0; font-size: 14px; color: #64748b; }
+        .btn-go { background: #22c55e; color: white; padding: 12px 18px; border-radius: 10px; border: none; font-weight: bold; }
+        .btn-add { background: var(--p); color: white; width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; margin-top: 10px; }
+        .btn-full { background: #0f172a; color: white; width: 100%; padding: 20px; margin-bottom: 20px; font-size: 17px; border-radius: 15px; border: none; font-weight: 800; cursor: pointer; }
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="nav">
-    <button id="tab1" onclick="showTab('run')" class="active">Σημερινό Run</button>
-    <button id="tab2" onclick="showTab('base')">Βάση (300+)</button>
+    <button id="tab1" onclick="showTab('run')" class="active">ΣΗΜΕΡΙΝΟ RUN</button>
+    <button id="tab2" onclick="showTab('base')">ΒΑΣΗ</button>
     <button id="tab3" onclick="showTab('settings')">⚙️</button>
 </div>
 
 <div id="run-page" class="container">
-    <button class="btn-full" onclick="startFullRoute()">🚀 START FULL ROUTE (Όλα μαζί)</button>
+    <button class="btn-full" onclick="startFullRoute()">🚀 START FULL ROUTE</button>
     <div id="run-list"></div>
-    <button onclick="clearRun()" style="width:100%; margin-top:20px; color:red; background:none; border:none;">Καθαρισμός Ημέρας</button>
+    <button onclick="clearRun()" style="width:100%; margin-top:40px; color:#ef4444; background:none; border:none;">❌ Καθαρισμός Λίστας</button>
 </div>
 
 <div id="base-page" class="container hidden">
-    <input type="text" id="search" placeholder="Αναζήτηση μαγαζιού..." style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:15px;" onkeyup="renderBase()">
+    <input type="text" id="search" placeholder="🔍 Αναζήτηση..." style="width:100%; padding:15px; border-radius:12px; border:2px solid #e2e8f0; margin-bottom:15px;" onkeyup="renderBase()">
     <div id="base-list"></div>
 </div>
 
 <div id="settings-page" class="container hidden">
-    <div class="settings-box">
+    <div style="background:white; padding:20px; border-radius:15px;">
         <h3>Μαζική Εισαγωγή</h3>
-        <p style="font-size:12px;">Μορφή: Όνομα | Διεύθυνση | Σημείωση</p>
-        <textarea id="bulk-input" placeholder="Shop A | 123 Main St, Oakleigh | After 10am"></textarea>
-        <button class="btn-add" style="width:100%; margin-top:10px; padding:15px;" onclick="importData()">Αποθήκευση στη Βάση</button>
-        <button onclick="clearAllData()" style="width:100%; margin-top:30px; color:red; background:none; border:none;">⚠️ Διαγραφή Όλων</button>
+        <textarea id="bulk-input" style="width:100%; height:250px; border-radius:10px; padding:10px;" placeholder="Όνομα | Διεύθυνση | Σημείωση"></textarea>
+        <button class="btn-add" onclick="importData()">Αποθήκευση</button>
+        <button onclick="clearAllData()" style="width:100%; margin-top:40px; color:#ef4444; background:none; border:none;">⚠️ Διαγραφή Βάσης</button>
     </div>
 </div>
 
@@ -70,60 +66,56 @@
 
     function importData() {
         const input = document.getElementById('bulk-input').value;
-        const lines = input.split('\n');
-        lines.forEach(line => {
-            const [name, addr, note] = line.split('|');
-            if(name && addr) baseData.push({ id: Date.now() + Math.random(), name: name.trim(), addr: addr.trim(), note: note ? note.trim() : '' });
+        input.split('\n').forEach(line => {
+            const p = line.split('|');
+            if(p[0] && p[1]) baseData.push({ id: Date.now()+Math.random(), name: p[0].trim(), addr: p[1].trim() });
         });
         localStorage.setItem('delivery_base', JSON.stringify(baseData));
-        alert('Η βάση ενημερώθηκε!');
+        alert('Έτοιμο!');
         renderBase();
     }
 
     function renderBase() {
-        const search = document.getElementById('search').value.toLowerCase();
+        const s = document.getElementById('search').value.toLowerCase();
         const list = document.getElementById('base-list');
         list.innerHTML = '';
-        baseData.filter(i => i.name.toLowerCase().includes(search)).forEach(item => {
-            list.innerHTML += `<div class="card"><div class="info"><h4>${item.name}</h4><p>${item.addr}</p></div><button class="btn btn-add" onclick="addToRun(${item.id})">+</button></div>`;
+        baseData.filter(i => i.name.toLowerCase().includes(s)).forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = `<div class="info"><h4>${item.name}</h4><p>${item.addr}</p></div><button class="btn-go" style="background:#2563eb">+</button>`;
+            div.querySelector('button').onclick = () => { runData.push(item); localStorage.setItem('delivery_run', JSON.stringify(runData)); renderRun(); };
+            list.appendChild(div);
         });
-    }
-
-    function addToRun(id) {
-        const item = baseData.find(i => i.id === id);
-        runData.push({...item});
-        localStorage.setItem('delivery_run', JSON.stringify(runData));
-        renderRun();
-        alert('Προστέθηκε στο Run!');
     }
 
     function renderRun() {
         const list = document.getElementById('run-list');
         list.innerHTML = '';
         runData.forEach((item, index) => {
-            list.innerHTML += `<div class="card" data-id="${index}"><div class="handle">☰</div><div class="info"><h4>${item.name}</h4><p>${item.addr}</p></div><button class="btn btn-go" onclick="go('${item.addr}')">GO</button></div>`;
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.setAttribute('data-id', index);
+            div.innerHTML = `<div class="handle">☰</div><div class="info"><h4>${item.name}</h4><p>${item.addr}</p></div><button class="btn-go" onclick="go('${item.addr}')">GO</button>`;
+            list.appendChild(div);
         });
     }
 
-    function go(addr) {
-        window.open(`https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D%24&data=05%7C02%7C%7C56b4dc93b94849e265ad08de6c3434d5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067168643009786%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=I4HKnvgQEaWgfdoWqlLlUgjJsTLcS%2FIjNCDbbsqKiJM%3D&reserved=0{encodeURIComponent(addr)}`, '_blank');
-    }
+    function go(addr) { window.open(`https://emea01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fgoogleusercontent.com%2Fmaps.google.com%2F4&data=05%7C02%7C%7Cf8bedae0ddbb4cae7af208de6c3740a8%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067181735132598%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=A5sLI3GfA94mxllgTkVrRFXJiBOTbVvIO1VtpYKd07Q%3D&reserved=0{encodeURIComponent(addr)}`, '_blank'); }
 
     function startFullRoute() {
-        if(runData.length === 0) return alert('Πρόσθεσε μερικά μαγαζιά πρώτα!');
-        const origin = "Current+Location";
-        const destination = encodeURIComponent(runData[runData.length - 1].addr);
-        const waypoints = runData.slice(0, -1).map(i => encodeURIComponent(i.addr)).join('|');
-        const url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26origin%3D%24&data=05%7C02%7C%7C56b4dc93b94849e265ad08de6c3434d5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067168643018904%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=AONQkUWsHkqKkcSvxxitiVWBBvLAQrleeCD4ZsKqK5Y%3D&reserved=0{origin}&destination=${destination}&waypoints=${waypoints}&travelmode=driving`;
-        window.open(url, '_blank');
+        if(runData.length === 0) return;
+        const stops = runData.map(i => encodeURIComponent(i.addr));
+        const dest = stops.pop();
+        const waypoints = stops.join('|');
+        window.open(`https://emea01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fgoogleusercontent.com%2Fmaps.google.com%2F5&data=05%7C02%7C%7Cf8bedae0ddbb4cae7af208de6c3740a8%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067181735140651%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=NsHWj7vU6jqjSDk0zUI5crIKfXjKsxAx2GWZOkt6KZM%3D&reserved=0{dest}&waypoints=${waypoints}&travelmode=driving`, '_blank');
     }
 
-    function clearRun() { if(confirm('Καθαρισμός σημερινής λίστας;')) { runData = []; localStorage.setItem('delivery_run', JSON.stringify(runData)); renderRun(); } }
-    function clearAllData() { if(confirm('ΠΡΟΣΟΧΗ! Θα σβηστούν όλα τα 300 μαγαζιά. Είσαι σίγουρος;')) { localStorage.clear(); location.reload(); } }
+    function clearRun() { if(confirm('Καθαρισμός;')) { runData = []; localStorage.setItem('delivery_run', JSON.stringify(runData)); renderRun(); } }
+    function clearAllData() { if(confirm('Διαγραφή βάσης;')) { localStorage.removeItem('delivery_base'); baseData = []; renderBase(); } }
 
     new Sortable(document.getElementById('run-list'), { handle: '.handle', animation: 150, onEnd: () => {
         let newRun = [];
-        document.querySelectorAll('#run-list .card').forEach(el => { newRun.push(runData[el.dataset.id]); });
+        document.querySelectorAll('#run-list .card').forEach(el => newRun.push(runData[el.dataset.id]));
         runData = newRun;
         localStorage.setItem('delivery_run', JSON.stringify(runData));
     }});
