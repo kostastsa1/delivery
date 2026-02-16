@@ -3,55 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Pro Dark</title>
+    <title>Delivery Pro Dark Final</title>
     <style>
-        :root { --blue: #0A84FF; --green: #30D158; --red: #FF453A; --bg: #000000; --card: #1C1C1E; --text: #FFFFFF; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 90px; }
+        :root { --blue: #0A84FF; --green: #30D158; --red: #FF453A; --bg: #000000; --card: #1C1C1E; --text: #FFFFFF; --gray: #8E8E93; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 100px; }
         .header { background: #1C1C1E; padding: 15px; text-align: center; border-bottom: 1px solid #38383A; position: sticky; top: 0; z-index: 100; }
-        .tab-btn { padding: 10px; border: none; background: none; font-weight: 600; color: #8E8E93; cursor: pointer; flex: 1; }
+        .tab-btn { padding: 12px; border: none; background: none; font-weight: 600; color: var(--gray); cursor: pointer; flex: 1; font-size: 0.85em; }
         .tab-btn.active { color: var(--green); border-bottom: 2px solid var(--green); }
-        .card { background: var(--card); margin: 8px; padding: 12px; border-radius: 12px; display: flex; align-items: center; border: 1px solid #38383A; }
-        .info { flex: 1; }
-        .name { font-weight: bold; font-size: 1.1em; display: block; margin-bottom: 4px; color: #FFFFFF; }
-        .addr { color: #8E8E93; font-size: 0.85em; display: block; }
-        .btn { border: none; border-radius: 8px; padding: 10px; cursor: pointer; font-weight: bold; }
-        .btn-add { background: var(--green); color: black; margin-left: 5px; }
-        .btn-del { background: var(--red); color: white; margin-left: 5px; }
-        .btn-go { background: var(--green); color: black; width: 95%; margin: 10px auto; display: block; font-size: 1.2em; padding: 15px; border-radius: 15px; }
-        #bulk { width: 90%; height: 120px; background: #1C1C1E; color: white; border: 1px solid #38383A; border-radius: 10px; padding: 10px; margin-top: 10px; font-size: 16px; }
-        .search-bar { width: 90%; padding: 12px; margin: 10px auto; border-radius: 10px; border: 1px solid #38383A; background: #1C1C1E; color: white; display: block; }
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: #1C1C1E; display: flex; padding: 10px 0; border-top: 1px solid #38383A; }
-        .handle { color: #48484A; padding-right: 15px; font-size: 1.4em; }
-        .time-tag { color: var(--green); font-weight: bold; font-size: 0.8em; float: right; }
+        .card { background: var(--card); margin: 10px; padding: 15px; border-radius: 15px; display: flex; flex-direction: column; border: 1px solid #38383A; position: relative; }
+        .card-row { display: flex; justify-content: space-between; align-items: flex-start; }
+        .info { flex: 1; margin-right: 10px; }
+        .name { font-weight: bold; font-size: 1.15em; color: #FFFFFF; display: block; margin-bottom: 4px; }
+        .addr { color: var(--gray); font-size: 0.9em; display: block; margin-bottom: 6px; }
+        .notes { background: #2C2C2E; color: #FFD60A; font-size: 0.85em; padding: 8px; border-radius: 8px; margin-top: 5px; border-left: 3px solid #FFD60A; }
+        .btn-group { display: flex; gap: 8px; align-self: flex-end; margin-top: 10px; }
+        .btn { border: none; border-radius: 10px; padding: 12px 18px; cursor: pointer; font-weight: bold; font-size: 1em; }
+        .btn-add { background: var(--green); color: black; }
+        .btn-del { background: var(--red); color: white; }
+        .btn-go { background: var(--green); color: black; width: 92%; margin: 15px auto; display: block; font-size: 1.2em; padding: 18px; border-radius: 15px; font-weight: 800; }
+        #bulk { width: 90%; height: 130px; background: #1C1C1E; color: white; border: 1px solid #38383A; border-radius: 12px; padding: 12px; margin-top: 10px; font-size: 16px; }
+        .search-bar { width: 90%; padding: 14px; margin: 15px auto; border-radius: 12px; border: 1px solid #38383A; background: #1C1C1E; color: white; display: block; font-size: 16px; }
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: #1C1C1E; display: flex; padding: 12px 0; border-top: 1px solid #38383A; }
+        .time-tag { color: var(--green); font-weight: bold; font-size: 0.9em; background: rgba(48, 209, 88, 0.1); padding: 4px 8px; border-radius: 6px; }
+        .handle { color: #48484A; font-size: 1.6em; margin-right: 15px; align-self: center; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h3 id="view-title" style="margin:0;">ΠΕΛΑΤΕΣ</h3>
+    <h3 id="view-title" style="margin:0; letter-spacing: 1px;">ΔΙΑΔΡΟΜΗ</h3>
 </div>
 
-<div id="base-view">
-    <input type="text" class="search-bar" id="search" placeholder="🔍 Αναζήτηση πελάτη..." oninput="renderBase()">
-    <div id="base-list"></div>
-</div>
-
-<div id="route-view" style="display:none;">
+<div id="route-view">
     <button class="btn btn-go" onclick="startNav()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
     <div id="route-list"></div>
 </div>
 
+<div id="base-view" style="display:none;">
+    <input type="text" class="search-bar" id="search" placeholder="🔍 Αναζήτηση πελάτη..." oninput="renderBase()">
+    <div id="base-list"></div>
+</div>
+
 <div id="settings-view" style="display:none; text-align: center; padding: 20px;">
-    <textarea id="bulk" placeholder="Επικόλληση: Όνομα .. Διεύθυνση"></textarea>
+    <textarea id="bulk" placeholder="Όνομα .. Διεύθυνση .. Ώρα .. Σημειώσεις (Κωδικοί κτλ)"></textarea>
     <button class="btn" style="background:var(--blue); color:white; width:95%; margin-top:10px; padding:15px;" onclick="saveData()">💾 ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΒΑΣΗ</button>
-    <div style="margin-top: 50px;">
+    <div style="margin-top: 60px;">
         <button class="btn" style="background:var(--red); color:white; width:70%; font-size:0.8em;" onclick="clearAllData()">⚠️ ΚΑΘΑΡΙΣΜΟΣ ΟΛΩΝ</button>
     </div>
 </div>
 
 <div class="nav-bottom">
-    <button class="tab-btn active" id="btn-base" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
-    <button class="tab-btn" id="btn-route" onclick="tab('route')">ΔΙΑΔΡΟΜΗ</button>
+    <button class="tab-btn active" id="btn-route" onclick="tab('route')">ΔΙΑΔΡΟΜΗ</button>
+    <button class="tab-btn" id="btn-base" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
     <button class="tab-btn" id="btn-settings" onclick="tab('settings')">⚙️ ΕΙΣΑΓΩΓΗ</button>
 </div>
 
@@ -65,7 +68,7 @@
         document.getElementById('settings-view').style.display = name === 'settings' ? 'block' : 'none';
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('btn-' + name).classList.add('active');
-        document.getElementById('view-title').innerText = name === 'base' ? 'ΠΕΛΑΤΕΣ' : (name === 'route' ? 'ΔΙΑΔΡΟΜΗ' : 'ΕΙΣΑΓΩΓΗ');
+        document.getElementById('view-title').innerText = name.toUpperCase();
         if(name === 'base') renderBase();
         if(name === 'route') renderRoute();
     }
@@ -75,7 +78,14 @@
         if(!text.trim()) return;
         text.split('\n').forEach(line => {
             const p = line.split('..');
-            if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "---" });
+            if(p.length >= 2) {
+                db.push({
+                    n: p[0].trim(),
+                    a: p[1].trim(),
+                    t: p[2]?.trim() || "---",
+                    note: p[3]?.trim() || ""
+                });
+            }
         });
         db.sort((a, b) => a.n.localeCompare(b.n));
         localStorage.setItem('delivery_db', JSON.stringify(db));
@@ -89,7 +99,20 @@
         list.innerHTML = '';
         db.sort((a, b) => a.n.localeCompare(b.n));
         db.filter(item => item.n.toLowerCase().includes(query)).forEach((item, idx) => {
-            list.innerHTML += `<div class="card"><div class="info"><span class="name">${item.n}</span><span class="addr">${item.a}</span></div><button class="btn btn-add" onclick="addToRoute(${idx})">+</button><button class="btn btn-del" onclick="deleteFromBase(${idx})">×</button></div>`;
+            list.innerHTML += `
+                <div class="card">
+                    <div class="card-row">
+                        <div class="info">
+                            <span class="name">${item.n}</span>
+                            <span class="addr">${item.a}</span>
+                            ${item.note ? `<div class="notes">🔑 ${item.note}</div>` : ''}
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-add" onclick="addToRoute(${idx})">+</button>
+                            <button class="btn btn-del" onclick="deleteFromBase(${idx})">×</button>
+                        </div>
+                    </div>
+                </div>`;
         });
     }
 
@@ -103,7 +126,19 @@
         const list = document.getElementById('route-list');
         list.innerHTML = '';
         route.forEach((item, idx) => {
-            list.innerHTML += `<div class="card"><div class="handle">☰</div><div class="info"><span class="time-tag">${item.t}</span><span class="name">${item.n}</span><span class="addr">${item.a}</span></div><button class="btn btn-del" onclick="removeFromRoute(${idx})">×</button></div>`;
+            list.innerHTML += `
+                <div class="card" style="flex-direction: row; align-items: center;">
+                    <div class="handle">☰</div>
+                    <div class="info">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                            <span class="name">${item.n}</span>
+                            <span class="time-tag">${item.t}</span>
+                        </div>
+                        <span class="addr">${item.a}</span>
+                        ${item.note ? `<div class="notes">🔑 ${item.note}</div>` : ''}
+                    </div>
+                    <button class="btn btn-del" style="margin-left:10px;" onclick="removeFromRoute(${idx})">×</button>
+                </div>`;
         });
     }
 
@@ -114,7 +149,7 @@
     }
 
     function deleteFromBase(idx) {
-        if(confirm('Διαγραφή;')) {
+        if(confirm('Διαγραφή από τη βάση;')) {
             db.splice(idx, 1);
             localStorage.setItem('delivery_db', JSON.stringify(db));
             renderBase();
@@ -133,10 +168,10 @@
         if(route.length === 0) return alert('Άδεια διαδρομή!');
         const addr = route.map(i => encodeURIComponent(i.a));
         const dest = addr.pop();
-        window.open(`https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7Ce050bce047f54fde99c208de6d1ab631%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068158651417167%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=tuauBQteLYFtmmz%2FTcmlUIeCnMlBM3M42Sw%2FVsDQZm0%3D&reserved=0{dest}&waypoints=${addr.join('|')}&travelmode=driving`, '_blank');
+        window.open(`https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C9c95bfabb83a48384ffa08de6d1b6567%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068161596942130%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=oxNbykhXTAnzCf0DNTCcVl75is1k0hVaqnP6pVmiAnQ%3D&reserved=0{dest}&waypoints=${addr.join('|')}&travelmode=driving`, '_blank');
     }
 
-    renderBase();
+    tab('route'); // Ξεκινάει από τη Διαδρομή
 </script>
 </body>
 </html>
