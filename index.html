@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Delivery Pro v31</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C42ae61466dd949209f7608de6d27827c%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068213622788764%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=j5MboOSy9Tg0VAFdE%2B88gY0Jb%2F5bhYjEmzi0jvQ0pbg%3D&reserved=0"></script>
-    <style>
-        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; color: var(--txt); }
-        .nav { display: flex; background: #000; padding-top: 45px; border-bottom: 1px solid #38383a; position: sticky; top: 0; z-index: 100; }
-        .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
-        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
-        .container { padding: 16px; max-width: 600px; margin: auto; }
-        .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 20px; }
-        .card { background: var(--card); border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; }
-        .handle { color: #48484a; font-size: 24px; padding-right: 15px; cursor: grab; }
-        .info { flex: 1; overflow: hidden; }
-        .info h4 { margin: 0; font-size: 17px; color: #fff; display: flex; align-items: center; }
-        .info p { margin: 4px 0 0 0; font-size: 13px; color: #8e8e93; }
-        .notes { font-size: 12px; color: var(--accent); margin-top: 6px; font-weight: 600; }
-        .time-tag { color: var(--p); font-size: 12px; font-weight: bold; background: rgba(48, 209, 88, 0.1); padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
-        .btn-del { background: #ff453a; color: #fff; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; width: 40px; height: 40px; }
-        .btn-edit { background: #48484a; color: #fff; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; width: 40px; height: 40px; }
-        .btn-add { background: var(--p); color: #000; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; width: 40px; height: 40px; font-weight: bold; font-size: 20px; }
-        .hidden { display: none; }
-        textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
-    </style>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+   <title>Delivery Pro v32</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C6def4bbc8a754f14807e08de6d282b3f%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068216451034834%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=MRuN5fGUmusMMcKsvRLiu3Gmq9Elu9y0N%2FgoTe6YCNI%3D&reserved=0"></script>
+   <style>
+       :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
+       body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; color: var(--txt); }
+       .nav { display: flex; background: #000; padding-top: 45px; border-bottom: 1px solid #38383a; position: sticky; top: 0; z-index: 100; }
+       .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
+       .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
+       .container { padding: 16px; max-width: 600px; margin: auto; }
+       .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 20px; }
+       .card { background: var(--card); border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; }
+       .handle { color: #48484a; font-size: 24px; padding-right: 15px; cursor: grab; }
+       .info { flex: 1; overflow: hidden; }
+       .info h4 { margin: 0; font-size: 17px; color: #fff; display: flex; align-items: center; }
+       .info p { margin: 4px 0 0 0; font-size: 13px; color: #8e8e93; }
+       .notes { font-size: 12px; color: var(--accent); margin-top: 6px; font-weight: 600; }
+       .time-tag { color: var(--p); font-size: 12px; font-weight: bold; background: rgba(48, 209, 88, 0.1); padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
+       .btn-del { background: #ff453a; color: #fff; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+       .btn-edit { background: #48484a; color: #fff; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+       .btn-add { background: var(--p); color: #000; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; width: 40px; height: 40px; font-weight: bold; font-size: 20px; }
+       .hidden { display: none; }
+       textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
+   </style>
 </head>
 <body>
 
@@ -141,7 +141,7 @@
 
    function startRoute() {
        if(!rn.length) return alert('Πρόσθεσε στάσεις!');
-       // ΤΟ LINK ΠΟΥ ΔΟΥΛΕΥΕΙ ΣΕ IPHONE
+       // ΤΟ LINK ΠΟΥ ΔΟΥΛΕΥΕ ΣΤΟΝ ΠΑΛΙΟ ΣΟΥ ΚΩΔΙΚΑ
        const addresses = rn.map(i => encodeURIComponent(i.a.trim())).join(' to:');
        window.location.href = "comgooglemaps://?saddr=&daddr=" + addresses + "&directionsmode=driving";
    }
