@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v32</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C6def4bbc8a754f14807e08de6d282b3f%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068216451034834%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=MRuN5fGUmusMMcKsvRLiu3Gmq9Elu9y0N%2FgoTe6YCNI%3D&reserved=0"></script>
+   <title>Delivery Pro v33</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C7b4e160330494d82996808de6d28b21e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068218718404180%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=o1eWr578YbYuEyJsUm9BnrgDrLYVLyfNAJhxTxbnR6I%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; color: var(--txt); }
@@ -36,7 +36,7 @@
 </div>
 
 <div id="run-page" class="container">
-   <button class="btn-full" onclick="startRoute()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
+   <button class="btn-full" id="mainGoBtn" onclick="startRoute()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
    <div id="run-list"></div>
    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px; font-weight: bold;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
 </div>
@@ -139,11 +139,17 @@
    function clearRun() { if(confirm('Καθαρισμός ημέρας;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
    function deleteFromBase(i) { if(confirm('Διαγραφή από τη βάση;')){ db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
 
+   // Η ΜΟΝΗ ΑΛΛΑΓΗ: ΧΡΗΣΗ ΤΟΥ URL ΠΟΥ "ΞΥΠΝΑΕΙ" ΤΟ APP ΣΙΓΟΥΡΑ
    function startRoute() {
        if(!rn.length) return alert('Πρόσθεσε στάσεις!');
-       // ΤΟ LINK ΠΟΥ ΔΟΥΛΕΥΕ ΣΤΟΝ ΠΑΛΙΟ ΣΟΥ ΚΩΔΙΚΑ
-       const addresses = rn.map(i => encodeURIComponent(i.a.trim())).join(' to:');
-       window.location.href = "comgooglemaps://?saddr=&daddr=" + addresses + "&directionsmode=driving";
+      
+       const dest = encodeURIComponent(rn[rn.length - 1].a.trim());
+       const waypoints = rn.slice(0, -1).map(i => encodeURIComponent(i.a.trim())).join('|');
+      
+       // Αυτό το link "αναγκάζει" το iPhone να ρωτήσει "Open in Google Maps?"
+       const url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C7b4e160330494d82996808de6d28b21e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068218718422015%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=UA5F7nopOxQORJceJu6kjx6jcf5qRdIqy6kZhqdnuG4%3D&reserved=0{dest}&waypoints=${waypoints}&travelmode=driving`;
+      
+       window.open(url, '_blank');
    }
 
    new Sortable(document.getElementById('run-list'), { handle: '.handle', animation: 150, onEnd: () => {
