@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v34</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Ce0350d6720cd43e12d6e08de6d295af5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068221556835563%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=fFzCUKtKjiqNE%2BgnQeFphRUl%2FdGzGIFkn51i9%2B9MA80%3D&reserved=0"></script>
+   <title>Delivery Pro v35</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C824ca9031c48420bff9908de6d29f538%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068224119121051%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=exFelJ92WQD%2Bb3uxT2e6UO0TULruZUMFASMYYJ%2FQ9%2BQ%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; color: var(--txt); }
@@ -53,7 +53,6 @@
 </div>
 
 <script>
-   // Χρησιμοποιούμε τα ίδια κλειδιά με τον παλιό σου κώδικα (delivery_db και delivery_rn)
    let db = JSON.parse(localStorage.getItem('delivery_db') || '[]');
    let rn = JSON.parse(localStorage.getItem('delivery_rn') || '[]');
 
@@ -104,7 +103,7 @@
        const n = prompt("Όνομα:", db[i].n);
        const a = prompt("Διεύθυνση:", db[i].a);
        const t = prompt("Ώρα:", db[i].t);
-       const nt = prompt("Σημειώσεις/Κωδικός:", db[i].nt);
+       const nt = prompt("Σημειώσεις:", db[i].nt);
        if(n && a) {
            db[i] = { n, a, t, nt };
            localStorage.setItem('delivery_db', JSON.stringify(db));
@@ -140,11 +139,21 @@
    function clearRun() { if(confirm('Καθαρισμός;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
    function deleteFromBase(i) { if(confirm('Διαγραφή;')){ db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
 
-   // ΑΥΤΗ ΕΙΝΑΙ Η ΓΡΑΜΜΗ ΠΟΥ ΔΟΥΛΕΥΕ ΣΤΟΝ ΠΑΛΙΟ ΣΟΥ ΚΩΔΙΚΑ
    function startRoute() {
-       if(!rn.length) return;
-       // Χρησιμοποιούμε ακριβώς το ίδιο format με την έκδοση v9.2
-       const url = "comgooglemaps://?saddr=&daddr="+encodeURIComponent(rn.map(i=>i.a).join(' to:'))+"&directionsmode=driving";
+       if(!rn.length) return alert('Βάλε διευθύνσεις!');
+      
+       // Καθαρισμός διευθύνσεων από περίεργα σύμβολα
+       const cleanAddr = rn.map(i => i.a.replace(/[$]/g, '').trim());
+      
+       let url = "";
+       if(cleanAddr.length === 1) {
+           // Αν είναι μόνο μία, άνοιξε την κατευθείαν
+           url = "comgooglemaps://?daddr=" + encodeURIComponent(cleanAddr[0]) + "&directionsmode=driving";
+       } else {
+           // Αν είναι πολλές, χρησιμοποίησε το παλιό καλό "to:"
+           url = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(cleanAddr.join(' to:')) + "&directionsmode=driving";
+       }
+      
        window.location.href = url;
    }
 
