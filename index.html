@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v33</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C7b4e160330494d82996808de6d28b21e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068218718404180%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=o1eWr578YbYuEyJsUm9BnrgDrLYVLyfNAJhxTxbnR6I%3D&reserved=0"></script>
+   <title>Delivery Pro v34</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Ce0350d6720cd43e12d6e08de6d295af5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068221556835563%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=fFzCUKtKjiqNE%2BgnQeFphRUl%2FdGzGIFkn51i9%2B9MA80%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; color: var(--txt); }
@@ -36,7 +36,7 @@
 </div>
 
 <div id="run-page" class="container">
-   <button class="btn-full" id="mainGoBtn" onclick="startRoute()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
+   <button class="btn-full" onclick="startRoute()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
    <div id="run-list"></div>
    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px; font-weight: bold;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
 </div>
@@ -53,6 +53,7 @@
 </div>
 
 <script>
+   // Χρησιμοποιούμε τα ίδια κλειδιά με τον παλιό σου κώδικα (delivery_db και delivery_rn)
    let db = JSON.parse(localStorage.getItem('delivery_db') || '[]');
    let rn = JSON.parse(localStorage.getItem('delivery_rn') || '[]');
 
@@ -114,7 +115,7 @@
    function addToRun(i) {
        rn.push({...db[i]});
        localStorage.setItem('delivery_rn', JSON.stringify(rn));
-       alert('Προστέθηκε στη διαδρομή!');
+       alert('Προστέθηκε!');
    }
 
    function renderRun() {
@@ -136,27 +137,20 @@
    }
 
    function del(idx) { rn.splice(idx,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
-   function clearRun() { if(confirm('Καθαρισμός ημέρας;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
-   function deleteFromBase(i) { if(confirm('Διαγραφή από τη βάση;')){ db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
+   function clearRun() { if(confirm('Καθαρισμός;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
+   function deleteFromBase(i) { if(confirm('Διαγραφή;')){ db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
 
-   // Η ΜΟΝΗ ΑΛΛΑΓΗ: ΧΡΗΣΗ ΤΟΥ URL ΠΟΥ "ΞΥΠΝΑΕΙ" ΤΟ APP ΣΙΓΟΥΡΑ
+   // ΑΥΤΗ ΕΙΝΑΙ Η ΓΡΑΜΜΗ ΠΟΥ ΔΟΥΛΕΥΕ ΣΤΟΝ ΠΑΛΙΟ ΣΟΥ ΚΩΔΙΚΑ
    function startRoute() {
-       if(!rn.length) return alert('Πρόσθεσε στάσεις!');
-      
-       const dest = encodeURIComponent(rn[rn.length - 1].a.trim());
-       const waypoints = rn.slice(0, -1).map(i => encodeURIComponent(i.a.trim())).join('|');
-      
-       // Αυτό το link "αναγκάζει" το iPhone να ρωτήσει "Open in Google Maps?"
-       const url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C7b4e160330494d82996808de6d28b21e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068218718422015%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=UA5F7nopOxQORJceJu6kjx6jcf5qRdIqy6kZhqdnuG4%3D&reserved=0{dest}&waypoints=${waypoints}&travelmode=driving`;
-      
-       window.open(url, '_blank');
+       if(!rn.length) return;
+       // Χρησιμοποιούμε ακριβώς το ίδιο format με την έκδοση v9.2
+       const url = "comgooglemaps://?saddr=&daddr="+encodeURIComponent(rn.map(i=>i.a).join(' to:'))+"&directionsmode=driving";
+       window.location.href = url;
    }
 
    new Sortable(document.getElementById('run-list'), { handle: '.handle', animation: 150, onEnd: () => {
        let newRn = [];
-       document.querySelectorAll('#run-list .card').forEach(el => {
-           newRn.push(rn[el.dataset.id]);
-       });
+       document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.id]));
        rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn));
        renderRun();
    }});
