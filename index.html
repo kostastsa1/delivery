@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Pro v26</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.14.0%2FSortable.min.js&data=05%7C02%7C%7Ce04e382185294eaaa8e508de6d239c6f%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068196895035117%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=AqXf7ectZ0z0F3MSYRBGv4UyDYjsSwodI4liN6vkGZI%3D&reserved=0"></script>
+    <title>Delivery Pro v27</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.14.0%2FSortable.min.js&data=05%7C02%7C%7C479127f1856040f0319f08de6d24907b%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068200962744300%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=eCXhPTZcABfwx%2FNNEzTc0W0%2BHcSq9X0liIm5cIgwVp0%3D&reserved=0"></script>
     <style>
         :root { --green: #30D158; --red: #FF453A; --gray: #3A3A3C; --blue: #0A84FF; --bg: #000000; }
         body { font-family: -apple-system, sans-serif; background: var(--bg); color: white; margin: 0; padding-top: 110px; }
@@ -23,7 +23,7 @@
         .btn-edit { background: var(--gray); font-size: 1.1em; }
         .btn-del { background: var(--red); font-size: 1.1em; }
         .handle { color: #48484A; padding-right: 12px; font-size: 1.5em; cursor: grab; }
-        .btn-go { background: var(--green); color: black; width: 92%; margin: 15px auto; display: block; font-size: 1.2em; padding: 18px; border-radius: 15px; font-weight: bold; text-align: center; }
+        .btn-go { background: var(--green); color: black; width: 92%; margin: 15px auto; display: block; font-size: 1.2em; padding: 18px; border-radius: 15px; font-weight: bold; text-align: center; border:none; }
         .btn-clear { background: #1C1C1E; color: var(--red); width: 50%; margin: 0 auto 15px; display: block; padding: 8px; border: 1px solid var(--red); border-radius: 8px; font-size: 0.8em; }
         .search-bar { width: 90%; padding: 12px; margin: 10px auto; border-radius: 10px; border: 1px solid #38383A; background: #1C1C1E; color: white; display: block; }
     </style>
@@ -32,21 +32,21 @@
 
 <div class="top-nav">
     <div class="tab-bar">
-        <button class="tab-btn active" id="btn-base" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
-        <button class="tab-btn" id="btn-route" onclick="tab('route')">ΔΙΑΔΡΟΜΗ</button>
+        <button class="tab-btn active" id="btn-route" onclick="tab('route')">ΔΙΑΔΡΟΜΗ</button>
+        <button class="tab-btn" id="btn-base" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
         <button class="tab-btn" id="btn-settings" onclick="tab('settings')">⚙️ ΕΙΣΑΓΩΓΗ</button>
     </div>
 </div>
 
-<div id="base-view">
-    <input type="text" class="search-bar" id="search" placeholder="🔍 Αναζήτηση..." oninput="renderBase()">
-    <div id="base-list"></div>
-</div>
-
-<div id="route-view" style="display:none;">
-    <button class="btn-go" onclick="startNav()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
+<div id="route-view">
+    <button class="btn-go" onclick="startNav()">🚀 ΕΝΑΡΞΗ GOOGLE MAPS</button>
     <button class="btn-clear" onclick="clearRoute()">🗑️ ΚΑΘΑΡΙΣΜΟΣ ΔΙΑΔΡΟΜΗΣ</button>
     <div id="route-list"></div>
+</div>
+
+<div id="base-view" style="display:none;">
+    <input type="text" class="search-bar" id="search" placeholder="🔍 Αναζήτηση..." oninput="renderBase()">
+    <div id="base-list"></div>
 </div>
 
 <div id="settings-view" style="display:none; text-align: center; padding-top: 20px;">
@@ -102,18 +102,20 @@
                 <button class="btn btn-del" onclick="removeFromRoute(${idx})">×</button>
             </div>`;
         });
-        new Sortable(list, { handle: '.handle', animation: 150, onEnd: function() {
-            let newR = [];
-            list.querySelectorAll('.card').forEach(el => newR.push(route[el.dataset.idx]));
-            route = newR; localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute();
-        }});
+        if(route.length > 0) {
+            new Sortable(list, { handle: '.handle', animation: 150, onEnd: function() {
+                let newR = [];
+                list.querySelectorAll('.card').forEach(el => newR.push(route[el.dataset.idx]));
+                route = newR; localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute();
+            }});
+        }
     }
 
     function editItem(idx) {
         let n = prompt("Όνομα:", db[idx].n);
         let a = prompt("Διεύθυνση:", db[idx].a);
         let t = prompt("Ώρα / Κωδικός:", db[idx].t || "");
-        if(n && a) {
+        if(n !== null && a !== null) {
             db[idx] = { n, a, t };
             localStorage.setItem('delivery_db', JSON.stringify(db));
             renderBase();
@@ -122,15 +124,15 @@
 
     function startNav() {
         if(route.length === 0) return alert('Πρόσθεσε στάσεις!');
-        let points = route.map(r => encodeURIComponent(r.a.trim()));
-        let dest = points.pop();
-        let way = points.join('|');
-        // ΤΟ ΝΕΟ LINK ΠΟΥ ΔΟΥΛΕΥΕΙ ΣΙΓΟΥΡΑ
-        let finalUrl = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7Ce04e382185294eaaa8e508de6d239c6f%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068196895049642%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=h0CEo1HE0NtW1N6BRm%2BudyXFLlGRSGHjDGGuRKCD6HU%3D&reserved=0{dest}&waypoints=${way}&travelmode=driving`;
-        window.open(finalUrl, '_blank');
+       
+        // ΚΑΘΑΡΟ LINK ΧΩΡΙΣ ΠΕΡΙΕΡΓΟΥΣ ΧΑΡΑΚΤΗΡΕΣ
+        let waypoints = route.map(r => r.a.trim().replace(/\s+/g, '+')).join('/');
+        let url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%24&data=05%7C02%7C%7C479127f1856040f0319f08de6d24907b%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068200962758720%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=MUtXS%2FbQS8rPybQ0TMlrl2a0qjn1gntqoM%2FHLXMGoQk%3D&reserved=0{waypoints}`;
+       
+        window.open(url, '_blank');
     }
 
-    function addToRoute(i) { route.push(db[i]); localStorage.setItem('delivery_route', JSON.stringify(route)); alert('Προστέθηκε!'); }
+    function addToRoute(i) { route.push(db[i]); localStorage.setItem('delivery_route', JSON.stringify(route)); alert('Μπήκε!'); }
     function removeFromRoute(i) { route.splice(i,1); localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute(); }
     function clearRoute() { if(confirm('Σβήσιμο διαδρομής;')) { route = []; localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute(); } }
     function deleteItem(i) { if(confirm('Διαγραφή;')) { db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
@@ -144,7 +146,8 @@
         document.getElementById('bulk').value = ''; tab('base');
     }
 
-    tab('base');
+    // Ξεκινάμε από τη ΔΙΑΔΡΟΜΗ (αριστερά)
+    tab('route');
 </script>
 </body>
 </html>
