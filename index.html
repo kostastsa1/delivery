@@ -3,39 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Delivery Pro v9-Full</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C81aa8d18e7ff4aa3aa9a08de6ceb9b23%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067956340787578%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=8Ilgd5DQxWNrqb8u7eLp08EJnqLFloH%2FnBFsmWKR9tA%3D&reserved=0"></script>
+    <title>Delivery Pro v9.2</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cda08e2dc02b0496c200c08de6cf2c2f5%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639067987053065838%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=iZ55hccksDdZTBSBO6JhhvslEvzCjQDfDeYxyjtK1GM%3D&reserved=0"></script>
     <style>
         :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
         body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); overflow-x: hidden; }
-       
-        /* Navigation Bar */
         .nav { display: flex; background: #000; padding-top: 45px; border-bottom: 1px solid #38383a; position: sticky; top: 0; z-index: 100; }
-        .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 12px; transition: 0.3s; }
+        .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 12px; }
         .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
-       
         .container { padding: 16px; max-width: 600px; margin: auto; }
-        .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(48, 209, 88, 0.3); }
-       
-        /* Κάρτα Πελάτη */
+        .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 20px; }
         .card { background: var(--card); border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; }
-        .handle { color: #48484a; font-size: 24px; padding-right: 15px; cursor: grab; padding-left: 5px; }
+        .handle { color: #48484a; font-size: 24px; padding-right: 15px; cursor: grab; }
         .info { flex: 1; overflow: hidden; }
-        .info h4 { margin: 0; font-size: 17px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
-        .info p { margin: 4px 0 0 0; font-size: 13px; color: #8e8e93; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-       
-        /* Σημειώσεις & Ώρα */
-        .notes { font-size: 12px; color: var(--accent); margin-top: 6px; font-weight: 600; display: block; }
-        .time-tag { color: var(--p); font-size: 12px; font-weight: bold; background: rgba(48, 209, 88, 0.1); padding: 2px 6px; border-radius: 4px; }
-       
-        /* Κουμπιά */
+        .info h4 { margin: 0; font-size: 17px; color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+        .info p { margin: 4px 0 0 0; font-size: 13px; color: #8e8e93; }
+        .notes { font-size: 12px; color: var(--accent); margin-top: 6px; font-weight: 600; }
+        .time-tag { color: var(--p); font-size: 12px; font-weight: bold; background: rgba(48, 209, 88, 0.1); padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
         .btn-go { background: var(--accent); color: #000; border: none; padding: 12px 18px; border-radius: 12px; font-weight: bold; margin-left: 10px; }
         .btn-del { background: #ff453a; color: #fff; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; }
         .btn-edit { background: #48484a; color: #fff; border: none; padding: 10px; border-radius: 10px; margin-left: 8px; }
-       
         .hidden { display: none; }
-        input, textarea { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; outline: none; }
-        input:focus { border-color: var(--p); }
+        textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -49,19 +38,18 @@
 <div id="run-page" class="container">
     <button class="btn-full" onclick="startRoute()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
     <div id="run-list"></div>
-    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px; font-weight:600;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
+    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
 </div>
 
 <div id="base-page" class="container hidden">
-    <input type="text" id="search" placeholder="🔍 Αναζήτηση στη βάση..." onkeyup="renderBase()">
+    <input type="text" id="search" placeholder="🔍 Αναζήτηση πελάτη..." onkeyup="renderBase()">
     <div id="base-list"></div>
 </div>
 
 <div id="set-page" class="container hidden">
     <h3>Μαζική Εισαγωγή</h3>
-    <p style="font-size:12px; color:#8e8e93; margin-bottom:15px;">Μορφή: Όνομα .. Διεύθυνση .. Ώρα .. Σημειώσεις</p>
-    <textarea id="bulk" rows="10" placeholder="Meat Me .. 24 Eaton St .. 11:30 .. Κωδικός 1234"></textarea>
-    <button onclick="saveData()" class="btn-full">ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΒΑΣΗ</button>
+    <textarea id="bulk" rows="8" placeholder="Όνομα .. Διεύθυνση .. Ώρα .. Σημειώσεις"></textarea>
+    <button onclick="saveData()" class="btn-full">ΑΠΟΘΗΚΕΥΣΗ</button>
 </div>
 
 <script>
@@ -74,7 +62,7 @@
         document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
         if(t==='run') { document.getElementById('t1').classList.add('active'); renderRun(); }
         if(t==='base') { document.getElementById('t2').classList.add('active'); renderBase(); }
-        if(t==='set') { document.getElementById('t3').classList.add('active'); }
+        if(t==='set') document.getElementById('t3').classList.add('active');
     }
 
     function saveData() {
@@ -82,14 +70,7 @@
         if(!text.trim()) return;
         text.split('\n').forEach(line => {
             const p = line.split('..');
-            if(p.length >= 2) {
-                db.push({
-                    n: p[0].trim(),
-                    a: p[1].trim(),
-                    t: p[2]?.trim() || "---",
-                    nt: p[3]?.trim() || ""
-                });
-            }
+            if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "---", nt: p[3]?.trim() || "" });
         });
         localStorage.setItem('delivery_db', JSON.stringify(db));
         document.getElementById('bulk').value = '';
@@ -106,14 +87,13 @@
                 div.className = 'card';
                 div.innerHTML = `
                     <div class="info">
-                        <h4>${item.n}</h4>
+                        <h4>${item.n} ${item.t !== '---' ? '<span class="time-tag">⌚ '+item.t+'</span>' : ''}</h4>
                         <p>${item.a}</p>
                         <div class="notes">${item.nt ? '🔑 ' + item.nt : ''}</div>
                     </div>
                     <button class="btn-go" style="background:var(--p)" onclick="addToRun(${i})">+</button>
                     <button class="btn-edit" onclick="editItem(${i})">✎</button>
-                    <button class="btn-del" onclick="deleteFromBase(${i})">✕</button>
-                `;
+                    <button class="btn-del" onclick="deleteFromBase(${i})">✕</button>`;
                 list.appendChild(div);
             }
         });
@@ -122,7 +102,7 @@
     function editItem(i) {
         const n = prompt("Όνομα:", db[i].n);
         const a = prompt("Διεύθυνση:", db[i].a);
-        const t = prompt("Ώρα (π.χ. 11:00):", db[i].t);
+        const t = prompt("Ώρα (π.χ. 10:30):", db[i].t);
         const nt = prompt("Σημειώσεις/Κωδικός:", db[i].nt);
         if(n && a) {
             db[i] = { n, a, t, nt };
@@ -131,24 +111,11 @@
         }
     }
 
-    function deleteFromBase(i) {
-        if(confirm('Οριστική διαγραφή από τη βάση;')) {
-            db.splice(i, 1);
-            localStorage.setItem('delivery_db', JSON.stringify(db));
-            renderBase();
-        }
-    }
-
     function addToRun(i) {
         rn.push({...db[i]});
-        // Αυτόματη ταξινόμηση: Πρώτα οι ώρες, μετά τα "---"
-        rn.sort((a, b) => {
-            if (a.t === "---") return 1;
-            if (b.t === "---") return -1;
-            return a.t.localeCompare(b.t);
-        });
+        rn.sort((a, b) => (a.t === "---" ? 1 : b.t === "---" ? -1 : a.t.localeCompare(b.t)));
         localStorage.setItem('delivery_rn', JSON.stringify(rn));
-        alert('Προστέθηκε στη διαδρομή!');
+        alert('Προστέθηκε!');
     }
 
     function renderRun() {
@@ -156,8 +123,7 @@
         list.innerHTML = '';
         rn.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.className = 'card';
-            div.dataset.id = idx;
+            div.className = 'card'; div.dataset.id = idx;
             div.innerHTML = `
                 <div class="handle">☰</div>
                 <div class="info">
@@ -166,50 +132,26 @@
                     <div class="notes">${item.nt ? '🔑 ' + item.nt : ''}</div>
                 </div>
                 <button class="btn-go" onclick="singleGo('${item.a}')">GO</button>
-                <button class="btn-del" onclick="del(${idx})">✕</button>
-            `;
+                <button class="btn-del" onclick="del(${idx})">✕</button>`;
             list.appendChild(div);
         });
     }
 
-    function del(idx) {
-        rn.splice(idx, 1);
-        localStorage.setItem('delivery_rn', JSON.stringify(rn));
-        renderRun();
-    }
-
-    function clearRun() {
-        if(confirm('Θέλετε να καθαρίσετε τη σημερινή διαδρομή;')) {
-            rn = [];
-            localStorage.setItem('delivery_rn', JSON.stringify(rn));
-            renderRun();
-        }
-    }
-
-    function singleGo(a) {
-        window.location.href = "comgooglemaps://?daddr=" + encodeURIComponent(a) + "&directionsmode=driving";
-    }
-
+    function del(idx) { rn.splice(idx,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
+    function clearRun() { if(confirm('Καθαρισμός;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
+    function deleteFromBase(i) { if(confirm('Διαγραφή από τη βάση;')){ db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
+    function singleGo(a) { window.location.href = "comgooglemaps://?daddr="+encodeURIComponent(a)+"&directionsmode=driving"; }
     function startRoute() {
-        if(rn.length === 0) return;
-        const dests = rn.map(i => i.a).join(' to:');
-        window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(dests) + "&directionsmode=driving";
+        if(!rn.length) return;
+        window.location.href = "comgooglemaps://?saddr=&daddr="+encodeURIComponent(rn.map(i=>i.a).join(' to:'))+"&directionsmode=driving";
     }
 
-    // Ενεργοποίηση Drag & Drop μόνο από το handle ☰
-    new Sortable(document.getElementById('run-list'), {
-        handle: '.handle',
-        animation: 150,
-        onEnd: function() {
-            let newRn = [];
-            document.querySelectorAll('#run-list .card').forEach(el => {
-                newRn.push(rn[el.dataset.id]);
-            });
-            rn = newRn;
-            localStorage.setItem('delivery_rn', JSON.stringify(rn));
-            renderRun();
-        }
-    });
+    new Sortable(document.getElementById('run-list'), { handle: '.handle', animation: 150, onEnd: () => {
+        let newRn = [];
+        document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.id]));
+        rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn));
+        renderRun();
+    }});
 
     tab('run');
 </script>
