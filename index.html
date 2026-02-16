@@ -3,42 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Pro Fix</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.14.0%2FSortable.min.js&data=05%7C02%7C%7C2e168015380448e5a83808de6d21e66b%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068189515278944%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=0YvDXu2YJmRUuaHhvZ74J8yj9%2BVyuP7aiwaj6LCMB0k%3D&reserved=0"></script>
+    <title>Delivery Pro v25</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.14.0%2FSortable.min.js&data=05%7C02%7C%7Ca8d0842dcc9641ee1dbc08de6d22defc%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068193699060845%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=jt3n7TacXmDpq4u8ozAIgCcNMMa8wB1qbD35yyKLzmw%3D&reserved=0"></script>
     <style>
         :root { --green: #30D158; --red: #FF453A; --gray: #3A3A3C; --blue: #0A84FF; --bg: #000000; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); color: white; margin: 0; padding-top: 110px; }
-       
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: white; margin: 0; padding-top: 100px; padding-bottom: 20px; }
         .top-nav { position: fixed; top: 0; width: 100%; background: #1C1C1E; z-index: 1000; border-bottom: 1px solid #38383A; }
         .tab-bar { display: flex; justify-content: space-around; padding: 10px 0; }
-        .tab-btn { padding: 12px; border: none; background: none; font-weight: bold; color: #8E8E93; flex: 1; cursor: pointer; }
+        .tab-btn { padding: 10px; border: none; background: none; font-weight: bold; color: #8E8E93; flex: 1; cursor: pointer; }
         .tab-btn.active { color: var(--green); border-bottom: 3px solid var(--green); }
-       
-        .card { background: #1C1C1E; margin: 8px; padding: 12px; border-radius: 12px; display: flex; align-items: center; border: 1px solid #2C2C2E; }
-        .info { flex: 1; margin: 0 10px; }
+        .card { background: #1C1C1E; margin: 8px; padding: 12px; border-radius: 12px; display: flex; align-items: center; border: 1px solid #2C2C2E; position: relative; }
+        .info { flex: 1; margin: 0 10px; overflow: hidden; }
         .name { font-weight: bold; font-size: 1.1em; display: block; color: white; }
-        .addr { color: #8E8E93; font-size: 0.85em; display: block; }
-       
-        .btn-group { display: flex; gap: 8px; }
-        .btn { border: none; border-radius: 8px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; color: white; }
-        .btn-add { background: var(--green); color: black; font-size: 1.5em; }
-        .btn-edit { background: var(--gray); font-size: 1.1em; }
-        .btn-del { background: var(--red); font-size: 1.1em; }
-       
-        .handle { color: #48484A; cursor: grab; font-size: 1.5em; padding-right: 10px; }
-        .btn-go { background: var(--green); color: black; width: 92%; margin: 15px auto; display: block; font-size: 1.3em; padding: 18px; border-radius: 15px; font-weight: bold; text-align: center; text-decoration: none; }
-       
+        .addr { color: #8E8E93; font-size: 0.85em; display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+        .time-tag { font-size: 0.75em; color: var(--green); background: rgba(48, 209, 88, 0.1); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+        .btn-group { display: flex; gap: 6px; }
+        .btn { border: none; border-radius: 8px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; color: white; }
+        .btn-add { background: var(--green); color: black; }
+        .btn-edit { background: var(--gray); }
+        .btn-del { background: var(--red); }
+        .handle { color: #48484A; padding-right: 10px; font-size: 1.4em; cursor: grab; }
+        .btn-go { background: var(--green); color: black; width: 92%; margin: 10px auto; display: block; font-size: 1.2em; padding: 16px; border-radius: 12px; font-weight: bold; text-align: center; text-decoration: none; }
+        .btn-clear { background: #2C2C2E; color: #8E8E93; width: 60%; margin: 5px auto; display: block; padding: 10px; border-radius: 10px; font-size: 0.9em; border: none; }
         .search-bar { width: 90%; padding: 12px; margin: 10px auto; border-radius: 10px; border: 1px solid #38383A; background: #1C1C1E; color: white; display: block; }
-        #bulk { width: 90%; height: 120px; background: #1C1C1E; color: white; border: 1px solid #38383A; border-radius: 10px; padding: 10px; margin: 10px auto; display: block; }
     </style>
 </head>
 <body>
 
 <div class="top-nav">
     <div class="tab-bar">
-        <button class="tab-btn active" id="btn-base" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
-        <button class="tab-btn" id="btn-route" onclick="tab('route')">ΔΙΑΔΡΟΜΗ</button>
-        <button class="tab-btn" id="btn-settings" onclick="tab('settings')">⚙️ ΕΙΣΑΓΩΓΗ</button>
+        <button class="tab-btn active" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
+        <button class="tab-btn" onclick="tab('route')">ΔΙΑΔΡΟΜΗ</button>
+        <button class="tab-btn" onclick="tab('settings')">⚙️ ΕΙΣΑΓΩΓΗ</button>
     </div>
 </div>
 
@@ -48,14 +44,14 @@
 </div>
 
 <div id="route-view" style="display:none;">
-    <button class="btn btn-go" onclick="startNav()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
+    <button class="btn-go" onclick="startNav()">🚀 ΕΝΑΡΞΗ GOOGLE MAPS</button>
+    <button class="btn-clear" onclick="clearRoute()">🗑️ ΚΑΘΑΡΙΣΜΟΣ ΔΙΑΔΡΟΜΗΣ</button>
     <div id="route-list"></div>
 </div>
 
-<div id="settings-view" style="display:none; text-align: center; padding-top: 20px;">
-    <textarea id="bulk" placeholder="Όνομα .. Διεύθυνση"></textarea>
-    <button class="btn" style="background:var(--blue); width:90%; margin:10px auto; height:50px;" onclick="saveData()">💾 ΑΠΟΘΗΚΕΥΣΗ</button>
-    <button class="btn" style="background:var(--red); width:60%; margin-top:50px; height:40px;" onclick="clearAll()">⚠️ ΔΙΑΓΡΑΦΗ ΟΛΩΝ</button>
+<div id="settings-view" style="display:none; text-align: center; padding: 20px;">
+    <textarea id="bulk" style="width:90%; height:120px; background:#1C1C1E; color:white; border-radius:10px; padding:10px;" placeholder="Όνομα .. Διεύθυνση .. Ώρα"></textarea>
+    <button class="btn" style="background:var(--blue); width:94%; margin:10px auto; height:50px;" onclick="saveData()">💾 ΑΠΟΘΗΚΕΥΣΗ</button>
 </div>
 
 <script>
@@ -66,8 +62,6 @@
         document.getElementById('base-view').style.display = name === 'base' ? 'block' : 'none';
         document.getElementById('route-view').style.display = name === 'route' ? 'block' : 'none';
         document.getElementById('settings-view').style.display = name === 'settings' ? 'block' : 'none';
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('btn-' + name).classList.add('active');
         if(name === 'base') renderBase();
         if(name === 'route') renderRoute();
     }
@@ -79,7 +73,7 @@
         db.sort((a,b) => a.n.localeCompare(b.n, 'el'));
         db.filter(i => i.n.toLowerCase().includes(query)).forEach((item, idx) => {
             list.innerHTML += `<div class="card">
-                <div class="info"><span class="name">${item.n}</span><span class="addr">${item.a}</span></div>
+                <div class="info"><span class="name">${item.n}</span><span class="addr">${item.a}</span><span class="time-tag">🕒 ${item.t || '--:--'}</span></div>
                 <div class="btn-group">
                     <button class="btn btn-add" onclick="addToRoute(${idx})">+</button>
                     <button class="btn btn-edit" onclick="editItem(${idx})">✎</button>
@@ -93,53 +87,53 @@
         const list = document.getElementById('route-list');
         list.innerHTML = '';
         route.forEach((item, idx) => {
-            list.innerHTML += `<div class="card" data-id="${idx}">
+            list.innerHTML += `<div class="card" data-idx="${idx}">
                 <div class="handle">☰</div>
-                <div class="info"><span class="name">${item.n}</span><span class="addr">${item.a}</span></div>
+                <div class="info"><span class="name">${idx+1}. ${item.n}</span><span class="addr">${item.a}</span></div>
                 <button class="btn btn-del" onclick="removeFromRoute(${idx})">×</button>
             </div>`;
         });
-       
-        // Ενεργοποίηση Drag & Drop
-        new Sortable(list, {
-            handle: '.handle',
-            animation: 150,
-            onEnd: function() {
-                let newRoute = [];
-                list.querySelectorAll('.card').forEach(el => {
-                    newRoute.push(route[el.getAttribute('data-id')]);
-                });
-                route = newRoute;
-                localStorage.setItem('delivery_route', JSON.stringify(route));
-            }
-        });
+        new Sortable(list, { handle: '.handle', animation: 150, onEnd: function() {
+            let newR = [];
+            list.querySelectorAll('.card').forEach(el => newR.push(route[el.dataset.idx]));
+            route = newR; localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute();
+        }});
     }
 
-    function startNav() {
-        if(route.length === 0) return alert('Άδεια διαδρομή!');
-        let stops = route.map(r => encodeURIComponent(r.a));
-        let dest = stops.pop();
-        let waypoints = stops.join('|');
-        // ΤΟ ΣΩΣΤΟ LINK ΠΟΥ ΔΟΥΛΕΥΕΙ
-        window.open('https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D&data=05%7C02%7C%7C2e168015380448e5a83808de6d21e66b%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068189515291765%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3WIsFoW%2FSmG5yxfvxCMOylGCEmOa3Tq3RjSJVmsVdUI%3D&reserved=0' + dest + '&waypoints=' + waypoints + '&travelmode=driving', '_blank');
-    }
-
-    function addToRoute(idx) { route.push(db[idx]); localStorage.setItem('delivery_route', JSON.stringify(route)); alert('Μπήκε!'); }
-    function removeFromRoute(idx) { route.splice(idx,1); localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute(); }
-    function deleteItem(idx) { if(confirm('Διαγραφή;')) { db.splice(idx,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
     function editItem(idx) {
         let n = prompt("Όνομα:", db[idx].n);
         let a = prompt("Διεύθυνση:", db[idx].a);
-        if(n && a) { db[idx] = {n, a}; localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); }
+        let t = prompt("Ώρα (π.χ. 18:00):", db[idx].t || "");
+        if(n && a) {
+            db[idx] = { n, a, t };
+            localStorage.setItem('delivery_db', JSON.stringify(db));
+            renderBase();
+        }
     }
+
+    function startNav() {
+        if(route.length === 0) return alert('Πρόσθεσε στάσεις!');
+        let destinations = route.map(r => encodeURIComponent(r.a));
+        let finalDest = destinations.pop();
+        let waypoints = destinations.join('|');
+        // Νέο link που αποφεύγει το $
+        let url = `https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7Ca8d0842dcc9641ee1dbc08de6d22defc%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068193699075208%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Zqo9bCgbsMtZMWE7lWnJ574VIaNOdItUbS4%2FH3Dyuuo%3D&reserved=0{finalDest}&waypoints=${waypoints}&travelmode=driving`;
+        window.open(url, '_blank');
+    }
+
+    function addToRoute(i) { route.push(db[i]); localStorage.setItem('delivery_route', JSON.stringify(route)); alert('Προστέθηκε!'); }
+    function removeFromRoute(i) { route.splice(i,1); localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute(); }
+    function clearRoute() { if(confirm('Καθαρισμός;')) { route = []; localStorage.setItem('delivery_route', JSON.stringify(route)); renderRoute(); } }
+    function deleteItem(i) { if(confirm('Διαγραφή;')) { db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
+   
     function saveData() {
         document.getElementById('bulk').value.split('\n').forEach(l => {
-            let p = l.split('..'); if(p.length>=2) db.push({n:p[0].trim(), a:p[1].trim()});
+            let p = l.split('..');
+            if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2] ? p[2].trim() : "" });
         });
         localStorage.setItem('delivery_db', JSON.stringify(db));
-        document.getElementById('bulk').value=''; tab('base');
+        document.getElementById('bulk').value = ''; tab('base');
     }
-    function clearAll() { if(confirm('Σβήσιμο;')) { localStorage.clear(); db=[]; route=[]; renderBase(); } }
 
     tab('base');
 </script>
