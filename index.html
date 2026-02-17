@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v42</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C2faaa9715b844060a4e408de6d2cce07%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068236361388111%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=2wXk5778RNySgF6FpuPqnXS8tWauurjIh0mpHIFlpU4%3D&reserved=0"></script>
+   <title>Delivery Pro v45</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C8a4b23b7c2f44b6bb8f508de6dc02f61%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068869355860068%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=g6MAsm9X%2BtuyA%2BYTxs67ccoHnuQv%2BNKBwB1Reh%2FhZ3g%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); }
@@ -12,15 +12,20 @@
        .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
        .container { padding: 16px; max-width: 600px; margin: auto; }
-       .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 20px; }
+       .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 10px; }
+       .btn-opt { background: var(--accent); color: #000; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; }
        .card { background: var(--card); border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; }
-       .handle { color: #48484a; font-size: 24px; padding-right: 15px; cursor: grab; }
+       .num-badge { background: var(--p); color: #000; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin-right: 12px; }
        .info { flex: 1; overflow: hidden; }
-       .info h4 { margin: 0; font-size: 17px; color: #fff; }
+       .info h4 { margin: 0; font-size: 16px; color: #fff; }
        .info p { margin: 4px 0 0 0; font-size: 13px; color: #8e8e93; }
+       .meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+       .tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; display: flex; align-items: center; gap: 4px; }
+       .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); border: 1px solid var(--p); }
+       .tag-note { background: rgba(48, 176, 199, 0.1); color: var(--accent); border: 1px solid var(--accent); }
        .btn-add { background: var(--p); color: #000; border: none; padding: 10px 15px; border-radius: 10px; font-weight: bold; }
-       .btn-edit { background: #48484a; color: #fff; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; font-size: 18px; }
-       .btn-go-small { background: var(--accent); color: #000; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; font-weight: bold; }
+       .btn-edit { background: #48484a; color: #fff; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; }
+       .btn-go { background: var(--accent); color: #000; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; font-weight: bold; }
        .btn-del { background: #ff453a; color: #fff; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; }
        .hidden { display: none; }
        textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
@@ -36,8 +41,9 @@
 
 <div id="run-page" class="container">
    <button class="btn-full" onclick="startRoute()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
+   <button class="btn-opt" onclick="smartSort()">🪄 ΑΥΤΟΜΑΤΗ ΣΕΙΡΑ (ΧΩΡΙΣ ΩΡΑ -> ΜΕ ΩΡΑ)</button>
    <div id="run-list"></div>
-   <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px; font-weight:bold;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
+   <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
 </div>
 
 <div id="base-page" class="container hidden">
@@ -70,82 +76,94 @@
            if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "---", nt: p[3]?.trim() || "" });
        });
        localStorage.setItem('delivery_db', JSON.stringify(db));
-       document.getElementById('bulk').value = '';
-       tab('base');
+       document.getElementById('bulk').value = ''; tab('base');
    }
 
    function renderBase() {
        const s = document.getElementById('search').value.toLowerCase();
-       const list = document.getElementById('base-list');
-       list.innerHTML = '';
+       const list = document.getElementById('base-list'); list.innerHTML = '';
        db.forEach((item, i) => {
            if(item.n.toLowerCase().includes(s) || item.a.toLowerCase().includes(s)) {
                const div = document.createElement('div');
                div.className = 'card';
-               div.innerHTML = `
-                   <div class="info"><h4>${item.n}</h4><p>${item.a}</p></div>
-                   <button class="btn-add" onclick="addToRun(${i})">+</button>
-                   <button class="btn-edit" onclick="editItem(${i})">✎</button>
-                   <button class="btn-del" onclick="deleteFromBase(${i})">✕</button>`;
+               div.innerHTML = `<div class="info"><h4>${item.n}</h4><p>${item.a}</p></div>
+                               <button class="btn-add" onclick="addToRun(${i})">+</button>
+                               <button class="btn-edit" onclick="editItem(${i})">✎</button>
+                               <button class="btn-del" onclick="deleteFromBase(${i})">✕</button>`;
                list.appendChild(div);
            }
        });
    }
 
-   function editItem(i) {
-       const n = prompt("Όνομα:", db[i].n);
-       const a = prompt("Διεύθυνση:", db[i].a);
-       const t = prompt("Ώρα:", db[i].t);
-       const nt = prompt("Σημειώσεις:", db[i].nt);
-       if(n && a) {
-           db[i] = { n, a, t, nt };
-           localStorage.setItem('delivery_db', JSON.stringify(db));
-           renderBase();
-       }
-   }
-
    function addToRun(i) {
        rn.push({...db[i]});
        localStorage.setItem('delivery_rn', JSON.stringify(rn));
-       alert('Προστέθηκε στη διαδρομή!');
+       alert('Προστέθηκε!');
    }
 
    function renderRun() {
-       const list = document.getElementById('run-list');
-       list.innerHTML = '';
+       const list = document.getElementById('run-list'); list.innerHTML = '';
        rn.forEach((item, idx) => {
            const div = document.createElement('div');
            div.className = 'card'; div.dataset.id = idx;
            div.innerHTML = `
-               <div class="handle">☰</div>
-               <div class="info"><h4>${item.n}</h4><p>${item.a}</p></div>
-               <button class="btn-go-small" onclick="goSingle('${item.a.replace(/'/g, "\\'")}')">GO</button>
+               <div class="num-badge">${idx + 1}</div>
+               <div class="info">
+                   <h4>${item.n}</h4>
+                   <p>${item.a}</p>
+                   <div class="meta">
+                       ${item.t !== '---' ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}
+                       ${item.nt ? `<span class="tag tag-note">🔑 ${item.nt}</span>` : ''}
+                   </div>
+               </div>
+               <button class="btn-go" onclick="goSingle('${item.a.replace(/'/g, "\\'")}')">GO</button>
                <button class="btn-del" onclick="del(${idx})">✕</button>`;
            list.appendChild(div);
        });
    }
 
+   function smartSort() {
+       if(!rn.length) return;
+       // Χωρισμός: Αυτά που δεν έχουν ώρα και αυτά που έχουν
+       let noTime = rn.filter(i => i.t === "---");
+       let hasTime = rn.filter(i => i.t !== "---");
+      
+       // Ταξινόμηση αυτών που έχουν ώρα βάσει χρόνου
+       hasTime.sort((a, b) => a.t.localeCompare(b.t));
+      
+       // Ένωση: Πρώτα χωρίς ώρα, μετά με ώρα
+       rn = [...noTime, ...hasTime];
+       localStorage.setItem('delivery_rn', JSON.stringify(rn));
+       renderRun();
+       alert('Η λίστα οργανώθηκε!');
+   }
+
    function goSingle(a) {
-       const clean = a.replace(/[$]/g, '').trim();
-       window.location.href = "comgooglemaps://?daddr=" + encodeURIComponent(clean) + "&directionsmode=driving";
+       window.location.href = "comgooglemaps://?daddr=" + encodeURIComponent(a.replace(/[$]/g, '')) + "&directionsmode=driving";
    }
 
    function startRoute() {
        if(!rn.length) return;
-       const addresses = rn.map(i => i.a.replace(/[$]/g, '').trim());
-       // Χρησιμοποιούμε ξανά το format που δούλευε
-       window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(addresses.join(' to:')) + "&directionsmode=driving";
+       const addr = rn.map(i => i.a.replace(/[$]/g, '').trim());
+       window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(addr.join(' to:')) + "&directionsmode=driving";
    }
 
-   function del(idx) { rn.splice(idx,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
-   function clearRun() { if(confirm('Καθαρισμός;')) { rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
-   function deleteFromBase(i) { if(confirm('Διαγραφή;')) { db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
+   function editItem(i) {
+       const n = prompt("Όνομα:", db[i].n);
+       const a = prompt("Διεύθυνση:", db[i].a);
+       const t = prompt("Ώρα (π.χ. 04:30):", db[i].t);
+       const nt = prompt("Κωδικός/Σημείωση:", db[i].nt);
+       if(n && a) { db[i] = {n, a, t, nt}; localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); }
+   }
 
-   new Sortable(document.getElementById('run-list'), { handle: '.handle', animation: 150, onEnd: () => {
+   function del(i) { rn.splice(i,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
+   function clearRun() { if(confirm('Καθαρισμός;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
+   function deleteFromBase(i) { if(confirm('Διαγραφή;')){ db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
+
+   new Sortable(document.getElementById('run-list'), { animation: 150, onEnd: () => {
        let newRn = [];
        document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.id]));
-       rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn));
-       renderRun();
+       rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun();
    }});
    tab('run');
 </script>
