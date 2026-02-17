@@ -3,42 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Delivery v56</title>
+    <title>Delivery v57</title>
     <style>
         :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #0a84ff; }
         body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); -webkit-tap-highlight-color: transparent; }
-       
         .nav { display: flex; background: #000; padding-top: 45px; border-bottom: 1px solid #38383a; position: sticky; top: 0; z-index: 1000; }
         .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
         .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
-       
         .container { padding: 16px; max-width: 600px; margin: auto; }
-       
-        /* ΚΟΥΜΠΙΑ */
         .btn-main { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 15px; display: block; }
-        .btn-opt { background: var(--accent); color: #fff; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-       
+        .btn-opt { background: var(--accent); color: #fff; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; display: block; }
         .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; position: relative; }
-       
-        /* HANDLE: ΜΟΝΟ ΕΔΩ ΓΙΝΕΤΑΙ ΤΟ DRAG */
-        .handle { color: #8e8e93; padding: 15px 20px; cursor: grab; font-size: 26px; touch-action: none; user-select: none; -webkit-user-select: none; }
-       
+        .handle { color: #8e8e93; padding: 15px 20px; cursor: grab; font-size: 26px; touch-action: none; user-select: none; }
         .num-badge { background: var(--p); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin-right: 10px; }
-       
-        .info { flex: 1; min-width: 0; padding: 5px 0; }
+        .info { flex: 1; min-width: 0; }
         .info h4 { margin: 0; font-size: 16px; color: #fff; }
         .info p { margin: 3px 0; font-size: 13px; color: #8e8e93; }
-       
         .meta { display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
         .tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600; border: 1px solid; }
         .tag-time { background: rgba(48, 209, 88, 0.15); color: var(--p); border-color: var(--p); }
         .tag-note { background: rgba(10, 132, 255, 0.15); color: var(--accent); border-color: var(--accent); }
-       
         .btn-edit { background: none; border: none; font-size: 22px; padding: 10px; }
         .btn-go { background: var(--accent); color: #fff; border: none; width: 46px; height: 46px; border-radius: 12px; margin-left: 8px; font-weight: bold; }
         .btn-del { background: #ff453a; color: #fff; border: none; width: 46px; height: 46px; border-radius: 12px; margin-left: 8px; }
-       
-        .dragging { opacity: 0.3 !important; background: #444 !important; border: 2px dashed var(--p); }
+        .dragging { opacity: 0.3 !important; }
         .hidden { display: none; }
         textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 12px; }
     </style>
@@ -64,49 +52,39 @@
 </div>
 
 <div id="set-page" class="container hidden">
-    <h3 style="margin-top:0">Μαζική Εισαγωγή</h3>
-    <p style="font-size:12px; color:#8e8e93">Όνομα .. Διεύθυνση .. Ώρα .. Κωδικός</p>
-    <textarea id="bulk" rows="8" placeholder="π.χ. Παπαδόπουλος .. Σταδίου 5 .. 12:00 .. 1020"></textarea>
-    <button onclick="saveData()" class="btn-main">ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΒΑΣΗ</button>
+    <textarea id="bulk" rows="8" placeholder="Όνομα .. Διεύθυνση"></textarea>
+    <button onclick="saveData()" class="btn-main">ΑΠΟΘΗΚΕΥΣΗ</button>
 </div>
 
 <script>
     let db = JSON.parse(localStorage.getItem('delivery_db') || '[]');
     let rn = JSON.parse(localStorage.getItem('delivery_rn') || '[]');
 
+    // --- ΑΥΤΟΜΑΤΗ ΑΛΦΑΒΗΤΙΚΗ ΤΑΞΙΝΟΜΗΣΗ ΒΑΣΗΣ ---
+    function sortDB() {
+        db.sort((a, b) => a.n.localeCompare(b.n, 'el', { sensitivity: 'base' }));
+        localStorage.setItem('delivery_db', JSON.stringify(db));
+    }
+
     function tab(t) {
         document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
         document.getElementById(t + '-page').classList.remove('hidden');
         document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
         if(t==='run') renderRun();
-        if(t==='base') renderBase();
+        if(t==='base') { sortDB(); renderBase(); }
         document.getElementById(t==='run'?'t1':t==='base'?'t2':'t3').classList.add('active');
-        window.scrollTo(0,0);
     }
 
     function renderRun() {
         const list = document.getElementById('run-list'); list.innerHTML = '';
         rn.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.dataset.index = idx;
-            div.innerHTML = `
-                <div class="handle">≡</div>
-                <div class="num-badge">${idx + 1}</div>
-                <div class="info">
-                    <h4>${item.n}</h4>
-                    <p>${item.a}</p>
-                    <div class="meta">
-                        ${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}
-                        ${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}
-                    </div>
-                </div>
+            const div = document.createElement('div'); div.className = 'card'; div.dataset.index = idx;
+            div.innerHTML = `<div class="handle">≡</div><div class="num-badge">${idx + 1}</div>
+                <div class="info"><h4>${item.n}</h4><p>${item.a}</p><div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div></div>
                 <button class="btn-edit" onclick="editRun(${idx})">✏️</button>
                 <button class="btn-go" onclick="window.location.href='comgooglemaps://?daddr='+encodeURIComponent('${item.a}')">GO</button>
                 <button class="btn-del" onclick="delRun(${idx})">✕</button>`;
-           
-            const handle = div.querySelector('.handle');
-            handle.addEventListener('touchstart', (e) => { dragItem = div; dragItem.classList.add('dragging'); }, {passive: true});
+            div.querySelector('.handle').addEventListener('touchstart', (e) => { dragItem = div; dragItem.classList.add('dragging'); }, {passive: true});
             div.addEventListener('touchmove', handleTouchMove, {passive: false});
             div.addEventListener('touchend', handleTouchEnd, {passive: true});
             list.appendChild(div);
@@ -116,34 +94,23 @@
     let dragItem = null;
     function handleTouchMove(e) {
         if (!dragItem) return;
-        const touch = e.touches[0];
-        const container = document.getElementById('run-list');
+        const touch = e.touches[0]; const container = document.getElementById('run-list');
         const afterElement = getDragAfterElement(container, touch.clientY);
-       
-        // Μόνο αν κουνάμε το δάχτυλο πάνω από το ≡ εμποδίζουμε το scroll
         if (e.target.classList.contains('handle')) {
             e.preventDefault();
-            if (afterElement == null) container.appendChild(dragItem);
-            else container.insertBefore(dragItem, afterElement);
+            if (afterElement == null) container.appendChild(dragItem); else container.insertBefore(dragItem, afterElement);
         }
     }
-
     function handleTouchEnd() {
-        if (!dragItem) return;
-        dragItem.classList.remove('dragging');
-        let newRn = [];
-        document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.index]));
-        rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn));
-        dragItem = null; renderRun();
+        if (!dragItem) return; dragItem.classList.remove('dragging');
+        let newRn = []; document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.index]));
+        rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn)); dragItem = null; renderRun();
     }
-
     function getDragAfterElement(container, y) {
         const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
         return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child };
-            else return closest;
+            const box = child.getBoundingClientRect(); const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child }; else return closest;
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
@@ -153,31 +120,24 @@
         db.forEach((item, i) => {
             if(item.n.toLowerCase().includes(s) || item.a.toLowerCase().includes(s)) {
                 const div = document.createElement('div'); div.className = 'card';
-                div.innerHTML = `
-                <div class="info" style="padding-left:15px">
-                    <h4>${item.n}</h4><p>${item.a}</p>
-                    <div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div>
-                </div>
-                <button class="btn-edit" onclick="editBase(${i})">✏️</button>
-                <button style="background:var(--p); border:none; width:46px; height:46px; border-radius:12px; font-weight:bold; color:#000" onclick="addToRun(${i})">+</button>
-                <button class="btn-del" onclick="delBase(${i})">✕</button>`;
+                div.innerHTML = `<div class="info" style="padding-left:15px"><h4>${item.n}</h4><p>${item.a}</p><div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div></div>
+                    <button class="btn-edit" onclick="editBase(${i})">✏️</button>
+                    <button style="background:var(--p); border:none; width:46px; height:46px; border-radius:12px; font-weight:bold; color:#000" onclick="addToRun(${i})">+</button>
+                    <button class="btn-del" onclick="delBase(${i})">✕</button>`;
                 list.appendChild(div);
             }
         });
     }
 
     function smartSort() {
-        let noT = rn.filter(i => !i.t || i.t === "" || i.t === "---");
-        let hasT = rn.filter(i => i.t && i.t !== "" && i.t !== "---");
-        rn = [...noT, ...hasT];
-        localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun();
-        alert("Η λίστα ταξινομήθηκε!");
+        let noT = rn.filter(i => !i.t || i.t === ""); let hasT = rn.filter(i => i.t && i.t !== "");
+        rn = [...noT, ...hasT]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun();
     }
 
     function editBase(i) {
         const n = prompt("Όνομα:", db[i].n); const a = prompt("Διεύθυνση:", db[i].a);
         const t = prompt("Ώρα:", db[i].t || ""); const k = prompt("Κωδικός:", db[i].k || "");
-        if(n && a) { db[i] = {n, a, t, k}; localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); }
+        if(n && a) { db[i] = {n, a, t, k}; sortDB(); renderBase(); }
     }
     function editRun(i) {
         const n = prompt("Όνομα:", rn[i].n); const a = prompt("Διεύθυνση:", rn[i].a);
@@ -185,26 +145,18 @@
         if(n && a) { rn[i] = {n, a, t, k}; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
     }
 
-    function addToRun(i) { rn.push({...db[i]}); localStorage.setItem('delivery_rn', JSON.stringify(rn)); alert('Προστέθηκε στη διαδρομή!'); }
+    function addToRun(i) { rn.push({...db[i]}); localStorage.setItem('delivery_rn', JSON.stringify(rn)); alert('Προστέθηκε!'); }
     function delRun(i) { rn.splice(i,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
-    function delBase(i) { if(confirm('Οριστική διαγραφή από τη βάση;')){db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase();}}
-    function clearRun() { if(confirm('Θέλετε να σβήσετε όλη τη σημερινή διαδρομή;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
-   
-    function startNav() {
-        if(!rn.length) { alert("Η λίστα είναι άδεια!"); return; }
-        window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(rn.map(i=>i.a).join(' to:'));
-    }
+    function delBase(i) { if(confirm('Διαγραφή;')){db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase();}}
+    function clearRun() { if(confirm('Σβήσιμο διαδρομής;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
+    function startNav() { if(!rn.length) return; window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(rn.map(i=>i.a).join(' to:')); }
 
     function saveData() {
-        const val = document.getElementById('bulk').value;
-        if(!val) return;
+        const val = document.getElementById('bulk').value; if(!val) return;
         val.split('\n').forEach(line => {
             const p = line.split('..'); if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "", k: p[3]?.trim() || "" });
         });
-        localStorage.setItem('delivery_db', JSON.stringify(db));
-        document.getElementById('bulk').value = '';
-        alert("Οι πελάτες αποθηκεύτηκαν!");
-        tab('base');
+        sortDB(); document.getElementById('bulk').value = ''; tab('base');
     }
 
     tab('run');
