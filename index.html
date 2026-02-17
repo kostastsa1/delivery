@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v48</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Ceeb63a9a9fd74b6dc31c08de6dc7f733%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068902759175340%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=q%2F0zzKOg0Ls5QCIwCHtx3nRN3DUNIyMNREw82WbzRcA%3D&reserved=0"></script>
+   <title>Delivery Pro v48.1</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C1b115ebcb7c4449aa7a308de6dc8a68d%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068905699757208%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=es7x80Kwdk7wke%2BQoQqzEbw5MM5cQV9p0dZuiKwRto4%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); overflow-x: hidden; }
@@ -13,10 +13,9 @@
        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
        .container { padding: 16px; max-width: 600px; margin: auto; }
       
-       /* Στυλ για τα κουμπιά 10άδων */
-       .btn-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
-       .btn-batch { background: var(--p); color: #000; padding: 18px; font-size: 16px; border-radius: 14px; border: none; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
-       .btn-batch span { background: rgba(0,0,0,0.1); padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+       .btn-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+       .btn-batch { background: var(--p); color: #000; padding: 18px; font-size: 16px; border-radius: 14px; border: none; font-weight: 800; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(48, 209, 88, 0.2); }
+       .btn-batch span { background: rgba(0,0,0,0.15); padding: 4px 10px; border-radius: 8px; font-size: 13px; }
 
        .btn-opt { background: var(--accent); color: #000; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; }
        .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; }
@@ -45,9 +44,7 @@
 
 <div id="run-page" class="container">
    <div id="batch-buttons" class="btn-group"></div>
-  
    <button class="btn-opt" onclick="smartSort()">🪄 ΑΥΤΟΜΑΤΗ ΣΕΙΡΑ (ΠΡΩΤΑ ΧΩΡΙΣ ΩΡΑ)</button>
-  
    <div id="run-list"></div>
    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
 </div>
@@ -59,7 +56,7 @@
 
 <div id="set-page" class="container hidden">
    <textarea id="bulk" rows="8" placeholder="Όνομα .. Διεύθυνση .. Ώρα .. Σημειώσεις"></textarea>
-   <button onclick="saveData()" class="btn-full" style="background:var(--p); color:#000; width:100%; padding:20px; border-radius:16px; border:none; font-weight:800;">ΑΠΟΘΗΚΕΥΣΗ</button>
+   <button onclick="saveData()" class="btn-batch" style="width:100%; justify-content:center;">ΑΠΟΘΗΚΕΥΣΗ</button>
 </div>
 
 <script>
@@ -109,12 +106,11 @@
        const list = document.getElementById('run-list'); list.innerHTML = '';
        const batchDiv = document.getElementById('batch-buttons'); batchDiv.innerHTML = '';
       
-       // Δημιουργία κουμπιών 10άδων
        for (let i = 0; i < rn.length; i += 10) {
            const end = Math.min(i + 10, rn.length);
            const btn = document.createElement('button');
            btn.className = 'btn-batch';
-           btn.innerHTML = `🚀 ΕΝΑΡΞΗ ΔΙΑΔΡΟΜΗΣ <span>${i+1} έως ${end}</span>`;
+           btn.innerHTML = `🚀 ΕΝΑΡΞΗ ΔΙΑΔΡΟΜΗΣ <span>Στάσεις ${i+1}-${end}</span>`;
            btn.onclick = () => startBatch(i, end);
            batchDiv.appendChild(btn);
        }
@@ -129,7 +125,7 @@
                    <h4>${item.n}</h4>
                    <p>${item.a}</p>
                    <div class="meta">
-                       ${item.t !== '---' && item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}
+                       ${(item.t && item.t !== '---' && item.t !== 'null') ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}
                        ${item.nt ? `<span class="tag tag-note">🔑 ${item.nt}</span>` : ''}
                    </div>
                </div>
@@ -142,14 +138,13 @@
    function startBatch(start, end) {
        const slice = rn.slice(start, end);
        const addr = slice.map(i => i.a.trim());
-       // optimize:true -> Η εντολή για να κάνει η Google το "μάγια"
        window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(addr.join(' to:')) + "&directionsmode=driving&optimize=true";
    }
 
    function smartSort() {
        if(!rn.length) return;
-       let noTime = rn.filter(i => i.t === "---" || !i.t);
-       let hasTime = rn.filter(i => i.t !== "---" && i.t);
+       let noTime = rn.filter(i => i.t === "---" || !i.t || i.t === 'null');
+       let hasTime = rn.filter(i => i.t !== "---" && i.t && i.t !== 'null');
        hasTime.sort((a, b) => a.t.localeCompare(b.t));
        rn = [...noTime, ...hasTime];
        localStorage.setItem('delivery_rn', JSON.stringify(rn));
@@ -169,8 +164,9 @@
        onEnd: () => {
            let newRn = [];
            document.querySelectorAll('#run-list .card').forEach(el => {
-               const idx = parseInt(el.querySelector('.num-badge').innerText) - 1;
-               newRn.push(rn[idx]);
+               const numStr = el.querySelector('.num-badge').innerText;
+               const oldIdx = parseInt(numStr) - 1;
+               newRn.push(rn[oldIdx]);
            });
            rn = newRn;
            localStorage.setItem('delivery_rn', JSON.stringify(rn));
