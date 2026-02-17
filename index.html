@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v45</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C95bd567f0ae2404bc0bf08de6dc16592%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068874544816433%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Of%2BpsJ3wFlZbL8fjbhZ0pj2qS9ReIfTbHCZR2M7DCsQ%3D&reserved=0"></script>
+   <title>Delivery Pro v46</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cb808890eb174433f5c8108de6dc4bca4%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068888907820342%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=myoGR98UCYnFoOKLkGmICOAFjnsCJbUZwJCF67%2FQSBs%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); }
@@ -14,19 +14,18 @@
        .container { padding: 16px; max-width: 600px; margin: auto; }
        .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 10px; }
        .btn-opt { background: var(--accent); color: #000; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; }
-       .card { background: var(--card); border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; }
-       .num-badge { background: var(--p); color: #000; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin-right: 12px; flex-shrink: 0; }
+       .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; touch-action: none; }
+       .handle { color: #48484a; padding-right: 12px; cursor: grab; font-size: 20px; }
+       .num-badge { background: var(--p); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin-right: 10px; flex-shrink: 0; }
        .info { flex: 1; overflow: hidden; }
-       .info h4 { margin: 0; font-size: 16px; color: #fff; }
-       .info p { margin: 4px 0 0 0; font-size: 13px; color: #8e8e93; }
-       .meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-       .tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; display: flex; align-items: center; gap: 4px; }
+       .info h4 { margin: 0; font-size: 15px; color: #fff; }
+       .info p { margin: 2px 0 0 0; font-size: 12px; color: #8e8e93; }
+       .meta { display: flex; gap: 6px; margin-top: 6px; }
+       .tag { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; display: flex; align-items: center; gap: 4px; }
        .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); border: 1px solid var(--p); }
        .tag-note { background: rgba(48, 176, 199, 0.1); color: var(--accent); border: 1px solid var(--accent); }
-       .btn-add { background: var(--p); color: #000; border: none; padding: 10px 15px; border-radius: 10px; font-weight: bold; }
-       .btn-edit { background: #48484a; color: #fff; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; }
-       .btn-go { background: var(--accent); color: #000; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; font-weight: bold; }
-       .btn-del { background: #ff453a; color: #fff; border: none; width: 40px; height: 40px; border-radius: 10px; margin-left: 8px; }
+       .btn-go { background: var(--accent); color: #000; border: none; width: 38px; height: 38px; border-radius: 10px; margin-left: 6px; font-weight: bold; }
+       .btn-del { background: #ff453a; color: #fff; border: none; width: 38px; height: 38px; border-radius: 10px; margin-left: 6px; }
        .hidden { display: none; }
        textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
    </style>
@@ -87,9 +86,7 @@
                const div = document.createElement('div');
                div.className = 'card';
                div.innerHTML = `<div class="info"><h4>${item.n}</h4><p>${item.a}</p></div>
-                               <button class="btn-add" onclick="addToRun(${i})">+</button>
-                               <button class="btn-edit" onclick="editItem(${i})">✎</button>
-                               <button class="btn-del" onclick="deleteFromBase(${i})">✕</button>`;
+                               <button style="background:var(--p); color:#000; border:none; padding:10px 15px; border-radius:10px; font-weight:bold;" onclick="addToRun(${i})">+</button>`;
                list.appendChild(div);
            }
        });
@@ -105,8 +102,9 @@
        const list = document.getElementById('run-list'); list.innerHTML = '';
        rn.forEach((item, idx) => {
            const div = document.createElement('div');
-           div.className = 'card'; div.dataset.id = idx;
+           div.className = 'card';
            div.innerHTML = `
+               <div class="handle">≡</div>
                <div class="num-badge">${idx + 1}</div>
                <div class="info">
                    <h4>${item.n}</h4>
@@ -133,32 +131,32 @@
    }
 
    function goSingle(a) {
-       window.location.href = "comgooglemaps://?daddr=" + encodeURIComponent(a.replace(/[$]/g, '')) + "&directionsmode=driving";
+       window.location.href = "comgooglemaps://?daddr=" + encodeURIComponent(a) + "&directionsmode=driving";
    }
 
    function startRoute() {
        if(!rn.length) return;
-       const addr = rn.map(i => i.a.replace(/[$]/g, '').trim());
+       const addr = rn.map(i => i.a.trim());
        window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(addr.join(' to:')) + "&directionsmode=driving";
-   }
-
-   function editItem(i) {
-       const n = prompt("Όνομα:", db[i].n);
-       const a = prompt("Διεύθυνση:", db[i].a);
-       const t = prompt("Ώρα (π.χ. 04:30):", db[i].t);
-       const nt = prompt("Κωδικός/Σημείωση:", db[i].nt);
-       if(n && a) { db[i] = {n, a, t, nt}; localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); }
    }
 
    function del(i) { rn.splice(i,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
    function clearRun() { if(confirm('Καθαρισμός;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
-   function deleteFromBase(i) { if(confirm('Διαγραφή;')){ db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase(); } }
 
-   new Sortable(document.getElementById('run-list'), { animation: 150, onEnd: () => {
-       let newRn = [];
-       document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.id]));
-       rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun();
-   }});
+   new Sortable(document.getElementById('run-list'), {
+       animation: 150,
+       handle: '.handle',
+       onEnd: () => {
+           let newRn = [];
+           document.querySelectorAll('#run-list .card').forEach(el => {
+               const idx = parseInt(el.querySelector('.num-badge').innerText) - 1;
+               newRn.push(rn[idx]);
+           });
+           rn = newRn;
+           localStorage.setItem('delivery_rn', JSON.stringify(rn));
+           renderRun();
+       }
+   });
    tab('run');
 </script>
 </body>
