@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Delivery Pro v54</title>
+    <title>Delivery Pro v55</title>
     <style>
         :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); overflow-x: hidden; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); }
         .nav { display: flex; background: #000; padding-top: 45px; border-bottom: 1px solid #38383a; position: sticky; top: 0; z-index: 100; }
         .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
         .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
         .container { padding: 16px; max-width: 600px; margin: auto; }
         .btn-main { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 10px; }
+        .btn-opt { background: var(--accent); color: #000; width: 100%; padding: 12px; font-size: 14px; border-radius: 10px; border: none; font-weight: 700; margin-bottom: 20px; }
        
-        .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; touch-action: none; position: relative; }
-        .handle { color: #8e8e93; padding: 10px 15px; cursor: grab; font-size: 24px; margin-right: 5px; user-select: none; }
+        .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; position: relative; }
+        /* Μόνο το handle επιτρέπει το drag, το υπόλοιπο card επιτρέπει το scroll */
+        .handle { color: #8e8e93; padding: 15px; cursor: grab; font-size: 24px; touch-action: none; user-select: none; }
         .num-badge { background: var(--p); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin-right: 10px; }
        
-        .info { flex: 1; min-width: 0; pointer-events: none; }
+        .info { flex: 1; min-width: 0; }
         .info h4 { margin: 0; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .info p { margin: 2px 0 0 0; font-size: 12px; color: #8e8e93; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .meta { display: flex; gap: 8px; margin-top: 4px; }
-        .tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); border: 1px solid var(--p); }
-        .tag-note { background: rgba(48, 176, 199, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+        .tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid; }
+        .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); border-color: var(--p); }
+        .tag-note { background: rgba(48, 176, 199, 0.1); color: var(--accent); border-color: var(--accent); }
        
-        .btn-edit { background: none; border: none; font-size: 20px; padding: 10px; z-index: 10; cursor: pointer; }
-        .btn-go { background: var(--accent); color: #000; border: none; width: 44px; height: 44px; border-radius: 12px; margin-left: 8px; font-weight: bold; z-index: 10; }
-        .btn-del { background: #ff453a; color: #fff; border: none; width: 44px; height: 44px; border-radius: 12px; margin-left: 8px; z-index: 10; }
-        .btn-add { background: var(--p); border: none; color: #000; width: 44px; height: 44px; border-radius: 12px; margin-left: 8px; font-weight: bold; z-index: 10; }
+        .btn-edit { background: none; border: none; font-size: 20px; padding: 10px; }
+        .btn-go { background: var(--accent); color: #000; border: none; width: 44px; height: 44px; border-radius: 12px; margin-left: 8px; font-weight: bold; }
+        .btn-del { background: #ff453a; color: #fff; border: none; width: 44px; height: 44px; border-radius: 12px; margin-left: 8px; }
        
-        .dragging { opacity: 0.5; background: #3a3a3c !important; transform: scale(1.02); }
+        .dragging { opacity: 0.5; background: #3a3a3c !important; }
         .hidden { display: none; }
         textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
     </style>
@@ -45,6 +46,7 @@
 
 <div id="run-page" class="container">
     <button class="btn-main" onclick="startNav()">🚀 NAVIGATION</button>
+    <button class="btn-opt" onclick="smartSort()">🪄 ΣΕΙΡΑ (ΩΡΕΣ ΣΤΟ ΤΕΛΟΣ)</button>
     <div id="run-list"></div>
     <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px;">❌ ΚΑΘΑΡΙΣΜΟΣ</button>
 </div>
@@ -77,7 +79,6 @@
         rn.forEach((item, idx) => {
             const div = document.createElement('div');
             div.className = 'card';
-            div.draggable = true;
             div.dataset.index = idx;
             div.innerHTML = `
                 <div class="handle">≡</div>
@@ -94,48 +95,28 @@
                 <button class="btn-go" onclick="window.location.href='comgooglemaps://?daddr='+encodeURIComponent('${item.a}')">GO</button>
                 <button class="btn-del" onclick="delRun(${idx})">✕</button>`;
            
-            div.addEventListener('touchstart', handleTouchStart, {passive: false});
+            // Touch events μόνο για το handle
+            const h = div.querySelector('.handle');
+            h.addEventListener('touchstart', (e) => handleTouchStart(e, div), {passive: false});
             div.addEventListener('touchmove', handleTouchMove, {passive: false});
             div.addEventListener('touchend', handleTouchEnd);
             list.appendChild(div);
         });
     }
 
-    function renderBase() {
-        const s = document.getElementById('search').value.toLowerCase();
-        const list = document.getElementById('base-list'); list.innerHTML = '';
-        db.forEach((item, i) => {
-            if(item.n.toLowerCase().includes(s) || item.a.toLowerCase().includes(s)) {
-                const div = document.createElement('div'); div.className = 'card';
-                div.innerHTML = `
-                <div class="info" style="pointer-events:auto">
-                    <h4>${item.n}</h4>
-                    <p>${item.a}</p>
-                    <div class="meta">
-                        ${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}
-                        ${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}
-                    </div>
-                </div>
-                <button class="btn-edit" onclick="editBase(${i})">✏️</button>
-                <button class="btn-add" onclick="addToRun(${i})">+</button>
-                <button class="btn-del" onclick="delBase(${i})">✕</button>`;
-                list.appendChild(div);
-            }
-        });
-    }
-
-    // Drag & Drop Logic
     let dragItem = null;
-    function handleTouchStart(e) { if (!e.target.classList.contains('handle')) return; dragItem = e.currentTarget; dragItem.classList.add('dragging'); }
+    function handleTouchStart(e, el) { dragItem = el; dragItem.classList.add('dragging'); }
     function handleTouchMove(e) {
-        if (!dragItem) return; e.preventDefault();
+        if (!dragItem) return;
+        e.preventDefault(); // Εμποδίζει το scroll μόνο όταν πιάνεις το handle
         const touch = e.touches[0];
         const container = document.getElementById('run-list');
         const afterElement = getDragAfterElement(container, touch.clientY);
         if (afterElement == null) container.appendChild(dragItem); else container.insertBefore(dragItem, afterElement);
     }
     function handleTouchEnd() {
-        if (!dragItem) return; dragItem.classList.remove('dragging');
+        if (!dragItem) return;
+        dragItem.classList.remove('dragging');
         let newRn = [];
         document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.index]));
         rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn)); dragItem = null; renderRun();
@@ -150,7 +131,31 @@
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
-    // Edit Functions
+    function renderBase() {
+        const s = document.getElementById('search').value.toLowerCase();
+        const list = document.getElementById('base-list'); list.innerHTML = '';
+        db.forEach((item, i) => {
+            if(item.n.toLowerCase().includes(s) || item.a.toLowerCase().includes(s)) {
+                const div = document.createElement('div'); div.className = 'card';
+                div.innerHTML = `
+                <div class="info"><h4>${item.n}</h4><p>${item.a}</p>
+                    <div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div>
+                </div>
+                <button class="btn-edit" onclick="editBase(${i})">✏️</button>
+                <button style="background:var(--p); border:none; width:44px; height:44px; border-radius:12px; font-weight:bold;" onclick="addToRun(${i})">+</button>
+                <button class="btn-del" onclick="delBase(${i})">✕</button>`;
+                list.appendChild(div);
+            }
+        });
+    }
+
+    function smartSort() {
+        let noT = rn.filter(i => !i.t || i.t === "" || i.t === "---");
+        let hasT = rn.filter(i => i.t && i.t !== "" && i.t !== "---");
+        rn = [...noT, ...hasT];
+        localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun();
+    }
+
     function editBase(i) {
         const n = prompt("Όνομα:", db[i].n); const a = prompt("Διεύθυνση:", db[i].a);
         const t = prompt("Ώρα:", db[i].t || ""); const k = prompt("Κωδικός:", db[i].k || "");
@@ -162,7 +167,7 @@
         if(n && a) { rn[i] = {n, a, t, k}; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
     }
 
-    function addToRun(i) { rn.push({...db[i]}); localStorage.setItem('delivery_rn', JSON.stringify(rn)); }
+    function addToRun(i) { rn.push({...db[i]}); localStorage.setItem('delivery_rn', JSON.stringify(rn)); alert('Προστέθηκε!'); }
     function delRun(i) { rn.splice(i,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
     function delBase(i) { if(confirm('Διαγραφή;')){db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase();}}
     function clearRun() { if(confirm('Σβήσιμο;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
@@ -174,8 +179,7 @@
 
     function saveData() {
         document.getElementById('bulk').value.split('\n').forEach(line => {
-            const p = line.split('..');
-            if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "", k: p[3]?.trim() || "" });
+            const p = line.split('..'); if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "", k: p[3]?.trim() || "" });
         });
         localStorage.setItem('delivery_db', JSON.stringify(db)); document.getElementById('bulk').value = ''; tab('base');
     }
