@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v48.1</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C1b115ebcb7c4449aa7a308de6dc8a68d%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068905699757208%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=es7x80Kwdk7wke%2BQoQqzEbw5MM5cQV9p0dZuiKwRto4%3D&reserved=0"></script>
+   <title>Delivery Pro v48.2</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C5bc3816ba6bf49e8ab4908de6dca8121%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068913662595241%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=pXYWIP7zssDdIP1vdUBQ5R20EtAnmKBOE7SS1o4otjg%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); overflow-x: hidden; }
@@ -106,8 +106,9 @@
        const list = document.getElementById('run-list'); list.innerHTML = '';
        const batchDiv = document.getElementById('batch-buttons'); batchDiv.innerHTML = '';
       
-       for (let i = 0; i < rn.length; i += 10) {
-           const end = Math.min(i + 10, rn.length);
+       // ΑΛΛΑΓΗ ΣΕ 9 ΣΤΑΣΕΙΣ για να χωράει και η τοποθεσία του χρήστη (Σύνολο 10)
+       for (let i = 0; i < rn.length; i += 9) {
+           const end = Math.min(i + 9, rn.length);
            const btn = document.createElement('button');
            btn.className = 'btn-batch';
            btn.innerHTML = `🚀 ΕΝΑΡΞΗ ΔΙΑΔΡΟΜΗΣ <span>Στάσεις ${i+1}-${end}</span>`;
@@ -138,6 +139,7 @@
    function startBatch(start, end) {
        const slice = rn.slice(start, end);
        const addr = slice.map(i => i.a.trim());
+       // optimize:true -> Η εντολή για βελτιστοποίηση σειράς
        window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(addr.join(' to:')) + "&directionsmode=driving&optimize=true";
    }
 
