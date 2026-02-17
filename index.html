@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery Pro v47</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C0d0c195e4ee34161eb0b08de6dc5851f%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068892275088962%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=UJ5%2FtWcXerQdrHbhAFkkLblQYG0SXteYlP1JdB7ZNEU%3D&reserved=0"></script>
+   <title>Delivery Pro v48</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Ceeb63a9a9fd74b6dc31c08de6dc7f733%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639068902759175340%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=q%2F0zzKOg0Ls5QCIwCHtx3nRN3DUNIyMNREw82WbzRcA%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #30b0c7; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); overflow-x: hidden; }
@@ -12,19 +12,23 @@
        .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
        .container { padding: 16px; max-width: 600px; margin: auto; }
-       .btn-full { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 10px; }
+      
+       /* Στυλ για τα κουμπιά 10άδων */
+       .btn-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+       .btn-batch { background: var(--p); color: #000; padding: 18px; font-size: 16px; border-radius: 14px; border: none; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+       .btn-batch span { background: rgba(0,0,0,0.1); padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+
        .btn-opt { background: var(--accent); color: #000; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; }
        .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; }
-       /* Η ΛΑΒΗ ΕΙΝΑΙ ΤΟ ΜΟΝΟ ΣΗΜΕΙΟ ΓΙΑ DRAG */
        .handle { color: #8e8e93; padding: 10px 15px 10px 5px; cursor: grab; font-size: 22px; touch-action: none; flex-shrink: 0; }
        .num-badge { background: var(--p); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin-right: 10px; flex-shrink: 0; }
-       .info { flex: 1; overflow: hidden; pointer-events: auto; }
+       .info { flex: 1; overflow: hidden; }
        .info h4 { margin: 0; font-size: 15px; color: #fff; }
        .info p { margin: 2px 0 0 0; font-size: 12px; color: #8e8e93; }
        .meta { display: flex; gap: 6px; margin-top: 6px; }
-       .tag { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; display: flex; align-items: center; gap: 4px; }
-       .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); border: 1px solid var(--p); }
-       .tag-note { background: rgba(48, 176, 199, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+       .tag { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; display: flex; align-items: center; gap: 4px; border: 1px solid currentColor; }
+       .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); }
+       .tag-note { background: rgba(48, 176, 199, 0.1); color: var(--accent); }
        .btn-go { background: var(--accent); color: #000; border: none; width: 38px; height: 38px; border-radius: 10px; margin-left: 6px; font-weight: bold; flex-shrink: 0; }
        .btn-del { background: #ff453a; color: #fff; border: none; width: 38px; height: 38px; border-radius: 10px; margin-left: 6px; flex-shrink: 0; }
        .hidden { display: none; }
@@ -40,8 +44,10 @@
 </div>
 
 <div id="run-page" class="container">
-   <button class="btn-full" onclick="startRoute()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
+   <div id="batch-buttons" class="btn-group"></div>
+  
    <button class="btn-opt" onclick="smartSort()">🪄 ΑΥΤΟΜΑΤΗ ΣΕΙΡΑ (ΠΡΩΤΑ ΧΩΡΙΣ ΩΡΑ)</button>
+  
    <div id="run-list"></div>
    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
 </div>
@@ -53,7 +59,7 @@
 
 <div id="set-page" class="container hidden">
    <textarea id="bulk" rows="8" placeholder="Όνομα .. Διεύθυνση .. Ώρα .. Σημειώσεις"></textarea>
-   <button onclick="saveData()" class="btn-full">ΑΠΟΘΗΚΕΥΣΗ</button>
+   <button onclick="saveData()" class="btn-full" style="background:var(--p); color:#000; width:100%; padding:20px; border-radius:16px; border:none; font-weight:800;">ΑΠΟΘΗΚΕΥΣΗ</button>
 </div>
 
 <script>
@@ -101,6 +107,18 @@
 
    function renderRun() {
        const list = document.getElementById('run-list'); list.innerHTML = '';
+       const batchDiv = document.getElementById('batch-buttons'); batchDiv.innerHTML = '';
+      
+       // Δημιουργία κουμπιών 10άδων
+       for (let i = 0; i < rn.length; i += 10) {
+           const end = Math.min(i + 10, rn.length);
+           const btn = document.createElement('button');
+           btn.className = 'btn-batch';
+           btn.innerHTML = `🚀 ΕΝΑΡΞΗ ΔΙΑΔΡΟΜΗΣ <span>${i+1} έως ${end}</span>`;
+           btn.onclick = () => startBatch(i, end);
+           batchDiv.appendChild(btn);
+       }
+
        rn.forEach((item, idx) => {
            const div = document.createElement('div');
            div.className = 'card';
@@ -121,6 +139,13 @@
        });
    }
 
+   function startBatch(start, end) {
+       const slice = rn.slice(start, end);
+       const addr = slice.map(i => i.a.trim());
+       // optimize:true -> Η εντολή για να κάνει η Google το "μάγια"
+       window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(addr.join(' to:')) + "&directionsmode=driving&optimize=true";
+   }
+
    function smartSort() {
        if(!rn.length) return;
        let noTime = rn.filter(i => i.t === "---" || !i.t);
@@ -135,18 +160,12 @@
        window.location.href = "comgooglemaps://?daddr=" + encodeURIComponent(a) + "&directionsmode=driving";
    }
 
-   function startRoute() {
-       if(!rn.length) return;
-       const addr = rn.map(i => i.a.trim());
-       window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(addr.join(' to:')) + "&directionsmode=driving";
-   }
-
    function del(i) { rn.splice(i,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
    function clearRun() { if(confirm('Καθαρισμός;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
 
    new Sortable(document.getElementById('run-list'), {
        animation: 150,
-       handle: '.handle', // Μόνο η λαβή ενεργοποιεί το drag
+       handle: '.handle',
        onEnd: () => {
            let newRn = [];
            document.querySelectorAll('#run-list .card').forEach(el => {
