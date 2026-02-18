@@ -2,164 +2,190 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Delivery v57</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Delivery Run v58 - Stable</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cd0f1e0165dc74511af5708de6eaae326%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069877379396453%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=2dt%2FL1hRC4vDJqV6opYDXKy%2BAZOEIcp6TDLWhn%2BG4bI%3D&reserved=0"></script>
     <style>
-        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #0a84ff; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); -webkit-tap-highlight-color: transparent; }
-        .nav { display: flex; background: #000; padding-top: 45px; border-bottom: 1px solid #38383a; position: sticky; top: 0; z-index: 1000; }
-        .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
-        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
-        .container { padding: 16px; max-width: 600px; margin: auto; }
-        .btn-main { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 15px; display: block; }
-        .btn-opt { background: var(--accent); color: #fff; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; display: block; }
-        .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; position: relative; }
-        .handle { color: #8e8e93; padding: 15px 20px; cursor: grab; font-size: 26px; touch-action: none; user-select: none; }
-        .num-badge { background: var(--p); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin-right: 10px; }
-        .info { flex: 1; min-width: 0; }
-        .info h4 { margin: 0; font-size: 16px; color: #fff; }
-        .info p { margin: 3px 0; font-size: 13px; color: #8e8e93; }
-        .meta { display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
-        .tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600; border: 1px solid; }
-        .tag-time { background: rgba(48, 209, 88, 0.15); color: var(--p); border-color: var(--p); }
-        .tag-note { background: rgba(10, 132, 255, 0.15); color: var(--accent); border-color: var(--accent); }
-        .btn-edit { background: none; border: none; font-size: 22px; padding: 10px; }
-        .btn-go { background: var(--accent); color: #fff; border: none; width: 46px; height: 46px; border-radius: 12px; margin-left: 8px; font-weight: bold; }
-        .btn-del { background: #ff453a; color: #fff; border: none; width: 46px; height: 46px; border-radius: 12px; margin-left: 8px; }
-        .dragging { opacity: 0.3 !important; }
-        .hidden { display: none; }
-        textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 12px; }
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #00e676;
+            --danger-color: #cf6679;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container { width: 100%; max-width: 500px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--accent-color);
+            cursor: grab;
+        }
+        .info { flex-grow: 1; margin-right: 10px; }
+        .name { font-weight: bold; font-size: 1.1em; color: #fff; }
+        .address { font-size: 0.9em; color: #bbb; margin-top: 4px; }
+        .nav-btn {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-add { background: #3700b3; color: white; }
+        .btn-clear { background: var(--danger-color); color: white; }
+       
+        /* Modal Style for Bulk Import */
+        #importModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
-<div class="nav">
-    <button id="t1" onclick="tab('run')" class="active">ΔΙΑΔΡΟΜΗ</button>
-    <button id="t2" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
-    <button id="t3" onclick="tab('set')">⚙️ ΕΙΣΑΓΩΓΗ</button>
+<div class="container">
+    <div class="header">
+        <h2>Delivery Run v58 🚛</h2>
+    </div>
+
+    <div class="controls">
+        <button class="btn-add" onclick="showModal()">+ BULK IMPORT</button>
+        <button class="btn-clear" onclick="clearAll()">CLEAR ALL</button>
+    </div>
+
+    <div id="stopList"></div>
 </div>
 
-<div id="run-page" class="container">
-    <button class="btn-main" onclick="startNav()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
-    <button class="btn-opt" onclick="smartSort()">🪄 ΑΥΤΟΜΑΤΗ ΣΕΙΡΑ (ΩΡΕΣ ΚΑΤΩ)</button>
-    <div id="run-list"></div>
-    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:25px; font-weight:bold;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
-</div>
-
-<div id="base-page" class="container hidden">
-    <input type="text" id="search" placeholder="🔍 Αναζήτηση πελάτη..." onkeyup="renderBase()">
-    <div id="base-list"></div>
-</div>
-
-<div id="set-page" class="container hidden">
-    <textarea id="bulk" rows="8" placeholder="Όνομα .. Διεύθυνση"></textarea>
-    <button onclick="saveData()" class="btn-main">ΑΠΟΘΗΚΕΥΣΗ</button>
+<div id="importModal">
+    <h3 style="color:white">Επικόλληση Λίστας (Όνομα | Διεύθυνση)</h3>
+    <textarea id="bulkData" placeholder="Παράδειγμα:&#10;Barwon Fish | 154 High St, Belmont&#10;Souva Bar | 17 Clifton Rd, Drysdale"></textarea>
+    <div style="display:flex; gap:10px;">
+        <button class="btn-add" onclick="processImport()">ΕΙΣΑΓΩΓΗ</button>
+        <button class="btn-clear" onclick="hideModal()">ΑΚΥΡΟ</button>
+    </div>
 </div>
 
 <script>
-    let db = JSON.parse(localStorage.getItem('delivery_db') || '[]');
-    let rn = JSON.parse(localStorage.getItem('delivery_rn') || '[]');
+    let stops = JSON.parse(localStorage.getItem('deliveryStops')) || [];
 
-    // --- ΑΥΤΟΜΑΤΗ ΑΛΦΑΒΗΤΙΚΗ ΤΑΞΙΝΟΜΗΣΗ ΒΑΣΗΣ ---
-    function sortDB() {
-        db.sort((a, b) => a.n.localeCompare(b.n, 'el', { sensitivity: 'base' }));
-        localStorage.setItem('delivery_db', JSON.stringify(db));
+    function saveStops() {
+        localStorage.setItem('deliveryStops', JSON.stringify(stops));
     }
 
-    function tab(t) {
-        document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
-        document.getElementById(t + '-page').classList.remove('hidden');
-        document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-        if(t==='run') renderRun();
-        if(t==='base') { sortDB(); renderBase(); }
-        document.getElementById(t==='run'?'t1':t==='base'?'t2':'t3').classList.add('active');
-    }
-
-    function renderRun() {
-        const list = document.getElementById('run-list'); list.innerHTML = '';
-        rn.forEach((item, idx) => {
-            const div = document.createElement('div'); div.className = 'card'; div.dataset.index = idx;
-            div.innerHTML = `<div class="handle">≡</div><div class="num-badge">${idx + 1}</div>
-                <div class="info"><h4>${item.n}</h4><p>${item.a}</p><div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div></div>
-                <button class="btn-edit" onclick="editRun(${idx})">✏️</button>
-                <button class="btn-go" onclick="window.location.href='comgooglemaps://?daddr='+encodeURIComponent('${item.a}')">GO</button>
-                <button class="btn-del" onclick="delRun(${idx})">✕</button>`;
-            div.querySelector('.handle').addEventListener('touchstart', (e) => { dragItem = div; dragItem.classList.add('dragging'); }, {passive: true});
-            div.addEventListener('touchmove', handleTouchMove, {passive: false});
-            div.addEventListener('touchend', handleTouchEnd, {passive: true});
-            list.appendChild(div);
+    function renderStops() {
+        const list = document.getElementById('stopList');
+        list.innerHTML = '';
+        stops.forEach((stop, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.setAttribute('data-id', index);
+            card.innerHTML = `
+                <div class="info">
+                    <div class="name">${stop.name}</div>
+                    <div class="address">${stop.address}</div>
+                </div>
+                <a class="nav-btn" href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D%24&data=05%7C02%7C%7Cd0f1e0165dc74511af5708de6eaae326%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069877379413493%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=YWB4gX6PhH0T8EZyBHqTQuOpn9KcG0j2Dj15gex%2F48A%3D&reserved=0{encodeURIComponent(stop.address)}" target="_blank">GO</a>
+            `;
+            list.appendChild(card);
         });
     }
 
-    let dragItem = null;
-    function handleTouchMove(e) {
-        if (!dragItem) return;
-        const touch = e.touches[0]; const container = document.getElementById('run-list');
-        const afterElement = getDragAfterElement(container, touch.clientY);
-        if (e.target.classList.contains('handle')) {
-            e.preventDefault();
-            if (afterElement == null) container.appendChild(dragItem); else container.insertBefore(dragItem, afterElement);
-        }
-    }
-    function handleTouchEnd() {
-        if (!dragItem) return; dragItem.classList.remove('dragging');
-        let newRn = []; document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.index]));
-        rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn)); dragItem = null; renderRun();
-    }
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect(); const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child }; else return closest;
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
+    function showModal() { document.getElementById('importModal').style.display = 'flex'; }
+    function hideModal() { document.getElementById('importModal').style.display = 'none'; }
 
-    function renderBase() {
-        const s = document.getElementById('search').value.toLowerCase();
-        const list = document.getElementById('base-list'); list.innerHTML = '';
-        db.forEach((item, i) => {
-            if(item.n.toLowerCase().includes(s) || item.a.toLowerCase().includes(s)) {
-                const div = document.createElement('div'); div.className = 'card';
-                div.innerHTML = `<div class="info" style="padding-left:15px"><h4>${item.n}</h4><p>${item.a}</p><div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div></div>
-                    <button class="btn-edit" onclick="editBase(${i})">✏️</button>
-                    <button style="background:var(--p); border:none; width:46px; height:46px; border-radius:12px; font-weight:bold; color:#000" onclick="addToRun(${i})">+</button>
-                    <button class="btn-del" onclick="delBase(${i})">✕</button>`;
-                list.appendChild(div);
+    function processImport() {
+        const text = document.getElementById('bulkData').value;
+        const lines = text.split('\n');
+        lines.forEach(line => {
+            if(line.includes('|')) {
+                const [name, address] = line.split('|');
+                if(name && address) {
+                    stops.push({ name: name.trim(), address: address.trim() });
+                }
             }
         });
+        saveStops();
+        renderStops();
+        hideModal();
+        document.getElementById('bulkData').value = '';
     }
 
-    function smartSort() {
-        let noT = rn.filter(i => !i.t || i.t === ""); let hasT = rn.filter(i => i.t && i.t !== "");
-        rn = [...noT, ...hasT]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun();
+    function clearAll() {
+        if(confirm('Σίγουρα διαγραφή όλων;')) {
+            stops = [];
+            saveStops();
+            renderStops();
+        }
     }
 
-    function editBase(i) {
-        const n = prompt("Όνομα:", db[i].n); const a = prompt("Διεύθυνση:", db[i].a);
-        const t = prompt("Ώρα:", db[i].t || ""); const k = prompt("Κωδικός:", db[i].k || "");
-        if(n && a) { db[i] = {n, a, t, k}; sortDB(); renderBase(); }
-    }
-    function editRun(i) {
-        const n = prompt("Όνομα:", rn[i].n); const a = prompt("Διεύθυνση:", rn[i].a);
-        const t = prompt("Ώρα:", rn[i].t || ""); const k = prompt("Κωδικός:", rn[i].k || "");
-        if(n && a) { rn[i] = {n, a, t, k}; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
-    }
+    // Drag and Drop
+    const el = document.getElementById('stopList');
+    Sortable.create(el, {
+        animation: 150,
+        onEnd: function() {
+            let newOrder = [];
+            document.querySelectorAll('.card').forEach(card => {
+                const name = card.querySelector('.name').innerText;
+                const address = card.querySelector('.address').innerText;
+                newOrder.push({ name, address });
+            });
+            stops = newOrder;
+            saveStops();
+        }
+    });
 
-    function addToRun(i) { rn.push({...db[i]}); localStorage.setItem('delivery_rn', JSON.stringify(rn)); alert('Προστέθηκε!'); }
-    function delRun(i) { rn.splice(i,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
-    function delBase(i) { if(confirm('Διαγραφή;')){db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase();}}
-    function clearRun() { if(confirm('Σβήσιμο διαδρομής;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
-    function startNav() { if(!rn.length) return; window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(rn.map(i=>i.a).join(' to:')); }
-
-    function saveData() {
-        const val = document.getElementById('bulk').value; if(!val) return;
-        val.split('\n').forEach(line => {
-            const p = line.split('..'); if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "", k: p[3]?.trim() || "" });
-        });
-        sortDB(); document.getElementById('bulk').value = ''; tab('base');
-    }
-
-    tab('run');
+    // Αρχικό φόρτωμα
+    window.onload = renderStops;
 </script>
+
 </body>
 </html>
