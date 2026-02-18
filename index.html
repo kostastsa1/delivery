@@ -3,124 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Run v61</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C3b7e589103cf4a6d340608de6eb6570b%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069926592271785%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=b7syAcsp9zVcyu8vh04O39iB8gZN%2FKCNNz6lBL7inl4%3D&reserved=0"></script>
+    <title>Delivery v62</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C7e374590f01947af18a208de6eb73a99%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069930399866601%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=qGOHcbLYSGOZdFlLXD1HnhqSkaZJBHusQjb3AHNdVAs%3D&reserved=0"></script>
     <style>
-        :root { --bg: #121212; --card: #1e1e1e; --text: #e0e0e0; --accent: #00e676; }
-        body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; overflow-x: hidden; }
-        .container { width: 100%; max-width: 500px; margin: auto; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--accent); cursor: move; touch-action: none; }
-        .info { flex-grow: 1; margin-right: 10px; overflow: hidden; }
-        .name { font-weight: bold; font-size: 1.1em; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .address { font-size: 0.85em; color: #bbb; margin-top: 4px; display: block; }
-        .nav-btn { background: var(--accent); color: #000; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; text-decoration: none; text-align: center; min-width: 60px; font-size: 14px; }
-        .controls { display: flex; gap: 10px; margin-bottom: 20px; margin-top: 10px; }
-        button { flex: 1; padding: 15px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; }
-        .btn-add { background: #6200ee; color: white; }
-        .btn-clear { background: #cf6679; color: white; }
-        #importModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; flex-direction: column; padding: 20px; box-sizing: border-box; }
-        textarea { width: 100%; height: 60%; background: #222; color: #fff; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 16px; margin-bottom: 20px; }
+        body { font-family: sans-serif; background: #000; color: #fff; margin: 0; padding: 15px; }
+        .container { max-width: 500px; margin: auto; }
+        .btn-add { background: #6200ee; color: white; width: 100%; padding: 15px; border-radius: 8px; border: none; font-weight: bold; margin-bottom: 10px; font-size: 16px; }
+        .btn-clear { background: #cf6679; color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; margin-bottom: 20px; }
+        .card { background: #1e1e1e; border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #00e676; }
+        .info { flex: 1; }
+        .name { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
+        .addr { font-size: 0.9em; color: #bbb; }
+        .go-btn { background: #00e676; color: #000; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; margin-left: 10px; }
+        #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); flex-direction: column; padding: 20px; z-index: 999; }
+        textarea { width: 100%; height: 250px; background: #222; color: #fff; border: 1px solid #444; border-radius: 8px; padding: 10px; font-size: 16px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="text-align:center">Delivery Run v61 🚛</h2>
-    <div class="controls">
-        <button class="btn-add" onclick="showModal()">+ BULK IMPORT</button>
-        <button class="btn-clear" onclick="clearAll()">CLEAR ALL</button>
-    </div>
+    <h2 style="text-align:center">Delivery Run v62 🚛</h2>
+    <button class="btn-add" onclick="document.getElementById('modal').style.display='flex'">+ BULK IMPORT</button>
     <div id="stopList"></div>
+    <button class="btn-clear" onclick="clearAll()" style="margin-top:30px">CLEAR ALL</button>
 </div>
 
-<div id="importModal">
+<div id="modal">
     <h3 style="color:white">Επικόλληση Λίστας</h3>
     <textarea id="bulkData" placeholder="Όνομα | Διεύθυνση..."></textarea>
-    <div style="display:flex; gap:10px;">
-        <button class="btn-add" onclick="processImport()">ΕΙΣΑΓΩΓΗ</button>
-        <button class="btn-clear" onclick="hideModal()">ΑΚΥΡΟ</button>
-    </div>
+    <button class="btn-add" onclick="processImport()">ΕΙΣΑΓΩΓΗ</button>
+    <button class="btn-clear" onclick="document.getElementById('modal').style.display='none'">ΑΚΥΡΟ</button>
 </div>
 
 <script>
-    let stops = [];
-   
-    // Φόρτωση από τη μνήμη
-    const saved = localStorage.getItem('deliveryStops_v61');
-    if (saved) {
-        stops = JSON.parse(saved);
-        renderStops();
-    }
+    let stops = JSON.parse(localStorage.getItem('delivery_v62') || '[]');
 
-    function save() {
-        localStorage.setItem('deliveryStops_v61', JSON.stringify(stops));
-    }
-
-    function renderStops() {
+    function render() {
         const list = document.getElementById('stopList');
         list.innerHTML = '';
-        stops.forEach((stop, index) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
+        stops.forEach((s, i) => {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = `
                 <div class="info">
-                    <div class="name">${stop.name}</div>
-                    <div class="address">${stop.address}</div>
+                    <div class="name">${s.name}</div>
+                    <div class="addr">${s.addr}</div>
                 </div>
-                <a class="nav-btn" href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C3b7e589103cf4a6d340608de6eb6570b%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069926592285544%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=gPsY9SFCu5tJ117EtEtCxTFKaBA%2FP5QLkarhBzkd8YI%3D&reserved=0{encodeURIComponent(stop.address)}" target="_blank">GO</a>
+                <a class="go-btn" href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C7e374590f01947af18a208de6eb73a99%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069930399881503%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=IDn2em0%2FmSFPMgxlF7N7Q9LulYIkLgBFQyz2QiBPtvs%3D&reserved=0{encodeURIComponent(s.addr)}" target="_blank">GO</a>
             `;
-            list.appendChild(card);
+            list.appendChild(div);
         });
+        localStorage.setItem('delivery_v62', JSON.stringify(stops));
     }
-
-    function showModal() { document.getElementById('importModal').style.display = 'flex'; }
-    function hideModal() { document.getElementById('importModal').style.display = 'none'; }
 
     function processImport() {
         const text = document.getElementById('bulkData').value;
-        const lines = text.split('\n');
-       
-        lines.forEach(line => {
-            let cleanLine = line.trim();
-            if(cleanLine !== "") {
-                if(cleanLine.includes('|')) {
-                    const parts = cleanLine.split('|');
-                    stops.push({ name: parts[0].trim(), address: parts[1].trim() });
-                } else {
-                    stops.push({ name: "Στάση " + (stops.length + 1), address: cleanLine });
-                }
+        text.split('\n').forEach(line => {
+            if(line.trim()) {
+                let p = line.split('|');
+                stops.push({ name: p[0].trim(), addr: p.length > 1 ? p[1].trim() : p[0].trim() });
             }
         });
-
-        save();
-        renderStops();
-        hideModal();
+        render();
+        document.getElementById('modal').style.display = 'none';
         document.getElementById('bulkData').value = '';
     }
 
-    function clearAll() {
-        if(confirm('Σίγουρα διαγραφή όλων;')) {
-            stops = [];
-            save();
-            renderStops();
-        }
-    }
+    function clearAll() { if(confirm('Διαγραφή;')) { stops = []; render(); } }
 
-    // Ενεργοποίηση Drag & Drop
-    new Sortable(document.getElementById('stopList'), {
-        animation: 150,
-        onEnd: function() {
-            let updatedOrder = [];
-            document.querySelectorAll('.card').forEach(card => {
-                updatedOrder.push({
-                    name: card.querySelector('.name').innerText,
-                    address: card.querySelector('.address').innerText
-                });
-            });
-            stops = updatedOrder;
-            save();
-        }
-    });
+    new Sortable(document.getElementById('stopList'), { animation: 150, onEnd: () => {
+        let items = [];
+        document.querySelectorAll('.card').forEach(c => {
+            items.push({ name: c.querySelector('.name').innerText, addr: c.querySelector('.addr').innerText });
+        });
+        stops = items;
+        localStorage.setItem('delivery_v62', JSON.stringify(stops));
+    }});
+
+    render();
 </script>
 
 </body>
