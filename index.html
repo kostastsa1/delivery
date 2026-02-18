@@ -1,1 +1,192 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Delivery Run v58 - Stable</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cd0f1e0165dc74511af5708de6eaae326%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069877379396453%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=2dt%2FL1hRC4vDJqV6opYDXKy%2BAZOEIcp6TDLWhn%2BG4bI%3D&reserved=0"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #00e676;
+            --danger-color: #cf6679;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container { width: 100%; max-width: 500px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--accent-color);
+            cursor: grab;
+        }
+        .info { flex-grow: 1; margin-right: 10px; }
+        .name { font-weight: bold; font-size: 1.1em; color: #fff; }
+        .address { font-size: 0.9em; color: #bbb; margin-top: 4px; }
+        .nav-btn {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-add { background: #3700b3; color: white; }
+        .btn-clear { background: var(--danger-color); color: white; }
+       
+        /* Modal Style for Bulk Import */
+        #importModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>Delivery Run v58 🚛</h2>
+    </div>
+
+    <div class="controls">
+        <button class="btn-add" onclick="showModal()">+ BULK IMPORT</button>
+        <button class="btn-clear" onclick="clearAll()">CLEAR ALL</button>
+    </div>
+
+    <div id="stopList"></div>
+</div>
+
+<div id="importModal">
+    <h3 style="color:white">Επικόλληση Λίστας (Όνομα | Διεύθυνση)</h3>
+    <textarea id="bulkData" placeholder="Παράδειγμα:&#10;Barwon Fish | 154 High St, Belmont&#10;Souva Bar | 17 Clifton Rd, Drysdale"></textarea>
+    <div style="display:flex; gap:10px;">
+        <button class="btn-add" onclick="processImport()">ΕΙΣΑΓΩΓΗ</button>
+        <button class="btn-clear" onclick="hideModal()">ΑΚΥΡΟ</button>
+    </div>
+</div>
+
+<script>
+    let stops = JSON.parse(localStorage.getItem('deliveryStops')) || [];
+
+    function saveStops() {
+        localStorage.setItem('deliveryStops', JSON.stringify(stops));
+    }
+
+    function renderStops() {
+        const list = document.getElementById('stopList');
+        list.innerHTML = '';
+        stops.forEach((stop, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.setAttribute('data-id', index);
+            card.innerHTML = `
+                <div class="info">
+                    <div class="name">${stop.name}</div>
+                    <div class="address">${stop.address}</div>
+                </div>
+                <a class="nav-btn" href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D%24&data=05%7C02%7C%7Cd0f1e0165dc74511af5708de6eaae326%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069877379413493%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=YWB4gX6PhH0T8EZyBHqTQuOpn9KcG0j2Dj15gex%2F48A%3D&reserved=0{encodeURIComponent(stop.address)}" target="_blank">GO</a>
+            `;
+            list.appendChild(card);
+        });
+    }
+
+    function showModal() { document.getElementById('importModal').style.display = 'flex'; }
+    function hideModal() { document.getElementById('importModal').style.display = 'none'; }
+
+    function processImport() {
+        const text = document.getElementById('bulkData').value;
+        const lines = text.split('\n');
+        lines.forEach(line => {
+            if(line.includes('|')) {
+                const [name, address] = line.split('|');
+                if(name && address) {
+                    stops.push({ name: name.trim(), address: address.trim() });
+                }
+            }
+        });
+        saveStops();
+        renderStops();
+        hideModal();
+        document.getElementById('bulkData').value = '';
+    }
+
+    function clearAll() {
+        if(confirm('Σίγουρα διαγραφή όλων;')) {
+            stops = [];
+            saveStops();
+            renderStops();
+        }
+    }
+
+    // Drag and Drop
+    const el = document.getElementById('stopList');
+    Sortable.create(el, {
+        animation: 150,
+        onEnd: function() {
+            let newOrder = [];
+            document.querySelectorAll('.card').forEach(card => {
+                const name = card.querySelector('.name').innerText;
+                const address = card.querySelector('.address').innerText;
+                newOrder.push({ name, address });
+            });
+            stops = newOrder;
+            saveStops();
+        }
+    });
+
+    // Αρχικό φόρτωμα
+    window.onload = renderStops;
+</script>
+
+</body>
+</html>
 
