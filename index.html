@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Run v59 - Final</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C25cacba7fb174cf60f7e08de6eae4dcf%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069892075388345%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=0BWfnP9QIoqLJYBXhY9BdTaK%2FK%2F%2B8sqZligCl7NtNNM%3D&reserved=0"></script>
+    <title>Delivery Run v60</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Cafeabefd51a94a5f89a308de6eb2f06a%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069911962421033%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=2JWPjZDLNerwzewHsWSU3pj3z6mel8IFmNcWCIfSAVU%3D&reserved=0"></script>
     <style>
         :root { --bg: #121212; --card: #1e1e1e; --text: #e0e0e0; --accent: #00e676; }
         body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; }
         .container { width: 100%; max-width: 500px; margin: auto; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--accent); }
+        .card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--accent); cursor: move; }
         .info { flex-grow: 1; margin-right: 10px; }
         .name { font-weight: bold; font-size: 1.1em; color: #fff; }
         .address { font-size: 0.85em; color: #bbb; margin-top: 4px; }
@@ -19,13 +19,13 @@
         .btn-add { background: #6200ee; color: white; }
         .btn-clear { background: #cf6679; color: white; }
         #importModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; flex-direction: column; padding: 20px; box-sizing: border-box; }
-        textarea { width: 100%; height: 60%; background: #222; color: #fff; padding: 10px; border-radius: 8px; border: 1px solid #444; }
+        textarea { width: 100%; height: 60%; background: #222; color: #fff; padding: 10px; border-radius: 8px; border: 1px solid #444; font-size: 14px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="text-align:center">Delivery Run v59 🚛</h2>
+    <h2 style="text-align:center">Delivery Run v60 🚛</h2>
     <div class="controls">
         <button class="btn-add" onclick="showModal()">+ BULK IMPORT</button>
         <button class="btn-clear" onclick="clearAll()">CLEAR ALL</button>
@@ -34,25 +34,25 @@
 </div>
 
 <div id="importModal">
-    <h3 style="color:white">Paste List (Name | Address)</h3>
-    <textarea id="bulkData" placeholder="Shop Name | Address..."></textarea>
+    <h3 style="color:white">Επικόλληση Λίστας</h3>
+    <textarea id="bulkData" placeholder="Όνομα | Διεύθυνση ή σκέτη Διεύθυνση..."></textarea>
     <div style="display:flex; gap:10px; margin-top:15px;">
-        <button class="btn-add" onclick="processImport()">IMPORT</button>
-        <button class="btn-clear" onclick="hideModal()">CANCEL</button>
+        <button class="btn-add" onclick="processImport()">ΕΙΣΑΓΩΓΗ</button>
+        <button class="btn-clear" onclick="hideModal()">ΑΚΥΡΟ</button>
     </div>
 </div>
 
 <script>
     let stops = [];
-    // Φόρτωση από τη μνήμη
     try {
-        const saved = localStorage.getItem('deliveryStops_v59');
-        if (saved) stops = JSON.parse(saved);
+        const saved = localStorage.getItem('deliveryStops_v60');
+        if (saved) {
+            stops = JSON.parse(saved);
+            renderStops();
+        }
     } catch (e) { console.error("Load error"); }
 
-    function save() {
-        localStorage.setItem('deliveryStops_v59', JSON.stringify(stops));
-    }
+    function save() { localStorage.setItem('deliveryStops_v60', JSON.stringify(stops)); }
 
     function renderStops() {
         const list = document.getElementById('stopList');
@@ -65,7 +65,7 @@
                     <div class="name">${stop.name}</div>
                     <div class="address">${stop.address}</div>
                 </div>
-                <a class="nav-btn" href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D%24&data=05%7C02%7C%7C25cacba7fb174cf60f7e08de6eae4dcf%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069892075401909%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=chjEuG4ZsDLrxvD22Mtkh8GqixtYBRvxG8HpU%2BBt8Zg%3D&reserved=0{encodeURIComponent(stop.address)}" target="_blank">GO</a>
+                <a class="nav-btn" href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3D%24&data=05%7C02%7C%7Cafeabefd51a94a5f89a308de6eb2f06a%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069911962435937%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=OKXzIYcVzhUj50%2Fb%2FE1elOQ4OUcoMdVf4CtWDZ7PWSs%3D&reserved=0{encodeURIComponent(stop.address)}" target="_blank">GO</a>
             `;
             list.appendChild(card);
         });
@@ -77,24 +77,23 @@
     function processImport() {
         const text = document.getElementById('bulkData').value;
         const lines = text.split('\n');
-        const newStops = [];
        
         lines.forEach(line => {
-            if(line.trim() !== "") {
+            let cleanLine = line.trim();
+            if(cleanLine !== "") {
                 let name, address;
-                if(line.includes('|')) {
-                    const parts = line.split('|');
+                if(cleanLine.includes('|')) {
+                    const parts = cleanLine.split('|');
                     name = parts[0].trim();
                     address = parts[1].trim();
                 } else {
-                    name = "Stop " + (newStops.length + stops.length + 1);
-                    address = line.trim();
+                    name = "Στάση " + (stops.length + 1);
+                    address = cleanLine;
                 }
-                if(address) newStops.push({ name, address });
+                stops.push({ name, address });
             }
         });
 
-        stops = [...stops, ...newStops];
         save();
         renderStops();
         hideModal();
@@ -102,14 +101,13 @@
     }
 
     function clearAll() {
-        if(confirm('Are you sure you want to clear everything?')) {
+        if(confirm('Διαγραφή όλων;')) {
             stops = [];
             save();
             renderStops();
         }
     }
 
-    // Drag and Drop Setup
     Sortable.create(document.getElementById('stopList'), {
         animation: 150,
         onEnd: function() {
@@ -124,8 +122,6 @@
             save();
         }
     });
-
-    window.onload = renderStops;
 </script>
 </body>
 </html>
