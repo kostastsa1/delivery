@@ -3,8 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery v74 - Drag & Delete</title>
-   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C1c848934b5aa45e6f25208de6f8c8ec9%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639070846639513295%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=fYCOws8hjmefLUIOKhsH7ok3xa3%2Bw5w%2FjdTI3I06D7s%3D&reserved=0"></script>
+   <title>Delivery v75 - Stable Drag</title>
+   <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C052d2d0370fb4245635608de6f98c6cf%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639070899114173323%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=TBPLbaZQjzJZdyi8nQuBpyyaPPfLTne4Xhrdo6Z%2BsZ4%3D&reserved=0"></script>
    <style>
        :root { --p: #30d158; --bg: #000000; --card: #1c1c1e; --txt: #ffffff; --accent: #0a84ff; }
        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); -webkit-tap-highlight-color: transparent; }
@@ -14,18 +14,18 @@
        .container { padding: 16px; max-width: 600px; margin: auto; }
        .btn-main { background: var(--p); color: #000; width: 100%; padding: 18px; font-size: 17px; border-radius: 12px; border: none; font-weight: 800; margin-bottom: 12px; display: block; }
        .btn-opt { background: var(--accent); color: #fff; width: 100%; padding: 14px; font-size: 14px; border-radius: 10px; border: none; font-weight: 700; margin-bottom: 20px; display: block; text-transform: uppercase; }
-       .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #2c2c2e; }
-       .handle { color: #8e8e93; padding: 15px; cursor: grab; font-size: 20px; touch-action: none; }
+       .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #2c2c2e; touch-action: none; }
+       .handle { color: #8e8e93; padding: 15px; cursor: grab; font-size: 24px; touch-action: none; -webkit-user-select: none; }
        .num-badge { background: #444; color: #fff; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; margin-right: 12px; }
        .num-run { background: var(--p); color: #000; }
-       .info { flex: 1; min-width: 0; }
+       .info { flex: 1; min-width: 0; pointer-events: none; }
        .info h4 { margin: 0; font-size: 16px; color: #fff; }
        .info p { margin: 3px 0; font-size: 13px; color: #8e8e93; }
        .meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
        .tag { font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: 700; border: 1px solid; }
        .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); border-color: var(--p); }
        .tag-note { background: rgba(10, 132, 255, 0.1); color: var(--accent); border-color: var(--accent); }
-       .btn-action { width: 44px; height: 44px; border-radius: 10px; border: none; font-weight: bold; margin-left: 8px; display: flex; align-items: center; justify-content: center; }
+       .btn-action { width: 44px; height: 44px; border-radius: 10px; border: none; font-weight: bold; margin-left: 8px; display: flex; align-items: center; justify-content: center; pointer-events: auto; }
        .btn-add { background: var(--p); color: #000; }
        .btn-go { background: var(--accent); color: #fff; }
        .btn-del { background: #ff453a; color: #fff; }
@@ -78,24 +78,36 @@
    }
 
    function renderRun() {
-       const list = document.getElementById('run-list'); list.innerHTML = '';
+       const list = document.getElementById('run-list');
+       list.innerHTML = '';
        rn.forEach((item, idx) => {
-           const div = document.createElement('div'); div.className = 'card';
-           div.setAttribute('data-id', idx);
+           const div = document.createElement('div');
+           div.className = 'card';
            div.innerHTML = `<div class="handle">≡</div><div class="num-badge num-run">${idx + 1}</div>
                <div class="info"><h4>${item.n}</h4><p>${item.a}</p>
                <div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div></div>
-               <button style="background:none; border:none; font-size:22px; padding:10px;" onclick="editRun(${idx})">✏️</button>
+               <button style="background:none; border:none; font-size:22px; padding:10px; pointer-events:auto;" onclick="editRun(${idx})">✏️</button>
                <button class="btn-action btn-go" onclick="window.location.href='comgooglemaps://?daddr='+encodeURIComponent('${item.a}')">GO</button>
                <button class="btn-action btn-del" onclick="delRun(${idx})">✕</button>`;
            list.appendChild(div);
        });
 
-       new Sortable(list, {
-           handle: '.handle', animation: 150, onEnd: () => {
-               let newRn = [];
-               list.querySelectorAll('.card').forEach(el => newRn.push(rn[el.getAttribute('data-id')]));
-               rn = newRn; save(); renderRun();
+       if (window.sSortable) window.sSortable.destroy();
+       window.sSortable = new Sortable(list, {
+           handle: '.handle',
+           animation: 150,
+           ghostClass: 'sortable-ghost',
+           onEnd: function() {
+               let updatedRn = [];
+               // Διαβάζουμε τη νέα σειρά από τα ονόματα των h4 για να μην μπερδευτούμε με τα ID
+               list.querySelectorAll('h4').forEach(h4 => {
+                   const name = h4.innerText;
+                   const found = rn.find(x => x.n === name);
+                   if (found) updatedRn.push(found);
+               });
+               rn = updatedRn;
+               save();
+               renderRun(); // Ξαναγράφουμε τα νούμερα
            }
        });
    }
