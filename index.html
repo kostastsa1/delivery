@@ -3,148 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery Route Planner v58</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C9577713cef8647d9ef8508de6f772135%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639070754600094720%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=jwfw%2BORajIwFj3YrtG3P6oh3Z4uSApr%2F5xPvFA%2Bd3B4%3D&reserved=0"></script>
+    <title>Delivery Tool v59 - Original Style</title>
+    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7Ce1629f26ef2b4c0aa7d208de6f79a718%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639070765433556886%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=nulNRfailz43nQLNUAOv82BWTF7rZcOdyOJ6TQEEBPs%3D&reserved=0"></script>
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #64748b;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #1e293b;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding-bottom: 80px;
-        }
-
-        .header {
-            background: var(--primary-color);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: space-around;
-            background: white;
-            padding: 0.5rem;
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 57px;
-            z-index: 99;
-        }
-
-        .tab-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            background: none;
-            font-weight: 600;
-            color: var(--secondary-color);
-            cursor: pointer;
-        }
-
-        .tab-btn.active {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .container {
-            padding: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        .stats-info {
-            font-size: 0.85rem;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 0.8rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        body { font-family: sans-serif; margin: 0; padding-bottom: 80px; background: #f0f2f5; }
+        .header { background: #2c3e50; color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .nav-tabs { display: flex; background: #34495e; position: sticky; top: 54px; z-index: 99; }
+        .tab-btn { flex: 1; padding: 15px; border: none; background: none; color: #bdc3c7; font-weight: bold; cursor: pointer; }
+        .tab-btn.active { color: white; border-bottom: 3px solid #3498db; background: #2c3e50; }
+        .container { padding: 15px; }
+        .search-box { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 16px; }
+        .stats-info { font-size: 14px; color: #7f8c8d; margin-bottom: 10px; font-weight: bold; background: white; padding: 5px 10px; border-radius: 5px; }
+        .card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #3498db; }
         .card-info { flex-grow: 1; }
-        .card-name { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.2rem; }
-        .card-address { font-size: 0.9rem; color: #64748b; }
-        .card-meta { font-size: 0.85rem; color: #3b82f6; margin-top: 0.3rem; font-weight: 500; }
-
-        .btn {
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: opacity 0.2s;
-        }
-
-        .btn-add { background: #dcfce7; color: #166534; }
-        .btn-remove { background: #fee2e2; color: #991b1b; }
-        .btn-nav {
-            background: #2563eb; color: white; width: 100%;
-            margin-top: 1rem; font-size: 1.1rem; padding: 1rem;
-        }
-        .btn-clear { background: #64748b; color: white; width: 100%; margin-top: 0.5rem; }
-        .btn-backup { background: #f59e0b; color: white; width: 100%; margin-top: 1rem; }
-
-        .route-item {
-            background: white;
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 0.5rem;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .handle { color: #cbd5e1; cursor: move; font-size: 1.5rem; }
-
+        .card-name { font-weight: bold; font-size: 17px; color: #2c3e50; }
+        .card-address { font-size: 14px; color: #7f8c8d; margin-top: 3px; }
+        .card-meta { font-size: 13px; color: #e67e22; margin-top: 5px; font-weight: bold; }
+        .btn-group { display: flex; gap: 8px; }
+        .btn { padding: 10px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
+        .btn-add { background: #27ae60; color: white; width: 45px; height: 45px; font-size: 20px; }
+        .btn-edit { background: #f1c40f; color: #2c3e50; }
+        .btn-nav { background: #3498db; color: white; width: 100%; padding: 15px; font-size: 18px; margin-top: 15px; border-radius: 10px; }
+        .btn-clear { background: #e74c3c; color: white; width: 100%; margin-top: 10px; }
+        .btn-backup { background: #8e44ad; color: white; width: 100%; margin-top: 20px; padding: 12px; }
+        .route-item { background: white; margin-bottom: 8px; padding: 15px; display: flex; align-items: center; gap: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .handle { color: #ccc; cursor: move; font-size: 24px; }
         .hidden { display: none; }
-
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 0.8rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-family: monospace;
-        }
+        textarea { width: 100%; height: 200px; padding: 10px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 20px; border-radius: 15px; width: 90%; max-width: 400px; }
+        .modal input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h2 style="margin:0">Delivery Tool v58</h2>
-</div>
+<div class="header"><h2 style="margin:0">Delivery Tool v59</h2></div>
 
 <div class="nav-tabs">
     <button class="tab-btn active" onclick="showTab('customers')">ΠΕΛΑΤΕΣ</button>
@@ -153,28 +46,37 @@
 </div>
 
 <div id="customersTab" class="container">
-    <input type="text" class="search-box" id="searchInput" placeholder="Αναζήτηση πελάτη..." oninput="renderCustomers()">
+    <input type="text" class="search-box" id="searchInput" placeholder="Αναζήτηση..." oninput="renderCustomers()">
     <div id="stats" class="stats-info"></div>
     <div id="customerList"></div>
 </div>
 
 <div id="routeTab" class="container hidden">
-    <h3>Σειρά Παράδοσης</h3>
-    <button class="btn btn-clear" onclick="sortRouteByTime()">🪄 ΑΥΤΟΜΑΤΗ ΣΕΙΡΑ (ΩΡΕΣ ΚΑΤΩ)</button>
     <div id="routeList"></div>
     <button class="btn btn-nav" onclick="startNavigation()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
     <button class="btn btn-clear" onclick="clearRoute()">ΣΚΟΥΠΑ (ΚΑΘΑΡΙΣΜΟΣ)</button>
 </div>
 
 <div id="importTab" class="container hidden">
-    <h3>Εισαγωγή Δεδομένων</h3>
-    <p style="font-size: 0.8rem; color: #64748b;">Μορφή: Όνομα .. Διεύθυνση .. Ώρα .. Σχόλιο</p>
-    <textarea id="importArea" placeholder="Επικόλληση εδώ..."></textarea>
-    <button class="btn btn-nav" onclick="importData()">ΑΠΟΘΗΚΕΥΣΗ</button>
-   
-    <hr style="margin: 2rem 0;">
-    <h3>Αντίγραφο Ασφαλείας (Backup)</h3>
-    <button class="btn btn-backup" onclick="exportData()">📋 ΑΝΤΙΓΡΑΦΗ ΟΛΗΣ ΤΗΣ ΒΑΣΗΣ</button>
+    <h3>Εισαγωγή</h3>
+    <textarea id="importArea" placeholder="Όνομα .. Διεύθυνση .. Ώρα .. Σχόλιο"></textarea>
+    <button class="btn btn-nav" onclick="importData()" style="background:#27ae60">ΑΠΟΘΗΚΕΥΣΗ</button>
+    <button class="btn btn-backup" onclick="exportData()">📋 BACKUP (ΑΝΤΙΓΡΑΦΗ ΒΑΣΗΣ)</button>
+</div>
+
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h3>Επεξεργασία</h3>
+        <input type="hidden" id="editOldName">
+        <input type="text" id="editName" placeholder="Όνομα">
+        <input type="text" id="editAddress" placeholder="Διεύθυνση">
+        <input type="text" id="editTime" placeholder="Ώρα">
+        <input type="text" id="editNote" placeholder="Σχόλιο">
+        <div style="display:flex; gap:10px">
+            <button class="btn btn-nav" onclick="saveEdit()">ΣΩΣΕ</button>
+            <button class="btn btn-clear" onclick="closeModal()">ΑΚΥΡΟ</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -200,40 +102,54 @@
         const search = document.getElementById('searchInput').value.toLowerCase();
         const filtered = customers.filter(c => c.name.toLowerCase().includes(search) || c.address.toLowerCase().includes(search));
        
-        // Update stats
-        document.getElementById('stats').innerText = `Σύνολο Πελατών: ${customers.length} | Φιλτραρισμένοι: ${filtered.length}`;
+        document.getElementById('stats').innerText = `Πελάτες: ${customers.length} | Βρέθηκαν: ${filtered.length}`;
 
-        list.innerHTML = filtered.map((c, index) => {
-            // Find global index for numbering
-            const globalIndex = customers.findIndex(gc => gc.name === c.name && gc.address === c.address) + 1;
+        list.innerHTML = filtered.map((c) => {
+            const globalIndex = customers.findIndex(gc => gc.name === c.name) + 1;
             return `
             <div class="card">
-                <div class="card-info">
-                    <div class="card-name">${globalIndex}. ${c.name}</div>
+                <div class="card-info" onclick="openEdit('${c.name.replace(/'/g, "\\'")}')">
+                    <div class="card-name">${globalIndex}. ${c.name} ✏️</div>
                     <div class="card-address">${c.address}</div>
-                    ${(c.time || c.note) ? `<div class="card-meta">${c.time} ${c.note ? '| ' + c.note : ''}</div>` : ''}
+                    ${(c.time || c.note) ? `<div class="card-meta">⏰ ${c.time} | 📝 ${c.note}</div>` : ''}
                 </div>
                 <button class="btn btn-add" onclick="addToRoute('${c.name.replace(/'/g, "\\'")}')">+</button>
-                <button class="btn btn-remove" onclick="deleteCustomer('${c.name.replace(/'/g, "\\'")}')" style="margin-left:5px">🗑️</button>
             </div>
         `}).join('');
     }
+
+    function openEdit(name) {
+        const c = customers.find(c => c.name === name);
+        document.getElementById('editOldName').value = c.name;
+        document.getElementById('editName').value = c.name;
+        document.getElementById('editAddress').value = c.address;
+        document.getElementById('editTime').value = c.time || '';
+        document.getElementById('editNote').value = c.note || '';
+        document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function saveEdit() {
+        const oldName = document.getElementById('editOldName').value;
+        const index = customers.findIndex(c => c.name === oldName);
+        customers[index] = {
+            name: document.getElementById('editName').value,
+            address: document.getElementById('editAddress').value,
+            time: document.getElementById('editTime').value,
+            note: document.getElementById('editNote').value
+        };
+        save();
+        closeModal();
+        renderCustomers();
+    }
+
+    function closeModal() { document.getElementById('editModal').style.display = 'none'; }
 
     function addToRoute(name) {
         const cust = customers.find(c => c.name === name);
         if(!route.find(r => r.name === name)) {
             route.push(cust);
             save();
-            alert('Προστέθηκε στη διαδρομή!');
-        }
-    }
-
-    function deleteCustomer(name) {
-        if(confirm('Διαγραφή πελάτη;')) {
-            customers = customers.filter(c => c.name !== name);
-            route = route.filter(r => r.name !== name);
-            save();
-            renderCustomers();
+            alert('Μπήκε στη διαδρομή!');
         }
     }
 
@@ -246,7 +162,7 @@
                     <div class="card-name">${i+1}. ${c.name}</div>
                     <div class="card-address">${c.address}</div>
                 </div>
-                <button class="btn btn-remove" onclick="removeFromRoute(${i})">✕</button>
+                <button class="btn btn-clear" onclick="removeFromRoute(${i})" style="width:40px; margin:0">✕</button>
             </div>
         `).join('');
 
@@ -271,18 +187,8 @@
         renderRoute();
     }
 
-    function sortRouteByTime() {
-        route.sort((a, b) => {
-            if (a.time && !b.time) return 1;
-            if (!a.time && b.time) return -1;
-            return 0;
-        });
-        save();
-        renderRoute();
-    }
-
     function clearRoute() {
-        if(confirm('Καθαρισμός λίστας διαδρομής;')) {
+        if(confirm('Καθαρισμός διαδρομής;')) {
             route = [];
             save();
             renderRoute();
@@ -291,48 +197,37 @@
 
     function importData() {
         const text = document.getElementById('importArea').value;
+        if(!text) return;
         const lines = text.split('\n');
         lines.forEach(line => {
             const parts = line.split('..').map(p => p.trim());
             if(parts.length >= 2) {
-                const newData = {
-                    name: parts[0],
-                    address: parts[1],
-                    time: parts[2] || '',
-                    note: parts[3] || ''
-                };
-                const index = customers.findIndex(c => c.name === newData.name);
-                if(index > -1) customers[index] = newData;
+                const newData = { name: parts[0], address: parts[1], time: parts[2] || '', note: parts[3] || '' };
+                const idx = customers.findIndex(c => c.name === newData.name);
+                if(idx > -1) customers[idx] = newData;
                 else customers.push(newData);
             }
         });
         customers.sort((a, b) => a.name.localeCompare(b.name));
         save();
-        alert('Η εισαγωγή ολοκληρώθηκε!');
+        alert('Έτοιμο!');
         document.getElementById('importArea').value = '';
+        renderCustomers();
     }
 
     function exportData() {
-        const exportText = customers.map(c => `${c.name} .. ${c.address} .. ${c.time} .. ${c.note}`).join('\n');
-        navigator.clipboard.writeText(exportText).then(() => {
-            alert('Όλη η βάση αντιγράφηκε! Μπορείς να την κάνεις επικόλληση σε ένα αρχείο ή μήνυμα για backup.');
-        });
+        const text = customers.map(c => `${c.name} .. ${c.address} .. ${c.time} .. ${c.note}`).join('\n');
+        navigator.clipboard.writeText(text).then(() => alert('Αντιγράφηκε όλη η βάση!'));
     }
 
     function startNavigation() {
-        if(route.length === 0) return alert('Πρόσθεσε στάσεις πρώτα!');
-        const base = "https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F&data=05%7C02%7C%7C9577713cef8647d9ef8508de6f772135%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639070754600114026%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=ojtntq5tk1kKsxRnLBq7FRANp%2FekDTaSOCAVU4IsMOs%3D&reserved=0";
+        if(route.length === 0) return alert('Κενή διαδρομή!');
+        const base = "https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F&data=05%7C02%7C%7Ce1629f26ef2b4c0aa7d208de6f79a718%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639070765433571815%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=YlOFNmHNxRU5rQ7%2BLbogXV5VSjtureLf8JotfaWtzG4%3D&reserved=0";
         const points = route.map(r => encodeURIComponent(r.address)).join('/');
         window.open(base + points, '_blank');
     }
 
-    function renderAll() {
-        renderCustomers();
-        renderRoute();
-    }
-
-    window.onload = renderAll;
+    window.onload = () => { renderCustomers(); renderRoute(); };
 </script>
-
 </body>
 </html>
