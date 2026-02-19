@@ -3,29 +3,22 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-   <title>Delivery v68 - Full Version</title>
+   <title>Delivery v69 - Deep Recovery</title>
    <style>
-       :root { --p: #30d158; --bg: #000000; --card: #1c1c1e; --txt: #ffffff; --accent: #0a84ff; }
-       body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); -webkit-tap-highlight-color: transparent; }
+       :root { --p: #30d158; --bg: #000; --card: #1c1c1e; --txt: #fff; --accent: #0a84ff; }
+       body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); }
        .nav { display: flex; background: #000; padding-top: 50px; border-bottom: 1px solid #2c2c2e; position: sticky; top: 0; z-index: 1000; }
-       .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; text-transform: uppercase; }
+       .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
        .container { padding: 16px; max-width: 600px; margin: auto; }
-       .btn-main { background: var(--p); color: #000; width: 100%; padding: 18px; font-size: 17px; border-radius: 12px; border: none; font-weight: 800; margin-bottom: 12px; display: block; }
-       .btn-opt { background: var(--accent); color: #fff; width: 100%; padding: 14px; font-size: 14px; border-radius: 10px; border: none; font-weight: 700; margin-bottom: 20px; display: block; }
        .card { background: var(--card); border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #2c2c2e; }
        .num-badge { background: var(--p); color: #000; min-width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; margin-right: 12px; }
        .info { flex: 1; min-width: 0; }
-       .info h4 { margin: 0; font-size: 16px; color: #fff; }
-       .info p { margin: 3px 0; font-size: 13px; color: #8e8e93; }
+       .info h4 { margin: 0; font-size: 16px; }
        .meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
        .tag { font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: 700; background: rgba(10, 132, 255, 0.1); color: var(--accent); border: 1px solid var(--accent); }
-       .tag-time { background: rgba(48, 209, 88, 0.1); color: var(--p); border-color: var(--p); }
-       .btn-edit { background: none; border: none; font-size: 22px; padding: 5px; margin: 0 5px; cursor: pointer; }
-       .btn-go { background: var(--accent); color: #fff; border: none; width: 44px; height: 44px; border-radius: 10px; font-weight: bold; }
-       .btn-del { background: #ff453a; color: #fff; border: none; width: 44px; height: 44px; border-radius: 10px; margin-left: 8px; }
        .hidden { display: none; }
-       textarea, input { background: #1c1c1e; border: 1px solid #2c2c2e; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 12px; }
+       .btn-main { background: var(--p); color: #000; width: 100%; padding: 18px; border-radius: 12px; border: none; font-weight: 800; margin-bottom: 10px; }
    </style>
 </head>
 <body>
@@ -37,32 +30,35 @@
 </div>
 
 <div id="run-page" class="container">
-   <button class="btn-main" onclick="startNav()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
    <div id="run-list"></div>
-   <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:20px; font-weight:bold; opacity:0.6;">ΣΚΟΥΠΑ (ΚΑΘΑΡΙΣΜΟΣ)</button>
 </div>
 
 <div id="base-page" class="container hidden">
-   <input type="text" id="search" placeholder="🔍 Αναζήτηση..." onkeyup="renderBase()">
+   <input type="text" id="search" style="width:100%; padding:15px; background:#1c1c1e; border:1px solid #2c2c2e; color:#fff; border-radius:12px; margin-bottom:15px;" placeholder="🔍 Αναζήτηση..." onkeyup="renderBase()">
    <div id="base-list"></div>
 </div>
 
 <div id="set-page" class="container hidden">
-   <h3>Εισαγωγή</h3>
-   <textarea id="bulk" rows="8" placeholder="Όνομα .. Διεύθυνση .. Ώρα .. Κωδικός"></textarea>
-   <button onclick="saveData()" class="btn-main">ΑΠΟΘΗΚΕΥΣΗ</button>
-   <button onclick="exportFullBackup()" class="btn-opt" style="background:#5856d6; margin-top:20px;">💾 FULL BACKUP (ΟΛΑ ΤΑ ΣΤΟΙΧΕΙΑ)</button>
+   <button onclick="exportFullBackup()" class="btn-main" style="background:#5856d6; color:#fff;">💾 FULL BACKUP</button>
+   <p style="font-size:12px; color:#8e8e93; text-align:center;">Αν δεις τους πελάτες σου, πάτα το κουμπί για Backup αμέσως!</p>
 </div>
 
 <script>
-   // Διαβάζουμε τη μνήμη
-   let db = JSON.parse(localStorage.getItem('delivery_db') || localStorage.getItem('savedCustomers') || '[]');
-   let rn = JSON.parse(localStorage.getItem('delivery_rn') || '[]');
-
-   function save() {
-       localStorage.setItem('delivery_db', JSON.stringify(db));
-       localStorage.setItem('delivery_rn', JSON.stringify(rn));
+   // Η v69 ΨΑΧΝΕΙ ΠΑΝΤΟΥ - Σε όλα τα ονόματα που χρησιμοποιήσαμε
+   function getStoredData() {
+       const names = ['delivery_db', 'savedCustomers', 'deliveryCustomers', 'customers', 'myData'];
+       for (let name of names) {
+           let data = localStorage.getItem(name);
+           if (data && JSON.parse(data).length > 0) {
+               console.log("Found data in: " + name);
+               return JSON.parse(data);
+           }
+       }
+       return [];
    }
+
+   let db = getStoredData();
+   let rn = JSON.parse(localStorage.getItem('delivery_rn') || '[]');
 
    function tab(t) {
        document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
@@ -73,73 +69,29 @@
        document.getElementById(t==='run'?'t1':t==='base'?'t2':'t3').classList.add('active');
    }
 
-   function renderRun() {
-       const list = document.getElementById('run-list'); list.innerHTML = '';
-       rn.forEach((item, idx) => {
-           const div = document.createElement('div'); div.className = 'card';
-           div.innerHTML = `<div class="num-badge">${idx + 1}</div>
-               <div class="info"><h4>${item.n}</h4><p>${item.a}</p>
-               <div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag">🔑 ${item.k}</span>` : ''}</div></div>
-               <button class="btn-edit" onclick="editRun(${idx})">✏️</button>
-               <button class="btn-go" onclick="window.location.href='comgooglemaps://?daddr='+encodeURIComponent('${item.a}')">GO</button>
-               <button class="btn-del" onclick="delRun(${idx})">✕</button>`;
-           list.appendChild(div);
-       });
-   }
-
    function renderBase() {
        const s = document.getElementById('search').value.toLowerCase();
        const list = document.getElementById('base-list'); list.innerHTML = '';
-       db.sort((a,b) => a.n.localeCompare(b.n)).forEach((item, i) => {
-           if(item.n.toLowerCase().includes(s) || item.a.toLowerCase().includes(s)) {
+       db.forEach((item, i) => {
+           if(item.n.toLowerCase().includes(s)) {
                const div = document.createElement('div'); div.className = 'card';
-               div.innerHTML = `<div class="num-badge" style="background:#444; color:#fff">${i+1}</div>
+               div.innerHTML = `<div class="num-badge">${i+1}</div>
                    <div class="info"><h4>${item.n}</h4><p>${item.a}</p>
-                   <div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag">🔑 ${item.k}</span>` : ''}</div></div>
-                   <button class="btn-edit" onclick="editBase(${i})">✏️</button>
-                   <button style="background:var(--p); border:none; width:44px; height:44px; border-radius:10px; font-weight:bold; color:#000" onclick="addToRun(${i})">+</button>`;
+                   <div class="meta">
+                    ${(item.t || item.time) ? `<span class="tag">⌚ ${item.t || item.time}</span>` : ''}
+                    ${(item.k || item.note || item.key) ? `<span class="tag">🔑 ${item.k || item.note || item.key}</span>` : ''}
+                   </div></div>`;
                list.appendChild(div);
            }
        });
    }
 
-   function editBase(i) {
-       const n = prompt("Όνομα:", db[i].n);
-       const a = prompt("Διεύθυνση:", db[i].a);
-       const t = prompt("Ώρα:", db[i].t || "");
-       const k = prompt("Κλειδί/Σχόλιο:", db[i].k || "");
-       if(n && a) { db[i] = {n, a, t, k}; save(); renderBase(); }
-   }
-
-   function editRun(i) {
-       const n = prompt("Όνομα:", rn[i].n);
-       const a = prompt("Διεύθυνση:", rn[i].a);
-       const t = prompt("Ώρα:", rn[i].t || "");
-       const k = prompt("Κλειδί/Σχόλιο:", rn[i].k || "");
-       if(n && a) { rn[i] = {n, a, t, k}; save(); renderRun(); }
-   }
-
-   function addToRun(i) { rn.push({...db[i]}); save(); alert('Προστέθηκε!'); }
-   function delRun(i) { rn.splice(i,1); save(); renderRun(); }
-   function clearRun() { if(confirm('Σβήσιμο;')){ rn=[]; save(); renderRun(); } }
-  
-   function saveData() {
-       const val = document.getElementById('bulk').value; if(!val) return;
-       val.split('\n').forEach(line => {
-           const p = line.split('..').map(x => x.trim());
-           if(p.length >= 2) db.push({ n: p[0], a: p[1], t: p[2] || "", k: p[3] || "" });
-       });
-       save(); document.getElementById('bulk').value = ''; tab('base');
-   }
-
    function exportFullBackup() {
-       const text = db.map(c => `${c.n} .. ${c.a} .. ${c.t} .. ${c.k}`).join('\n');
-       navigator.clipboard.writeText(text).then(() => alert('Το πλήρες Backup αντιγράφηκε! Κάνε επικόλληση στις Σημειώσεις.'));
+       const text = db.map(c => `${c.n || c.name} .. ${c.a || c.address} .. ${c.t || c.time || ''} .. ${c.k || c.note || c.key || ''}`).join('\n');
+       navigator.clipboard.writeText(text).then(() => alert('Αντιγράφηκε!'));
    }
 
-   function startNav() { if(!rn.length) return; window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(rn.map(i=>i.a).join(' to:')); }
-
-   tab('run');
+   tab('base'); // Ξεκινάμε από τους πελάτες για να δούμε αν βρέθηκαν
 </script>
 </body>
 </html>
