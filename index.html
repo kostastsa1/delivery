@@ -2,86 +2,164 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Delivery v62</title>
-    <script src="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FSortable%2F1.15.0%2FSortable.min.js&data=05%7C02%7C%7C7e374590f01947af18a208de6eb73a99%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069930399866601%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=qGOHcbLYSGOZdFlLXD1HnhqSkaZJBHusQjb3AHNdVAs%3D&reserved=0"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Delivery v57</title>
     <style>
-        body { font-family: sans-serif; background: #000; color: #fff; margin: 0; padding: 15px; }
-        .container { max-width: 500px; margin: auto; }
-        .btn-add { background: #6200ee; color: white; width: 100%; padding: 15px; border-radius: 8px; border: none; font-weight: bold; margin-bottom: 10px; font-size: 16px; }
-        .btn-clear { background: #cf6679; color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; margin-bottom: 20px; }
-        .card { background: #1e1e1e; border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #00e676; }
-        .info { flex: 1; }
-        .name { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
-        .addr { font-size: 0.9em; color: #bbb; }
-        .go-btn { background: #00e676; color: #000; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; margin-left: 10px; }
-        #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); flex-direction: column; padding: 20px; z-index: 999; }
-        textarea { width: 100%; height: 250px; background: #222; color: #fff; border: 1px solid #444; border-radius: 8px; padding: 10px; font-size: 16px; margin-bottom: 15px; }
+        :root { --p: #30d158; --bg: #1c1c1e; --card: #2c2c2e; --txt: #ffffff; --accent: #0a84ff; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; color: var(--txt); -webkit-tap-highlight-color: transparent; }
+        .nav { display: flex; background: #000; padding-top: 45px; border-bottom: 1px solid #38383a; position: sticky; top: 0; z-index: 1000; }
+        .nav button { flex: 1; padding: 18px; border: none; background: none; font-weight: 700; color: #8e8e93; font-size: 13px; }
+        .nav button.active { color: var(--p); border-bottom: 3px solid var(--p); }
+        .container { padding: 16px; max-width: 600px; margin: auto; }
+        .btn-main { background: var(--p); color: #000; width: 100%; padding: 20px; font-size: 18px; border-radius: 16px; border: none; font-weight: 800; margin-bottom: 15px; display: block; }
+        .btn-opt { background: var(--accent); color: #fff; width: 100%; padding: 15px; font-size: 15px; border-radius: 12px; border: none; font-weight: 700; margin-bottom: 20px; display: block; }
+        .card { background: var(--card); border-radius: 16px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #38383a; position: relative; }
+        .handle { color: #8e8e93; padding: 15px 20px; cursor: grab; font-size: 26px; touch-action: none; user-select: none; }
+        .num-badge { background: var(--p); color: #000; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin-right: 10px; }
+        .info { flex: 1; min-width: 0; }
+        .info h4 { margin: 0; font-size: 16px; color: #fff; }
+        .info p { margin: 3px 0; font-size: 13px; color: #8e8e93; }
+        .meta { display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
+        .tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600; border: 1px solid; }
+        .tag-time { background: rgba(48, 209, 88, 0.15); color: var(--p); border-color: var(--p); }
+        .tag-note { background: rgba(10, 132, 255, 0.15); color: var(--accent); border-color: var(--accent); }
+        .btn-edit { background: none; border: none; font-size: 22px; padding: 10px; }
+        .btn-go { background: var(--accent); color: #fff; border: none; width: 46px; height: 46px; border-radius: 12px; margin-left: 8px; font-weight: bold; }
+        .btn-del { background: #ff453a; color: #fff; border: none; width: 46px; height: 46px; border-radius: 12px; margin-left: 8px; }
+        .dragging { opacity: 0.3 !important; }
+        .hidden { display: none; }
+        textarea, input { background: #2c2c2e; border: 1px solid #38383a; color: #fff; padding: 15px; border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 12px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2 style="text-align:center">Delivery Run v62 🚛</h2>
-    <button class="btn-add" onclick="document.getElementById('modal').style.display='flex'">+ BULK IMPORT</button>
-    <div id="stopList"></div>
-    <button class="btn-clear" onclick="clearAll()" style="margin-top:30px">CLEAR ALL</button>
+<div class="nav">
+    <button id="t1" onclick="tab('run')" class="active">ΔΙΑΔΡΟΜΗ</button>
+    <button id="t2" onclick="tab('base')">ΠΕΛΑΤΕΣ</button>
+    <button id="t3" onclick="tab('set')">⚙️ ΕΙΣΑΓΩΓΗ</button>
 </div>
 
-<div id="modal">
-    <h3 style="color:white">Επικόλληση Λίστας</h3>
-    <textarea id="bulkData" placeholder="Όνομα | Διεύθυνση..."></textarea>
-    <button class="btn-add" onclick="processImport()">ΕΙΣΑΓΩΓΗ</button>
-    <button class="btn-clear" onclick="document.getElementById('modal').style.display='none'">ΑΚΥΡΟ</button>
+<div id="run-page" class="container">
+    <button class="btn-main" onclick="startNav()">🚀 ΕΝΑΡΞΗ NAVIGATION</button>
+    <button class="btn-opt" onclick="smartSort()">🪄 ΑΥΤΟΜΑΤΗ ΣΕΙΡΑ (ΩΡΕΣ ΚΑΤΩ)</button>
+    <div id="run-list"></div>
+    <button onclick="clearRun()" style="width:100%; color:#ff453a; background:none; border:none; padding:25px; font-weight:bold;">❌ ΚΑΘΑΡΙΣΜΟΣ ΗΜΕΡΑΣ</button>
+</div>
+
+<div id="base-page" class="container hidden">
+    <input type="text" id="search" placeholder="🔍 Αναζήτηση πελάτη..." onkeyup="renderBase()">
+    <div id="base-list"></div>
+</div>
+
+<div id="set-page" class="container hidden">
+    <textarea id="bulk" rows="8" placeholder="Όνομα .. Διεύθυνση"></textarea>
+    <button onclick="saveData()" class="btn-main">ΑΠΟΘΗΚΕΥΣΗ</button>
 </div>
 
 <script>
-    let stops = JSON.parse(localStorage.getItem('delivery_v62') || '[]');
+    let db = JSON.parse(localStorage.getItem('delivery_db') || '[]');
+    let rn = JSON.parse(localStorage.getItem('delivery_rn') || '[]');
 
-    function render() {
-        const list = document.getElementById('stopList');
-        list.innerHTML = '';
-        stops.forEach((s, i) => {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `
-                <div class="info">
-                    <div class="name">${s.name}</div>
-                    <div class="addr">${s.addr}</div>
-                </div>
-                <a class="go-btn" href="https://emea01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fdir%2F%3Fapi%3D1%26destination%3D%24&data=05%7C02%7C%7C7e374590f01947af18a208de6eb73a99%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C639069930399881503%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=IDn2em0%2FmSFPMgxlF7N7Q9LulYIkLgBFQyz2QiBPtvs%3D&reserved=0{encodeURIComponent(s.addr)}" target="_blank">GO</a>
-            `;
+    // --- ΑΥΤΟΜΑΤΗ ΑΛΦΑΒΗΤΙΚΗ ΤΑΞΙΝΟΜΗΣΗ ΒΑΣΗΣ ---
+    function sortDB() {
+        db.sort((a, b) => a.n.localeCompare(b.n, 'el', { sensitivity: 'base' }));
+        localStorage.setItem('delivery_db', JSON.stringify(db));
+    }
+
+    function tab(t) {
+        document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
+        document.getElementById(t + '-page').classList.remove('hidden');
+        document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+        if(t==='run') renderRun();
+        if(t==='base') { sortDB(); renderBase(); }
+        document.getElementById(t==='run'?'t1':t==='base'?'t2':'t3').classList.add('active');
+    }
+
+    function renderRun() {
+        const list = document.getElementById('run-list'); list.innerHTML = '';
+        rn.forEach((item, idx) => {
+            const div = document.createElement('div'); div.className = 'card'; div.dataset.index = idx;
+            div.innerHTML = `<div class="handle">≡</div><div class="num-badge">${idx + 1}</div>
+                <div class="info"><h4>${item.n}</h4><p>${item.a}</p><div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div></div>
+                <button class="btn-edit" onclick="editRun(${idx})">✏️</button>
+                <button class="btn-go" onclick="window.location.href='comgooglemaps://?daddr='+encodeURIComponent('${item.a}')">GO</button>
+                <button class="btn-del" onclick="delRun(${idx})">✕</button>`;
+            div.querySelector('.handle').addEventListener('touchstart', (e) => { dragItem = div; dragItem.classList.add('dragging'); }, {passive: true});
+            div.addEventListener('touchmove', handleTouchMove, {passive: false});
+            div.addEventListener('touchend', handleTouchEnd, {passive: true});
             list.appendChild(div);
         });
-        localStorage.setItem('delivery_v62', JSON.stringify(stops));
     }
 
-    function processImport() {
-        const text = document.getElementById('bulkData').value;
-        text.split('\n').forEach(line => {
-            if(line.trim()) {
-                let p = line.split('|');
-                stops.push({ name: p[0].trim(), addr: p.length > 1 ? p[1].trim() : p[0].trim() });
+    let dragItem = null;
+    function handleTouchMove(e) {
+        if (!dragItem) return;
+        const touch = e.touches[0]; const container = document.getElementById('run-list');
+        const afterElement = getDragAfterElement(container, touch.clientY);
+        if (e.target.classList.contains('handle')) {
+            e.preventDefault();
+            if (afterElement == null) container.appendChild(dragItem); else container.insertBefore(dragItem, afterElement);
+        }
+    }
+    function handleTouchEnd() {
+        if (!dragItem) return; dragItem.classList.remove('dragging');
+        let newRn = []; document.querySelectorAll('#run-list .card').forEach(el => newRn.push(rn[el.dataset.index]));
+        rn = newRn; localStorage.setItem('delivery_rn', JSON.stringify(rn)); dragItem = null; renderRun();
+    }
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')];
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect(); const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child }; else return closest;
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function renderBase() {
+        const s = document.getElementById('search').value.toLowerCase();
+        const list = document.getElementById('base-list'); list.innerHTML = '';
+        db.forEach((item, i) => {
+            if(item.n.toLowerCase().includes(s) || item.a.toLowerCase().includes(s)) {
+                const div = document.createElement('div'); div.className = 'card';
+                div.innerHTML = `<div class="info" style="padding-left:15px"><h4>${item.n}</h4><p>${item.a}</p><div class="meta">${item.t ? `<span class="tag tag-time">⌚ ${item.t}</span>` : ''}${item.k ? `<span class="tag tag-note">🔑 ${item.k}</span>` : ''}</div></div>
+                    <button class="btn-edit" onclick="editBase(${i})">✏️</button>
+                    <button style="background:var(--p); border:none; width:46px; height:46px; border-radius:12px; font-weight:bold; color:#000" onclick="addToRun(${i})">+</button>
+                    <button class="btn-del" onclick="delBase(${i})">✕</button>`;
+                list.appendChild(div);
             }
         });
-        render();
-        document.getElementById('modal').style.display = 'none';
-        document.getElementById('bulkData').value = '';
     }
 
-    function clearAll() { if(confirm('Διαγραφή;')) { stops = []; render(); } }
+    function smartSort() {
+        let noT = rn.filter(i => !i.t || i.t === ""); let hasT = rn.filter(i => i.t && i.t !== "");
+        rn = [...noT, ...hasT]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun();
+    }
 
-    new Sortable(document.getElementById('stopList'), { animation: 150, onEnd: () => {
-        let items = [];
-        document.querySelectorAll('.card').forEach(c => {
-            items.push({ name: c.querySelector('.name').innerText, addr: c.querySelector('.addr').innerText });
+    function editBase(i) {
+        const n = prompt("Όνομα:", db[i].n); const a = prompt("Διεύθυνση:", db[i].a);
+        const t = prompt("Ώρα:", db[i].t || ""); const k = prompt("Κωδικός:", db[i].k || "");
+        if(n && a) { db[i] = {n, a, t, k}; sortDB(); renderBase(); }
+    }
+    function editRun(i) {
+        const n = prompt("Όνομα:", rn[i].n); const a = prompt("Διεύθυνση:", rn[i].a);
+        const t = prompt("Ώρα:", rn[i].t || ""); const k = prompt("Κωδικός:", rn[i].k || "");
+        if(n && a) { rn[i] = {n, a, t, k}; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
+    }
+
+    function addToRun(i) { rn.push({...db[i]}); localStorage.setItem('delivery_rn', JSON.stringify(rn)); alert('Προστέθηκε!'); }
+    function delRun(i) { rn.splice(i,1); localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); }
+    function delBase(i) { if(confirm('Διαγραφή;')){db.splice(i,1); localStorage.setItem('delivery_db', JSON.stringify(db)); renderBase();}}
+    function clearRun() { if(confirm('Σβήσιμο διαδρομής;')){ rn=[]; localStorage.setItem('delivery_rn', JSON.stringify(rn)); renderRun(); } }
+    function startNav() { if(!rn.length) return; window.location.href = "comgooglemaps://?saddr=&daddr=" + encodeURIComponent(rn.map(i=>i.a).join(' to:')); }
+
+    function saveData() {
+        const val = document.getElementById('bulk').value; if(!val) return;
+        val.split('\n').forEach(line => {
+            const p = line.split('..'); if(p.length >= 2) db.push({ n: p[0].trim(), a: p[1].trim(), t: p[2]?.trim() || "", k: p[3]?.trim() || "" });
         });
-        stops = items;
-        localStorage.setItem('delivery_v62', JSON.stringify(stops));
-    }});
+        sortDB(); document.getElementById('bulk').value = ''; tab('base');
+    }
 
-    render();
+    tab('run');
 </script>
-
 </body>
 </html>
